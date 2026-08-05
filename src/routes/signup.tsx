@@ -1,13 +1,22 @@
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
-const title = "Start free — Reprose";
-const description =
-  "Create your Reprose account and turn your next newsletter into platform-native social posts.";
+import { AuthSplitLayout } from "@/components/auth/AuthSplitLayout";
+import {
+  AuthField,
+  GoogleButton,
+  GradientButton,
+  OrDivider,
+  PasswordField,
+  passwordScore,
+} from "@/components/auth/auth-ui";
+import { supabase } from "@/integrations/supabase/client";
+
+const title = "Create your account — Reprose AI";
+const description = "Start repurposing your newsletter into platform-native social posts in 60 seconds.";
 
 export const Route = createFileRoute("/signup")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    plan: typeof search["plan"] === "string" ? (search["plan"] as string) : undefined,
-  }),
   head: () => ({
     meta: [
       { title },
@@ -15,35 +24,120 @@ export const Route = createFileRoute("/signup")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/signup" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
     ],
-    links: [{ rel: "canonical", href: "/signup" }],
   }),
   component: SignupPage,
 });
 
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 function SignupPage() {
-  const { plan } = Route.useSearch();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    void supabase.auth.getSession().then(({ data }) => {
+      if (data.session) navigate({ to: "/dashboard", replace: true });
+    });
+  }, [navigate]);
+
+  async function handleSubmit(event: React.FormEvent) {
+    event.preventDefault();
+    if (!emailPattern.test(email.trim())) {
+      toast.error("Invalid email — check the format");
+      return;
+    }
+    if (password.length < 8) {
+      toast.error("Password too short — use at least 8 characters");
+      return;
+    }
+    if (passwordScore(password) < 2) {
+      toast.error("Password too weak — add numbers/symbols");
+      return;
+    }
+
+    setLoading(true);
+    const { data, error } = await supabase.auth.signUp({
+      email: email.trim(),
+      password,
+      options: { emailRedirectTo: window.location.origin },
+    });
+    setLoading(false);
+
+    if (error) {
+      const message = error.message.toLowerCase();
+      if (message.includes("already registered") || message.includes("already in use") || message.includes("user already")) {
+        toast.error("Email already in use — sign in instead");
+      } else if (message.includes("password")) {
+        toast.error("Password too weak — add numbers/symbols");
+      } else if (message.includes("email")) {
+        toast.error("Invalid email — check the format");
+      } else {
+        toast.error(error.message);
+      }
+      return;
+    }
+
+    if (data.session) {
+      navigate({ to: "/dashboard", replace: true });
+      return;
+    }
+    navigate({ to: "/verify", search: { email: email.trim() }, replace: true });
+  }
+
+  async function handleGoogle() {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: `${window.location.origin}/dashboard` },
+    });
+    if (error) toast.error("Google sign-in isn't enabled yet.");
+  }
 
   return (
-    <main className="font-display hero-bloom flex min-h-screen items-center justify-center px-5 py-24">
-      <div className="w-full max-w-md rounded-2xl border border-brand/30 bg-ink-soft p-8 text-center shadow-[0_40px_80px_color-mix(in_oklab,var(--color-brand)_25%,transparent)]">
-        <h1 className="text-[32px] font-extrabold tracking-[-1px] text-paper">
-          Start free
-        </h1>
-        <p className="mt-3 text-[16px] leading-7 text-lavender">
-          {plan === "pro"
-            ? "You picked the Pro plan. Account creation lands here next."
-            : "No credit card required. Account creation lands here next."}
+    <AuthSplitLayout>
+      <Link to="/" className="text-[13px] font-medium text-gray-muted transition-colors hover:text-brand">
+        ← Back to home
+      </Link>
+      <h1 className="mt-5 text-[28px] font-extrabold tracking-[-0.8px] text-ink">Create your account</h1>
+      <p className="mt-2 text-[16px] text-gray-muted">Start repurposing in 60 seconds</p>
+
+      <form onSubmit={handleSubmit} className="mt-7 flex flex-col gap-4">
+        <AuthField
+          label="Email address"
+          type="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          placeholder="you@example.com"
+          autoComplete="email"
+        />
+        <PasswordField
+          label="Password"
+          value={password}
+          onChange={setPassword}
+          placeholder="Min. 8 characters"
+          autoComplete="new-password"
+          showStrength
+        />
+        <GradientButton loading={loading} loadingLabel="Creating account...">
+          Create Account →
+        </GradientButton>
+        <p className="text-center text-[11px] leading-4 text-gray-muted">
+          By creating an account you agree to our Terms of Service and Privacy Policy
         </p>
-        <Link
-          to="/"
-          className="mt-8 inline-flex h-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand to-brand-violet px-6 text-sm font-bold text-paper transition-all duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet"
-        >
-          ← Back to home
+        <OrDivider />
+        <GoogleButton onClick={handleGoogle} disabled={loading} />
+      </form>
+
+      <p className="mt-6 text-center text-[14px] text-gray-muted">
+        Already have an account?{" "}
+        <Link to="/login" className="font-semibold text-brand hover:underline">
+          Sign in →
         </Link>
-      </div>
-    </main>
+      </p>
+    </AuthSplitLayout>
   );
 }

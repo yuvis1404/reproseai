@@ -1,7 +1,19 @@
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
-const title = "Sign in — Reprose";
-const description = "Sign in to Reprose to repurpose your newsletter in your own voice.";
+import { AuthSplitLayout } from "@/components/auth/AuthSplitLayout";
+import {
+  AuthField,
+  GoogleButton,
+  GradientButton,
+  OrDivider,
+  PasswordField,
+} from "@/components/auth/auth-ui";
+import { supabase } from "@/integrations/supabase/client";
+
+const title = "Sign in — Reprose AI";
+const description = "Sign in to your Reprose AI account and keep repurposing in your own voice.";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -11,33 +23,99 @@ export const Route = createFileRoute("/login")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/login" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
     ],
-    links: [{ rel: "canonical", href: "/login" }],
   }),
   component: LoginPage,
 });
 
 function LoginPage() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    void supabase.auth.getSession().then(({ data }) => {
+      if (data.session) navigate({ to: "/dashboard", replace: true });
+    });
+  }, [navigate]);
+
+  async function handleSubmit(event: React.FormEvent) {
+    event.preventDefault();
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithPassword({
+      email: email.trim(),
+      password,
+    });
+    setLoading(false);
+
+    if (error) {
+      const message = error.message.toLowerCase();
+      if (message.includes("rate") || message.includes("too many")) {
+        toast.error("Too many attempts — try again in 5 minutes");
+      } else if (message.includes("confirm") || message.includes("not verified")) {
+        toast.error("Account not verified — check your email");
+      } else {
+        toast.error("Invalid email or password");
+      }
+      return;
+    }
+
+    navigate({ to: "/dashboard", replace: true });
+  }
+
+  async function handleGoogle() {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: `${window.location.origin}/dashboard` },
+    });
+    if (error) toast.error("Google sign-in isn't enabled yet.");
+  }
+
   return (
-    <main className="font-display hero-bloom flex min-h-screen items-center justify-center px-5 py-24">
-      <div className="w-full max-w-md rounded-2xl border border-brand/30 bg-ink-soft p-8 text-center shadow-[0_40px_80px_color-mix(in_oklab,var(--color-brand)_25%,transparent)]">
-        <h1 className="text-[32px] font-extrabold tracking-[-1px] text-paper">Sign in</h1>
-        <p className="mt-3 text-[16px] leading-7 text-lavender">
-          Sign-in lands here next. New to Reprose?{" "}
-          <Link to="/signup" className="font-semibold text-brand-violet underline">
-            Start free
+    <AuthSplitLayout>
+      <Link to="/" className="text-[13px] font-medium text-gray-muted transition-colors hover:text-brand">
+        ← Back to home
+      </Link>
+      <h1 className="mt-5 text-[28px] font-extrabold tracking-[-0.8px] text-ink">Welcome back</h1>
+      <p className="mt-2 text-[16px] text-gray-muted">Sign in to your Reprose account</p>
+
+      <form onSubmit={handleSubmit} className="mt-7 flex flex-col gap-4">
+        <AuthField
+          label="Email address"
+          type="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          placeholder="you@example.com"
+          autoComplete="email"
+        />
+        <PasswordField
+          label="Password"
+          value={password}
+          onChange={setPassword}
+          placeholder="Your password"
+          autoComplete="current-password"
+        />
+        <div className="flex justify-end">
+          <Link to="/reset-password" className="text-[13px] font-semibold text-brand hover:underline">
+            Forgot password?
           </Link>
-          .
-        </p>
-        <Link
-          to="/"
-          className="mt-8 inline-flex h-12 items-center justify-center rounded-xl border border-paper/70 px-6 text-sm font-bold text-paper transition-all duration-200 hover:bg-paper hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet"
-        >
-          ← Back to home
+        </div>
+        <GradientButton loading={loading} loadingLabel="Signing in...">
+          Sign In →
+        </GradientButton>
+        <OrDivider />
+        <GoogleButton onClick={handleGoogle} disabled={loading} />
+      </form>
+
+      <p className="mt-6 text-center text-[14px] text-gray-muted">
+        Don't have an account?{" "}
+        <Link to="/signup" className="font-semibold text-brand hover:underline">
+          Start free →
         </Link>
-      </div>
-    </main>
+      </p>
+    </AuthSplitLayout>
   );
 }
