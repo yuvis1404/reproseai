@@ -28,9 +28,9 @@ export function Hero() {
 
         <Reveal delay={80}>
           <h1 className="mt-8 text-[48px] font-extrabold leading-[1.05] tracking-[-1.5px] text-paper md:text-[72px] md:leading-[80px] md:tracking-[-2px]">
-            <span className="block">Write once.</span>
+            <span className="block">One Post.</span>
             <span className="text-gradient-brand block drop-shadow-[0_0_28px_color-mix(in_oklab,var(--color-brand)_45%,transparent)]">
-              Reach everywhere.
+              Every Platform.
             </span>
           </h1>
         </Reveal>
