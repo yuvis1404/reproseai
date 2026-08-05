@@ -6,7 +6,7 @@ const description =
 
 export const Route = createFileRoute("/signup")({
   validateSearch: (search: Record<string, unknown>) => ({
-    plan: typeof search.plan === "string" ? search.plan : undefined,
+    plan: typeof search["plan"] === "string" ? (search["plan"] as string) : undefined,
   }),
   head: () => ({
     meta: [
