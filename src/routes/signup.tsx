@@ -38,6 +38,7 @@ function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   useEffect(() => {
     void supabase.auth.getSession().then(({ data }) => {
@@ -90,11 +91,15 @@ function SignupPage() {
   }
 
   async function handleGoogle() {
+    setGoogleLoading(true);
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: { redirectTo: `${window.location.origin}/dashboard` },
     });
-    if (error) toast.error("Google sign-in isn't enabled yet.");
+    if (error) {
+      setGoogleLoading(false);
+      toast.error(error.message || "Google sign-in isn't enabled yet.");
+    }
   }
 
   return (
@@ -122,14 +127,14 @@ function SignupPage() {
           autoComplete="new-password"
           showStrength
         />
-        <GradientButton loading={loading} loadingLabel="Creating account...">
+        <GradientButton loading={loading || googleLoading} loadingLabel="Creating account...">
           Create Account →
         </GradientButton>
         <p className="text-center text-[11px] leading-4 text-gray-muted">
           By creating an account you agree to our Terms of Service and Privacy Policy
         </p>
         <OrDivider />
-        <GoogleButton onClick={handleGoogle} disabled={loading} />
+        <GoogleButton onClick={handleGoogle} disabled={loading} loading={googleLoading} />
       </form>
 
       <p className="mt-6 text-center text-[14px] text-gray-muted">
