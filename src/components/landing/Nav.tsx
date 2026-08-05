@@ -42,7 +42,9 @@ export function Nav() {
           <span className="grid size-8 shrink-0 place-items-center rounded-xl bg-brand/20 text-brand-violet">
             <PenLine className="size-4" aria-hidden="true" />
           </span>
-          <span className="truncate text-[22px] font-bold text-paper">Reprose</span>
+          <span className="truncate text-[22px] font-bold text-paper">
+            Reprose <span className="text-gradient-brand">AI</span>
+          </span>
         </Link>
 
         <div className="hidden items-center gap-8 md:flex">
