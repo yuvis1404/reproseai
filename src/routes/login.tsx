@@ -35,6 +35,7 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   useEffect(() => {
     void supabase.auth.getSession().then(({ data }) => {
@@ -67,11 +68,15 @@ function LoginPage() {
   }
 
   async function handleGoogle() {
+    setGoogleLoading(true);
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: { redirectTo: `${window.location.origin}/dashboard` },
     });
-    if (error) toast.error("Google sign-in isn't enabled yet.");
+    if (error) {
+      setGoogleLoading(false);
+      toast.error(error.message || "Google sign-in isn't enabled yet.");
+    }
   }
 
   return (
@@ -103,11 +108,11 @@ function LoginPage() {
             Forgot password?
           </Link>
         </div>
-        <GradientButton loading={loading} loadingLabel="Signing in...">
+        <GradientButton loading={loading || googleLoading} loadingLabel="Signing in...">
           Sign In →
         </GradientButton>
         <OrDivider />
-        <GoogleButton onClick={handleGoogle} disabled={loading} />
+        <GoogleButton onClick={handleGoogle} disabled={loading} loading={googleLoading} />
       </form>
 
       <p className="mt-6 text-center text-[14px] text-gray-muted">

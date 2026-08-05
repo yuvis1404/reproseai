@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { AppShell } from "@/components/auth/AppShell";
+import { OnboardingModal } from "@/components/auth/OnboardingModal";
 
 const title = "Dashboard — Reprose AI";
 const description = "Turn your latest newsletter into platform-native social posts.";
@@ -21,6 +22,7 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
     const { user } = Route.useRouteContext();
     return (
       <AppShell>
+        <OnboardingModal userId={user.id} />
         <h1 className="text-[30px] font-extrabold tracking-[-1px] text-ink">Dashboard</h1>
         <p className="mt-2 text-[15px] text-gray-muted">
           Signed in as <span className="font-semibold text-brand">{user.email}</span>. Your

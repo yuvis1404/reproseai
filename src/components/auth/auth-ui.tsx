@@ -138,14 +138,30 @@ export function OrDivider() {
   );
 }
 
-export function GoogleButton({ onClick, disabled }: { onClick: () => void; disabled?: boolean }) {
+export function GoogleButton({
+  onClick,
+  disabled,
+  loading = false,
+}: {
+  onClick: () => void;
+  disabled?: boolean;
+  loading?: boolean;
+}) {
   return (
     <button
       type="button"
       onClick={onClick}
-      disabled={disabled}
-      className="flex h-12 w-full items-center justify-center gap-2.5 rounded-[10px] border border-[oklch(0.92_0.01_265)] bg-paper text-[15px] font-semibold text-ink transition-colors duration-200 hover:bg-[oklch(0.97_0.005_265)] disabled:opacity-60"
+      disabled={disabled || loading}
+      aria-busy={loading}
+      className="flex h-12 w-full items-center justify-center gap-2.5 rounded-[10px] border border-[oklch(0.92_0.01_265)] bg-paper text-[15px] font-semibold text-ink transition-colors duration-200 hover:bg-[oklch(0.97_0.005_265)] disabled:cursor-not-allowed disabled:opacity-60"
     >
+      {loading ? (
+        <>
+          <Loader2 className="animate-spin" size={18} />
+          Redirecting to Google...
+        </>
+      ) : (
+        <>
       <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
         <path
           fill="#EA4335"
@@ -165,6 +181,8 @@ export function GoogleButton({ onClick, disabled }: { onClick: () => void; disab
         />
       </svg>
       Continue with Google
+        </>
+      )}
     </button>
   );
 }
