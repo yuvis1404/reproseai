@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { Linkedin, PenLine, Rocket, Twitter } from "lucide-react";
+import { Linkedin, Rocket, Twitter } from "lucide-react";
+
+import logoAsset from "@/assets/reprose-logo.png.asset.json";
 
 const columns = [
   {
@@ -40,7 +42,7 @@ export function SiteFooter() {
               aria-label="Reprose home"
               className="flex items-center gap-2 text-[20px] font-bold text-paper"
             >
-              <PenLine className="size-4 text-brand-violet" aria-hidden="true" />
+              <img src={logoAsset.url} alt="Reprose AI logo" className="size-8 rounded-lg" />
               Reprose
             </Link>
             <p className="mt-3 text-[14px] text-lavender">

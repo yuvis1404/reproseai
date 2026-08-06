@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import logoAsset from "@/assets/reprose-logo.png.asset.json";
+
 function FloatingCards() {
   return (
     <div className="relative mt-12 hidden h-[250px] w-full max-w-md lg:block">
@@ -69,8 +71,9 @@ export function AuthSplitLayout({ children }: { children: ReactNode }) {
           }}
         />
         <div className="relative z-10 flex flex-col items-center text-center">
-          <p className="text-[40px] font-extrabold tracking-[-1.5px] text-paper">
-            ✍️ Reprose <span className="text-gradient-brand">AI</span>
+          <p className="flex items-center gap-3 text-[40px] font-extrabold tracking-[-1.5px] text-paper">
+            <img src={logoAsset.url} alt="Reprose AI logo" className="size-12 rounded-2xl" />
+            Reprose <span className="text-gradient-brand">AI</span>
           </p>
           <p className="mt-3 text-[18px] font-medium text-lavender">
             One Post. Every Platform.
@@ -80,8 +83,9 @@ export function AuthSplitLayout({ children }: { children: ReactNode }) {
       </section>
 
       <section className="flex w-full flex-col items-center justify-center bg-paper px-5 py-14 sm:px-10 lg:w-[40%]">
-        <p className="mb-8 text-[22px] font-extrabold tracking-[-0.5px] text-ink lg:hidden">
-          ✍️ Reprose <span className="text-gradient-brand">AI</span>
+        <p className="mb-8 flex items-center gap-2 text-[22px] font-extrabold tracking-[-0.5px] text-ink lg:hidden">
+          <img src={logoAsset.url} alt="Reprose AI logo" className="size-8 rounded-lg" />
+          Reprose <span className="text-gradient-brand">AI</span>
         </p>
         <div className="w-full max-w-[380px]">{children}</div>
       </section>
