@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, PenLine, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
+import logoAsset from "@/assets/reprose-logo.png.asset.json";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -39,9 +40,11 @@ export function Nav() {
           aria-label="Reprose home"
           className="flex min-w-0 items-center gap-2 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-violet"
         >
-          <span className="grid size-8 shrink-0 place-items-center rounded-xl bg-brand/20 text-brand-violet">
-            <PenLine className="size-4" aria-hidden="true" />
-          </span>
+          <img
+            src={logoAsset.url}
+            alt="Reprose AI logo"
+            className="size-9 shrink-0 rounded-xl"
+          />
           <span className="truncate text-[22px] font-bold text-paper">
             Reprose <span className="text-gradient-brand">AI</span>
           </span>

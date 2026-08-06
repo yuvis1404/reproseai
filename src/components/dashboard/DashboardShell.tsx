@@ -10,6 +10,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Library, LogOut, Menu, Settings, Sparkles, X } from "lucide-react";
 
 import { UsageCard } from "@/components/dashboard/UsageCard";
+import logoAsset from "@/assets/reprose-logo.png.asset.json";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 
@@ -95,8 +96,12 @@ export function DashboardShell({ children }: { children: ReactNode }) {
   const sidebarBody = (
     <>
       <div className="border-b border-white/[0.06] px-5 py-6">
-        <Link to="/dashboard" className="text-[20px] font-bold text-paper">
-          ✍️ Reprose
+        <Link
+          to="/dashboard"
+          className="flex items-center gap-2 text-[20px] font-bold text-paper"
+        >
+          <img src={logoAsset.url} alt="Reprose AI logo" className="size-8 rounded-lg" />
+          Reprose
         </Link>
       </div>
       <div className="min-h-0 flex-1 overflow-y-auto">
@@ -118,8 +123,12 @@ export function DashboardShell({ children }: { children: ReactNode }) {
 
       {/* Mobile top navbar */}
       <header className="fixed inset-x-0 top-0 z-50 flex h-[60px] items-center justify-between border-b border-white/[0.08] bg-nav px-4 md:hidden">
-        <Link to="/dashboard" className="text-[18px] font-bold text-paper">
-          ✍️ Reprose
+        <Link
+          to="/dashboard"
+          className="flex items-center gap-2 text-[18px] font-bold text-paper"
+        >
+          <img src={logoAsset.url} alt="Reprose AI logo" className="size-7 rounded-md" />
+          Reprose
         </Link>
         <button
           type="button"
