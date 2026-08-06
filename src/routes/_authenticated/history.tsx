@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { AppShell } from "@/components/auth/AppShell";
+import { DashboardShell } from "@/components/dashboard/DashboardShell";
 
 const title = "History — Reprose AI";
 const description = "Browse every post you have repurposed with Reprose AI.";
@@ -18,11 +18,10 @@ export const Route = createFileRoute("/_authenticated/history")({
     ],
   }),
   component: () => (
-    <AppShell>
-      <h1 className="text-[30px] font-extrabold tracking-[-1px] text-ink">History</h1>
+    <DashboardShell>
       <p className="mt-2 text-[15px] text-gray-muted">
         Your past repurposes will appear here.
       </p>
-    </AppShell>
+    </DashboardShell>
   ),
 });
