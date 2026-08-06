@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { AppShell } from "@/components/auth/AppShell";
+import { DashboardShell } from "@/components/dashboard/DashboardShell";
 
 const title = "Account — Reprose AI";
 const description = "Manage your Reprose AI plan, voice profile, and account settings.";
@@ -20,10 +20,9 @@ export const Route = createFileRoute("/_authenticated/account")({
   component: () => {
     const { user } = Route.useRouteContext();
     return (
-      <AppShell>
-        <h1 className="text-[30px] font-extrabold tracking-[-1px] text-ink">Account</h1>
+      <DashboardShell>
         <p className="mt-2 text-[15px] text-gray-muted">{user.email}</p>
-      </AppShell>
+      </DashboardShell>
     );
   },
 });
