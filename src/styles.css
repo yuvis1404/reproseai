@@ -273,3 +273,16 @@
     opacity: 1;
   }
 }
+
+/* Thin purple scrollbar for generated output boxes */
+.repurpose-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--color-brand) 45%, transparent) transparent;
+}
+.repurpose-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.repurpose-scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--color-brand) 45%, transparent);
+  border-radius: 999px;
+}
