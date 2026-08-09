@@ -4,7 +4,9 @@ import {
   type VoiceProfile,
 } from "@/lib/repurpose-prompts";
 
-const MODEL = "gemini-2.5-flash";
+// gemini-2.5-flash is no longer served to new API keys; gemini-flash-latest is
+// Google's current supported equivalent on the same fast/free tier.
+const MODEL = "gemini-flash-latest";
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
 async function callGemini(args: { apiKey: string; system: string; prompt: string }) {
@@ -17,7 +19,7 @@ async function callGemini(args: { apiKey: string; system: string; prompt: string
     body: JSON.stringify({
       systemInstruction: { parts: [{ text: args.system }] },
       contents: [{ role: "user", parts: [{ text: args.prompt }] }],
-      generationConfig: { temperature: 0.9, maxOutputTokens: 2048 },
+      generationConfig: { temperature: 0.9, maxOutputTokens: 4096 },
     }),
   });
 
