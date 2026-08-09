@@ -87,7 +87,9 @@ export async function runRepurpose(args: {
 
   const { data: voice } = await args.supabase
     .from("voice_profiles")
-    .select("voice_summary, tone_tags, writing_sample_1, writing_sample_2, writing_sample_3")
+    .select(
+      "content_type, voice_summary, tone_tags, writing_sample_1, writing_sample_2, writing_sample_3",
+    )
     .eq("user_id", args.userId)
     .maybeSingle();
 
