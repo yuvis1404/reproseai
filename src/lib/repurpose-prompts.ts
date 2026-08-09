@@ -4,52 +4,117 @@ export type OutputKind = (typeof OUTPUT_KINDS)[number];
 export const CONTENT_TYPES = ["newsletter", "blog", "article"] as const;
 export type ContentTypeValue = (typeof CONTENT_TYPES)[number];
 
+export type VoiceProfile = {
+  contentType: string;
+  writingSamples: string[];
+  toneTags: string[];
+  voiceSummary: string;
+};
+
+export function buildSystemPrompt(voiceProfile: VoiceProfile) {
+  const samples = voiceProfile.writingSamples.filter(Boolean);
+  const voiceBlock =
+    samples.length > 0
+      ? `
+AUTHOR VOICE PROFILE:
+The author writes: ${voiceProfile.contentType}
+Their tone: ${voiceProfile.toneTags.join(", ")}
+${voiceProfile.voiceSummary ? `Voice summary: ${voiceProfile.voiceSummary}` : ""}
+Study these writing samples carefully and match the author's exact style, vocabulary, sentence length, and personality:
+
+SAMPLE 1:
+${voiceProfile.writingSamples[0] ?? ""}
+
+SAMPLE 2:
+${voiceProfile.writingSamples[1] ?? ""}
+
+SAMPLE 3:
+${voiceProfile.writingSamples[2] ?? ""}
+
+CRITICAL: Every output must sound like the author wrote it themselves. Match their voice exactly.
+`
+      : `No voice profile provided. Write in a clear, engaging, human tone.`;
+
+  return `
+You are an expert content strategist who specializes in transforming long-form written content into platform-native social media posts.
+
+Core rules for ALL outputs:
+- Write like a real human, never like AI
+- Be platform-native (each platform has different norms, tone, and format)
+- Preserve the author's exact ideas and insights
+- Outputs must be immediately copy-paste ready
+- NEVER start with "In today's world..." or any generic AI opener
+- NEVER use hollow corporate phrases
+- NEVER add information not in the source
+
+${voiceBlock}
+`;
+}
+
 const instructions: Record<OutputKind, string> = {
-  linkedin:
-    "Write ONE LinkedIn post (150-250 words). Start with a scroll-stopping one-line hook, then short 1-2 sentence paragraphs separated by blank lines, a concrete takeaway list if useful, and end with a genuine question. No hashtag spam (max 3 at the end). No markdown, no emojis unless the author's voice uses them.",
+  linkedin: `Transform the content below into a LinkedIn post:
+
+FORMAT RULES:
+- Line 1: The HOOK — one bold, counterintuitive statement that stops scrolling. Not a question. Not "I". Maximum 12 words.
+- Empty line after hook
+- 3-5 short paragraphs, 1-3 sentences each
+- Generous white space between paragraphs
+- 1-3 bullet points or numbered items (if content suits it)
+- Final line: soft CTA (not "follow me for more")
+- Total: 150-250 words
+- NO hashtags
+- NO emojis unless they serve a purpose`,
+  thread: `Transform the content below into a Twitter/X thread:
+
+FORMAT RULES:
+- Tweet 1 (hook): Makes people NEED to read on. Max 240 chars. Could be a bold claim, a surprising stat, or a counterintuitive statement.
+- Tweets 2-9: Each tweet = ONE insight. Self-contained. Can stand alone. Max 270 chars each.
+- Tweet 10 (closer): Summary of the key takeaway + "Full post → [link]"
+- Number every tweet: 1/10, 2/10 etc.
+- Use line breaks within tweets for readability`,
+  carousel: `Transform the content below into Instagram carousel slide copy:
+
+FORMAT RULES:
+- Slide 1 (Cover): 4-6 word bold headline that makes people SWIPE. No full sentences.
+- Slides 2-8: One insight per slide. HEADLINE: 3-5 words (all caps). Body: 2-3 short lines max
+- Slide 9 (CTA): "Save this post 🔖" or "Follow for more like this"
+- Keep all text SHORT — these are slides, not paragraphs`,
+  hook: `Extract the single most powerful insight from this content and write it as ONE hook sentence:
+
+RULES:
+- Maximum 20 words
+- Must make someone stop scrolling
+- Can be: a bold claim, a surprising fact, a counterintuitive statement, a before/after contrast
+- Do NOT ask a question
+- Use the author's voice exactly`,
+};
+
+const returnRules: Record<OutputKind, string> = {
+  linkedin: "Return ONLY the post. No labels. No explanations.",
   thread:
-    "Write an X/Twitter thread of 6-9 tweets. Number each tweet as '1/' '2/' etc, each under 270 characters, separated by a blank line. Tweet 1 is a bold hook, the last tweet is a soft CTA. No hashtags, no markdown.",
+    'Return ONLY the tweets.\nFormat: each tweet on its own line, preceded by its number.\nExample: "1/10 [tweet text]"\nNo extra labels or explanations.',
   carousel:
-    "Write an Instagram carousel of 7-9 slides. Format each as 'Slide 1: <title>' followed by one short line of body copy, separated by blank lines. Slide 1 is the hook, the last slide is a CTA. Keep each slide under 25 words.",
-  hook: "Write 5 punchy standalone hooks (one line each, under 120 characters), each on its own line, no numbering, no quotes. They must be usable as a bio line or post opener.",
+    "Return in this exact format:\nSLIDE 1: [headline only]\nSLIDE 2: [HEADLINE] | [2-line body text]\nSLIDE 3: [HEADLINE] | [2-line body text]\n(continue pattern for all slides)\nNo extra labels or explanations.",
+  hook: "Return ONLY the hook sentence. Nothing else. No punctuation at the end unless it's a period.",
 };
 
 export function buildPrompt(args: {
   kind: OutputKind;
   contentType: string;
   source: string;
-  voiceSummary?: string | null;
-  samples?: string[];
-  toneTags?: string[] | null;
+  voiceProfile: VoiceProfile;
 }) {
-  const voice: string[] = [];
-  if (args.voiceSummary) voice.push(`Voice summary: ${args.voiceSummary}`);
-  if (args.toneTags?.length) voice.push(`Tone: ${args.toneTags.join(", ")}`);
-  const samples = (args.samples ?? []).filter(Boolean);
-  if (samples.length)
-    voice.push(
-      `Writing samples to mirror (style only, never copy content):\n${samples
-        .map((s, i) => `--- sample ${i + 1} ---\n${s.slice(0, 1500)}`)
-        .join("\n")}`,
-    );
-
-  const system = [
-    "You are Reprose, an expert ghostwriter who repurposes long-form writing into platform-native social content.",
-    "Match the author's own voice: rhythm, vocabulary, punctuation habits, level of formality.",
-    "Never invent facts that are not in the source. Never mention that you are an AI.",
-    "Return ONLY the finished content, no preamble, no explanations, no markdown code fences.",
-    voice.length ? `Author voice profile:\n${voice.join("\n")}` : "",
-  ]
-    .filter(Boolean)
-    .join("\n\n");
+  const system = buildSystemPrompt(args.voiceProfile);
 
   const prompt = [
-    `Source ${args.contentType} to repurpose:`,
-    "\"\"\"",
-    args.source.slice(0, 50000),
-    "\"\"\"",
+    instructions[args.kind],
     "",
-    `Task: ${instructions[args.kind]}`,
+    `Source ${args.contentType} content:`,
+    '"""',
+    args.source.slice(0, 50000),
+    '"""',
+    "",
+    returnRules[args.kind],
   ].join("\n");
 
   return { system, prompt };
