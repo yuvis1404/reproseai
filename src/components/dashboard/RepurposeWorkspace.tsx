@@ -105,7 +105,7 @@ export function RepurposeWorkspace({
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const words = countWords(text);
-  const canSubmit = words >= 100 && selected.length > 0;
+  const canSubmit = words >= 50 && selected.length > 0;
 
   useEffect(() => {
     const el = textareaRef.current;
@@ -123,7 +123,7 @@ export function RepurposeWorkspace({
       if (first) setActiveTab(first);
       queryClient.invalidateQueries({ queryKey: ["usage", userId] });
       queryClient.invalidateQueries({ queryKey: ["history", userId] });
-      toast.success("Your content is ready — saved to history.");
+      toast.success("✨ Content generated! Saved to your history.");
     },
     onError: (error: unknown) => {
       const message = error instanceof Error ? error.message : "Something went wrong.";
@@ -187,7 +187,7 @@ export function RepurposeWorkspace({
           <span
             className={cn(
               "text-[14px] font-semibold",
-              words >= 100 ? "text-[oklch(0.65_0.16_155)]" : "text-destructive",
+              words >= 50 ? "text-[oklch(0.65_0.16_155)]" : "text-destructive",
             )}
           >
             {words} words
