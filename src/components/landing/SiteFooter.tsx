@@ -95,8 +95,8 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-2 border-t border-paper/10 pt-6 text-[13px] text-gray-faint sm:flex-row">
-          <p>© 2025 Reprose. All rights reserved.</p>
-          <p>Made for writers, by a writer ✍️</p>
+          <p>© 2026 Reprose. All rights reserved.</p>
+          <p></p>
         </div>
       </div>
     </footer>
