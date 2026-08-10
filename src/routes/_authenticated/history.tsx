@@ -1,9 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
+import { HistoryView } from "@/components/dashboard/HistoryView";
 
 const title = "History — Reprose AI";
 const description = "Browse every post you have repurposed with Reprose AI.";
+
+function HistoryPage() {
+  const { user } = Route.useRouteContext();
+  return (
+    <DashboardShell>
+      <HistoryView userId={user.id} />
+    </DashboardShell>
+  );
+}
 
 export const Route = createFileRoute("/_authenticated/history")({
   head: () => ({
@@ -17,11 +27,5 @@ export const Route = createFileRoute("/_authenticated/history")({
       { name: "robots", content: "noindex" },
     ],
   }),
-  component: () => (
-    <DashboardShell>
-      <p className="mt-2 text-[15px] text-gray-muted">
-        Your past repurposes will appear here.
-      </p>
-    </DashboardShell>
-  ),
+  component: HistoryPage,
 });
