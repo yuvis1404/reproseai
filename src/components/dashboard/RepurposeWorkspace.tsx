@@ -190,8 +190,31 @@ export function RepurposeWorkspace({
 
   const usagePct = limit > 0 ? Math.min(100, Math.round((used / limit) * 100)) : 0;
 
+  const barFill =
+    usagePct >= 100
+      ? "linear-gradient(90deg, #dc2626, #ef4444)"
+      : usagePct >= 80
+        ? "linear-gradient(90deg, #ea580c, #fb923c)"
+        : usagePct >= 50
+          ? "linear-gradient(90deg, #d97706, #fbbf24)"
+          : "linear-gradient(90deg, #16a34a, #4ade80)";
+
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-[42fr_58fr]">
+    <>
+      <UsageNudgeBanner
+        userId={userId}
+        used={used}
+        limit={limit}
+        onUpgrade={() => setUpgradeOpen(true)}
+      />
+      <UpgradeModal
+        open={upgradeOpen}
+        onClose={() => setUpgradeOpen(false)}
+        used={used}
+        limit={limit}
+        atLimit={atLimit}
+      />
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-[42fr_58fr]">
       {/* INPUT */}
       <section className={cn(cardClass, "h-fit")}>
         <div className="flex items-center justify-between gap-3">
