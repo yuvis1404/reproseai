@@ -9,6 +9,7 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import { Library, LogOut, Menu, Settings, Sparkles, X } from "lucide-react";
 
+import { UpgradeModal } from "@/components/dashboard/UpgradeModal";
 import { UsageCard } from "@/components/dashboard/UsageCard";
 import logoAsset from "@/assets/reprose-logo.png.asset.json";
 import { supabase } from "@/integrations/supabase/client";
