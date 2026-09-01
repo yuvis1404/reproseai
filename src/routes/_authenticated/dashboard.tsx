@@ -30,7 +30,7 @@ function DashboardPage() {
       <RepurposeWorkspace
         userId={user.id}
         used={data?.repurposes_used ?? 0}
-        limit={data?.repurposes_limit ?? 3}
+        limit={data?.repurposes_limit ?? 5}
       />
     </DashboardShell>
   );

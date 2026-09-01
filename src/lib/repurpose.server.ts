@@ -81,7 +81,7 @@ export async function runRepurpose(args: {
     .maybeSingle();
 
   const used = profile?.repurposes_used ?? 0;
-  const limit = profile?.repurposes_limit ?? 3;
+  const limit = profile?.repurposes_limit ?? 5;
 
   if (args.consumeQuota && used >= limit) {
     throw new Error("You've reached your monthly limit. Upgrade to continue.");

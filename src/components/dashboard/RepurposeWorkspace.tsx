@@ -5,6 +5,8 @@ import { useServerFn } from "@tanstack/react-start";
 import { Check, Copy, Loader2, RotateCw, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
+import { UpgradeModal } from "@/components/dashboard/UpgradeModal";
+import { UsageNudgeBanner } from "@/components/dashboard/UsageNudgeBanner";
 import { generateRepurpose, regenerateOne } from "@/lib/repurpose.functions";
 import type { ContentTypeValue, OutputKind } from "@/lib/repurpose-prompts";
 import { cn } from "@/lib/utils";
@@ -102,10 +104,20 @@ export function RepurposeWorkspace({
   const [copied, setCopied] = useState(false);
   const [messageIndex, setMessageIndex] = useState(0);
   const [regenerating, setRegenerating] = useState<OutputKind | null>(null);
+  const [upgradeOpen, setUpgradeOpen] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
+  const atLimit = limit > 0 && used >= limit;
   const words = countWords(text);
   const canSubmit = words >= 50 && selected.length > 0;
+
+  function handleGenerate() {
+    if (atLimit) {
+      setUpgradeOpen(true);
+      return;
+    }
+    mutation.mutate();
+  }
 
   useEffect(() => {
     const el = textareaRef.current;
@@ -178,8 +190,31 @@ export function RepurposeWorkspace({
 
   const usagePct = limit > 0 ? Math.min(100, Math.round((used / limit) * 100)) : 0;
 
+  const barFill =
+    usagePct >= 100
+      ? "linear-gradient(90deg, #dc2626, #ef4444)"
+      : usagePct >= 80
+        ? "linear-gradient(90deg, #ea580c, #fb923c)"
+        : usagePct >= 50
+          ? "linear-gradient(90deg, #d97706, #fbbf24)"
+          : "linear-gradient(90deg, #16a34a, #4ade80)";
+
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-[42fr_58fr]">
+    <>
+      <UsageNudgeBanner
+        userId={userId}
+        used={used}
+        limit={limit}
+        onUpgrade={() => setUpgradeOpen(true)}
+      />
+      <UpgradeModal
+        open={upgradeOpen}
+        onClose={() => setUpgradeOpen(false)}
+        used={used}
+        limit={limit}
+        atLimit={atLimit}
+      />
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-[42fr_58fr]">
       {/* INPUT */}
       <section className={cn(cardClass, "h-fit")}>
         <div className="flex items-center justify-between gap-3">
@@ -284,15 +319,33 @@ export function RepurposeWorkspace({
           </div>
           <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-[oklch(0.93_0.01_265)]">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-brand to-brand-violet transition-[width] duration-300"
-              style={{ width: `${usagePct}%` }}
+              className="h-full rounded-full transition-[width] duration-300"
+              style={{ width: `${usagePct}%`, background: barFill }}
             />
           </div>
+          {usagePct >= 100 ? (
+            <div className="mt-3 flex items-center justify-between gap-3 rounded-xl border border-[#FCA5A5] bg-[#FFF3F3] px-3 py-2.5">
+              <p className="min-w-0 text-[13px] font-medium text-[#B91C1C]">
+                You've hit your monthly limit. Upgrade to continue.
+              </p>
+              <button
+                type="button"
+                onClick={() => setUpgradeOpen(true)}
+                className="shrink-0 text-[13px] font-semibold text-brand hover:opacity-80"
+              >
+                Upgrade
+              </button>
+            </div>
+          ) : usagePct >= 80 ? (
+            <p className="mt-2 text-[12.5px] font-medium text-[#c2410c]">
+              Almost at limit — {Math.max(0, limit - used)} repurposes left this month.
+            </p>
+          ) : null}
 
           <button
             type="button"
             disabled={!canSubmit || loading}
-            onClick={() => mutation.mutate()}
+            onClick={handleGenerate}
             className={cn(
               "mt-4 flex h-14 w-full items-center justify-center gap-2 rounded-xl text-[17px] font-bold transition-all",
               !canSubmit && !loading
@@ -441,6 +494,8 @@ export function RepurposeWorkspace({
           </div>
         )}
       </section>
-    </div>
+      </div>
+    </>
+
   );
 }
