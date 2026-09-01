@@ -5,6 +5,8 @@ import { useServerFn } from "@tanstack/react-start";
 import { Check, Copy, Loader2, RotateCw, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
+import { UpgradeModal } from "@/components/dashboard/UpgradeModal";
+import { UsageNudgeBanner } from "@/components/dashboard/UsageNudgeBanner";
 import { generateRepurpose, regenerateOne } from "@/lib/repurpose.functions";
 import type { ContentTypeValue, OutputKind } from "@/lib/repurpose-prompts";
 import { cn } from "@/lib/utils";
