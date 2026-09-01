@@ -104,10 +104,20 @@ export function RepurposeWorkspace({
   const [copied, setCopied] = useState(false);
   const [messageIndex, setMessageIndex] = useState(0);
   const [regenerating, setRegenerating] = useState<OutputKind | null>(null);
+  const [upgradeOpen, setUpgradeOpen] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
+  const atLimit = limit > 0 && used >= limit;
   const words = countWords(text);
   const canSubmit = words >= 50 && selected.length > 0;
+
+  function handleGenerate() {
+    if (atLimit) {
+      setUpgradeOpen(true);
+      return;
+    }
+    mutation.mutate();
+  }
 
   useEffect(() => {
     const el = textareaRef.current;
