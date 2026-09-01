@@ -476,6 +476,8 @@ export function RepurposeWorkspace({
           </div>
         )}
       </section>
-    </div>
+      </div>
+    </>
+
   );
 }
