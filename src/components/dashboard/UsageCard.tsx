@@ -20,16 +20,20 @@ export function UsageCard({ userId, onUpgrade }: Props) {
   });
 
   const used = data?.repurposes_used ?? 0;
-  const limit = data?.repurposes_limit ?? 3;
+  const limit = data?.repurposes_limit ?? 5;
   const tier = (data?.subscription_tier ?? "free").toUpperCase();
   const pct = limit > 0 ? Math.min(100, Math.round((used / limit) * 100)) : 0;
 
+  const state = pct >= 100 ? "full" : pct >= 80 ? "high" : pct >= 50 ? "mid" : "ok";
+
   const fill =
-    pct > 80
-      ? "linear-gradient(90deg, #ef4444, #fb7185)"
-      : pct >= 50
-        ? "linear-gradient(90deg, #d97706, #fbbf24)"
-        : "linear-gradient(90deg, #6C3AE8, #9B6FFF)";
+    state === "full"
+      ? "linear-gradient(90deg, #dc2626, #ef4444)"
+      : state === "high"
+        ? "linear-gradient(90deg, #ea580c, #fb923c)"
+        : state === "mid"
+          ? "linear-gradient(90deg, #d97706, #fbbf24)"
+          : "linear-gradient(90deg, #16a34a, #4ade80)";
 
   return (
     <div className="m-2 rounded-xl border border-white/[0.08] bg-white/[0.04] p-4">
@@ -48,6 +52,23 @@ export function UsageCard({ userId, onUpgrade }: Props) {
         />
       </div>
       <p className="mt-2 text-[11px] font-medium text-white/40">Repurposes this month</p>
+      {state === "mid" ? (
+        <span className="mt-2 inline-block rounded bg-[#fbbf24]/20 px-1.5 py-0.5 text-[11px] font-bold uppercase tracking-wide text-[#fbbf24]">
+          Running low
+        </span>
+      ) : null}
+      {state === "high" ? (
+        <p className="mt-2 text-[11px] font-semibold text-[#fb923c]">Almost at limit</p>
+      ) : null}
+      {state === "full" ? (
+        <button
+          type="button"
+          onClick={onUpgrade}
+          className="mt-2 w-full rounded-lg border border-[#ef4444]/40 bg-[#ef4444]/15 px-2 py-1.5 text-[11px] font-bold uppercase tracking-wide text-[#fca5a5]"
+        >
+          Upgrade to continue
+        </button>
+      ) : null}
       {tier === "FREE" ? (
         onUpgrade ? (
           <button
