@@ -319,15 +319,33 @@ export function RepurposeWorkspace({
           </div>
           <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-[oklch(0.93_0.01_265)]">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-brand to-brand-violet transition-[width] duration-300"
-              style={{ width: `${usagePct}%` }}
+              className="h-full rounded-full transition-[width] duration-300"
+              style={{ width: `${usagePct}%`, background: barFill }}
             />
           </div>
+          {usagePct >= 100 ? (
+            <div className="mt-3 flex items-center justify-between gap-3 rounded-xl border border-[#FCA5A5] bg-[#FFF3F3] px-3 py-2.5">
+              <p className="min-w-0 text-[13px] font-medium text-[#B91C1C]">
+                You've hit your monthly limit. Upgrade to continue.
+              </p>
+              <button
+                type="button"
+                onClick={() => setUpgradeOpen(true)}
+                className="shrink-0 text-[13px] font-semibold text-brand hover:opacity-80"
+              >
+                Upgrade
+              </button>
+            </div>
+          ) : usagePct >= 80 ? (
+            <p className="mt-2 text-[12.5px] font-medium text-[#c2410c]">
+              Almost at limit — {Math.max(0, limit - used)} repurposes left this month.
+            </p>
+          ) : null}
 
           <button
             type="button"
             disabled={!canSubmit || loading}
-            onClick={() => mutation.mutate()}
+            onClick={handleGenerate}
             className={cn(
               "mt-4 flex h-14 w-full items-center justify-center gap-2 rounded-xl text-[17px] font-bold transition-all",
               !canSubmit && !loading
