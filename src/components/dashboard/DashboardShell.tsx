@@ -200,38 +200,7 @@ export function DashboardShell({ children }: { children: ReactNode }) {
         ))}
       </nav>
 
-      {upgradeOpen ? (
-        <div className="fixed inset-0 z-[70] grid place-items-center p-4">
-          <button
-            type="button"
-            aria-label="Close"
-            onClick={() => setUpgradeOpen(false)}
-            className="absolute inset-0 bg-ink/70"
-          />
-          <div className="relative w-full max-w-sm rounded-2xl bg-paper p-6 shadow-2xl">
-            <h2 className="text-[20px] font-bold text-ink">Upgrade your plan</h2>
-            <p className="mt-2 text-[14px] text-gray-muted">
-              Get unlimited repurposes, more voice profiles, and priority AI models.
-            </p>
-            <div className="mt-5 flex gap-3">
-              <Link
-                to="/account"
-                onClick={() => setUpgradeOpen(false)}
-                className="flex h-10 flex-1 items-center justify-center rounded-lg bg-gradient-to-r from-brand to-brand-violet text-[14px] font-semibold text-paper"
-              >
-                See plans
-              </Link>
-              <button
-                type="button"
-                onClick={() => setUpgradeOpen(false)}
-                className="h-10 rounded-lg border border-[oklch(0.92_0.01_265)] px-4 text-[14px] font-semibold text-ink"
-              >
-                Later
-              </button>
-            </div>
-          </div>
-        </div>
-      ) : null}
+      <UpgradeModal open={upgradeOpen} onClose={() => setUpgradeOpen(false)} />
     </div>
   );
 }
