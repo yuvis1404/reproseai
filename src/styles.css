@@ -201,6 +201,15 @@
   }
 }
 
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 @utility reveal {
   opacity: 0;
   transform: translateY(24px);
