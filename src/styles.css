@@ -169,7 +169,7 @@
   --animate-float: float 6s ease-in-out infinite;
   --animate-shimmer: shimmer 3s linear infinite;
   --animate-caret: caret 1s step-end infinite;
-  --animate-marquee: marquee 25s linear infinite;
+  --animate-marquee: marquee 12s linear infinite;
 }
 
 @keyframes float {
