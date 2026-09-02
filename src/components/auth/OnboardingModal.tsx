@@ -75,8 +75,21 @@ function PrimaryButton({
   );
 }
 
-export function OnboardingModal({ userId }: { userId: string }) {
-  const [open, setOpen] = useState(false);
+export function OnboardingModal({
+  userId,
+  open: openProp,
+  onClose,
+  onSaved,
+}: {
+  userId: string;
+  /** When provided, the modal is controlled (edit mode from /account). */
+  open?: boolean;
+  onClose?: () => void;
+  onSaved?: () => void;
+}) {
+  const controlled = typeof openProp === "boolean";
+  const [autoOpen, setAutoOpen] = useState(false);
+  const open = controlled ? (openProp as boolean) : autoOpen;
   const [step, setStep] = useState(1);
   const [saving, setSaving] = useState(false);
   const [done, setDone] = useState(false);
@@ -84,7 +97,13 @@ export function OnboardingModal({ userId }: { userId: string }) {
   const [samples, setSamples] = useState(["", "", ""]);
   const [tones, setTones] = useState<string[]>([]);
 
+  function close() {
+    if (controlled) onClose?.();
+    else setAutoOpen(false);
+  }
+
   useEffect(() => {
+    if (controlled) return;
     let active = true;
     void supabase
       .from("profiles")
@@ -92,12 +111,38 @@ export function OnboardingModal({ userId }: { userId: string }) {
       .eq("id", userId)
       .maybeSingle()
       .then(({ data }) => {
-        if (active && data && data.onboarded === false) setOpen(true);
+        if (active && data && data.onboarded === false) setAutoOpen(true);
       });
     return () => {
       active = false;
     };
-  }, [userId]);
+  }, [userId, controlled]);
+
+  // Edit mode: prefill with the existing voice profile each time it opens.
+  useEffect(() => {
+    if (!controlled || !open) return;
+    let active = true;
+    setStep(1);
+    setDone(false);
+    void supabase
+      .from("voice_profiles")
+      .select("content_type, writing_sample_1, writing_sample_2, writing_sample_3, tone_tags")
+      .eq("user_id", userId)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (!active || !data) return;
+        setContentType(data.content_type ?? null);
+        setSamples([
+          data.writing_sample_1 ?? "",
+          data.writing_sample_2 ?? "",
+          data.writing_sample_3 ?? "",
+        ]);
+        setTones(data.tone_tags ?? []);
+      });
+    return () => {
+      active = false;
+    };
+  }, [controlled, open, userId]);
 
   function toggleTone(value: string) {
     setTones((prev) => (prev.includes(value) ? prev.filter((t) => t !== value) : [...prev, value]));
@@ -108,6 +153,10 @@ export function OnboardingModal({ userId }: { userId: string }) {
   }
 
   async function skip() {
+    if (controlled) {
+      close();
+      return;
+    }
     setSaving(true);
     const { error } = await markOnboarded();
     setSaving(false);
@@ -115,7 +164,7 @@ export function OnboardingModal({ userId }: { userId: string }) {
       toast.error("Couldn't save — please try again");
       return;
     }
-    setOpen(false);
+    close();
   }
 
   async function complete() {
@@ -144,9 +193,14 @@ export function OnboardingModal({ userId }: { userId: string }) {
     }
     setDone(true);
     setTimeout(() => {
-      setOpen(false);
-      toast.success("✨ Welcome to Reprose! Your first 3 repurposes are on us.");
-    }, 2000);
+      close();
+      onSaved?.();
+      toast.success(
+        controlled
+          ? "✅ Voice profile updated."
+          : "✨ Welcome to Reprose! Your first 3 repurposes are on us.",
+      );
+    }, controlled ? 1200 : 2000);
   }
 
   if (!open) return null;
