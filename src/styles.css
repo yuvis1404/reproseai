@@ -169,6 +169,7 @@
   --animate-float: float 6s ease-in-out infinite;
   --animate-shimmer: shimmer 3s linear infinite;
   --animate-caret: caret 1s step-end infinite;
+  --animate-marquee: marquee 25s linear infinite;
 }
 
 @keyframes float {
@@ -197,6 +198,15 @@
   }
   50% {
     opacity: 0;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
 
