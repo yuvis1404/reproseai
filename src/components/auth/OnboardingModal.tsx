@@ -197,8 +197,8 @@ export function OnboardingModal({
       onSaved?.();
       toast.success(
         controlled
-          ? "✅ Voice profile updated."
-          : "✨ Welcome to Reprose! Your first 3 repurposes are on us.",
+          ? "✅ Voice profile saved!"
+          : "✅ Voice profile saved! Your first 3 repurposes are on us.",
       );
     }, controlled ? 1200 : 2000);
   }
