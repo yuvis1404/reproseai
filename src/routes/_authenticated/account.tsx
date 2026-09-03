@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { AccountView } from "@/components/dashboard/AccountView";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 
 const title = "Account — Reprose AI";
@@ -21,7 +22,7 @@ export const Route = createFileRoute("/_authenticated/account")({
     const { user } = Route.useRouteContext();
     return (
       <DashboardShell>
-        <p className="mt-2 text-[15px] text-gray-muted">{user.email}</p>
+        <AccountView userId={user.id} email={user.email ?? ""} />
       </DashboardShell>
     );
   },
