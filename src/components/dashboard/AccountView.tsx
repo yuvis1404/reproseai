@@ -7,6 +7,7 @@ import { toast } from "sonner";
 
 import { OnboardingModal } from "@/components/auth/OnboardingModal";
 import { UpgradeModal } from "@/components/dashboard/UpgradeModal";
+import { AccountSkeleton } from "./Skeletons";
 import { supabase } from "@/integrations/supabase/client";
 import { deleteMyAccount } from "@/lib/account.functions";
 import { cn } from "@/lib/utils";
@@ -95,7 +96,7 @@ export function AccountView({ userId, email }: { userId: string; email: string }
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [confirmText, setConfirmText] = useState("");
 
-  const { data: profile } = useQuery({
+  const { data: profile, isLoading: profileLoading } = useQuery({
     queryKey: ["usage", userId],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -163,6 +164,10 @@ export function AccountView({ userId, email }: { userId: string; email: string }
     },
     onError: () => toast.error("Couldn't delete your account — please try again."),
   });
+
+  if (profileLoading) {
+    return <AccountSkeleton />;
+  }
 
   return (
     <div className="mx-auto w-full max-w-[680px]">
