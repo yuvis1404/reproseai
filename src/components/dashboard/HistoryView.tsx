@@ -4,6 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { Check, ChevronDown, Copy, Loader2, X } from "lucide-react";
 import { toast } from "sonner";
 
+import { HistorySkeleton } from "./Skeletons";
 import { supabase } from "@/integrations/supabase/client";
 import type { OutputKind } from "@/lib/repurpose-prompts";
 import { cn } from "@/lib/utils";
@@ -158,7 +159,7 @@ export function HistoryView({ userId }: { userId: string }) {
       return { previous };
     },
     onSuccess: () => {
-      toast.success("Repurpose deleted");
+      toast.success("🗑️ Repurpose deleted");
     },
     onError: (error, _id, context) => {
       if (context?.previous) queryClient.setQueryData(queryKey, context.previous);
@@ -178,11 +179,7 @@ export function HistoryView({ userId }: { userId: string }) {
   }
 
   if (isLoading) {
-    return (
-      <div className="flex min-h-[40vh] items-center justify-center">
-        <Loader2 className="size-6 animate-spin text-brand" />
-      </div>
-    );
+    return <HistorySkeleton />;
   }
 
   if (rows.length === 0) {
@@ -418,7 +415,7 @@ function DetailModal({
   async function copy() {
     await navigator.clipboard.writeText(content);
     setCopied(true);
-    toast.success("Copied to clipboard");
+    toast.success("📋 Copied to clipboard!");
     setTimeout(() => setCopied(false), 1500);
   }
 

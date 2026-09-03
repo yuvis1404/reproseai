@@ -169,9 +169,10 @@ export function RepurposeWorkspace({
     try {
       await navigator.clipboard.writeText(activeContent);
       setCopied(true);
+      toast.success("📋 Copied to clipboard!");
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      toast.error("Couldn't copy to clipboard.");
+      toast.error("⚠️ Error: couldn't copy to clipboard.");
     }
   }
 
