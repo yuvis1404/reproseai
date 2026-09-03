@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { OnboardingModal } from "@/components/auth/OnboardingModal";
 import { RepurposeWorkspace } from "@/components/dashboard/RepurposeWorkspace";
+import { DashboardSkeleton } from "@/components/dashboard/Skeletons";
 import { supabase } from "@/integrations/supabase/client";
 
 const title = "Dashboard — Reprose AI";
@@ -11,7 +12,7 @@ const description = "Turn your latest newsletter into platform-native social pos
 
 function DashboardPage() {
   const { user } = Route.useRouteContext();
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["usage", user.id],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -23,6 +24,14 @@ function DashboardPage() {
       return data;
     },
   });
+
+  if (isLoading) {
+    return (
+      <DashboardShell>
+        <DashboardSkeleton />
+      </DashboardShell>
+    );
+  }
 
   return (
     <DashboardShell>
