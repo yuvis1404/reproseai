@@ -420,7 +420,7 @@ function DetailModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/60 p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/60 p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
       <div className="flex max-h-[85vh] w-full max-w-[700px] flex-col overflow-hidden rounded-2xl border border-[#E9E8FF] bg-paper shadow-2xl">
         <div className="flex items-center justify-between gap-3 border-b border-[#E9E8FF] px-6 py-4">
           <div className="flex flex-wrap items-center gap-2">

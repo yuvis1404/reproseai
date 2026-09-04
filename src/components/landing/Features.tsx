@@ -96,7 +96,7 @@ export function Features() {
 
         <div className="mt-14 grid gap-6 md:grid-cols-2">
           {cards.map((card, i) => (
-            <Reveal key={card.title} delay={i * 90} className="h-full">
+            <Reveal key={card.title} delay={i * 100} className="h-full">
               <article className="h-full rounded-2xl border border-brand/20 bg-paper/[0.04] p-7 backdrop-blur-[10px] transition-all duration-300 hover:-translate-y-1 hover:border-brand/50">
                 <span
                   aria-hidden="true"
@@ -116,7 +116,7 @@ export function Features() {
           ))}
 
           {/* Voice training — key differentiator */}
-          <Reveal delay={120} className="md:col-span-2">
+          <Reveal delay={200} className="md:col-span-2">
             <article className="relative overflow-hidden rounded-2xl border border-brand/20 bg-paper/[0.04] p-7 shadow-[0_0_40px_color-mix(in_oklab,var(--color-brand)_20%,transparent)] backdrop-blur-[10px] md:p-10">
               <span
                 aria-hidden="true"

@@ -206,7 +206,7 @@ export function OnboardingModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[oklch(0.16_0.03_285/0.85)] p-4 backdrop-blur-[8px]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[oklch(0.16_0.03_285/0.85)] p-4 pb-[max(1rem,env(safe-area-inset-bottom))] backdrop-blur-[8px]">
       <div
         role="dialog"
         aria-modal="true"
