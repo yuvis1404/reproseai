@@ -14,21 +14,27 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
 
+const primaryCta =
+  "inline-flex h-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand to-brand-violet px-7 text-[15px] font-bold text-paper transition-all duration-200 hover:scale-[1.02] hover:shadow-[0_0_28px_color-mix(in_oklab,var(--color-brand)_45%,transparent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet";
+const ghostCta =
+  "inline-flex h-12 items-center justify-center rounded-xl border border-paper/40 px-7 text-[15px] font-semibold text-paper transition-colors hover:bg-paper hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet";
+
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+    <div className="font-display hero-bloom flex min-h-screen items-center justify-center bg-ink px-5 py-16">
+      <div className="w-full max-w-lg text-center">
+        <p className="text-gradient-brand text-[88px] font-extrabold leading-none tracking-[-3px] sm:text-[120px]">
+          404
         </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
+        <h1 className="mt-4 text-[26px] font-bold text-paper sm:text-[32px]">
+          Page not found
+        </h1>
+        <p className="mt-3 text-[16px] leading-7 text-lavender">
+          The page you're looking for doesn't exist.
+        </p>
+        <div className="mt-8 flex justify-center">
+          <Link to="/" className={primaryCta}>
+            ← Back to Home
           </Link>
         </div>
       </div>
@@ -44,29 +50,29 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   }, [error]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+    <div className="font-display hero-bloom flex min-h-screen items-center justify-center bg-ink px-5 py-16">
+      <div className="w-full max-w-lg text-center">
+        <p aria-hidden className="text-[56px]">
+          ⚠️
         </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
+        <h1 className="mt-2 text-[26px] font-bold text-paper sm:text-[32px]">
+          Something went wrong
+        </h1>
+        <p className="mt-3 text-[16px] leading-7 text-lavender">
+          Try refreshing the page.
+        </p>
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <button
             onClick={() => {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className={primaryCta}
           >
-            Try again
+            Refresh Page
           </button>
-          <a
-            href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
-          >
-            Go home
+          <a href="/" className={ghostCta}>
+            ← Back to Home
           </a>
         </div>
       </div>
