@@ -85,14 +85,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Reprose AI— One Post. Every Platfrom." },
+      { title: "Reprose — Write once. Reach everywhere." },
       {
         name: "description",
         content:
           "Reprose turns your newsletter or blog post into LinkedIn posts, X threads and Instagram carousels — in your own voice, in 60 seconds.",
       },
       { name: "author", content: "Reprose" },
-      { property: "og:title", content: "Reprose AI— One Post. Every Platfrom." },
+      { property: "og:title", content: "Reprose — Write once. Reach everywhere." },
       {
         property: "og:description",
         content:
@@ -102,7 +102,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:site_name", content: "Reprose" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Reprose AI— One Post. Every Platfrom." },
+      { name: "twitter:title", content: "Reprose — Write once. Reach everywhere." },
       { name: "twitter:description", content: "Reprose turns your newsletter or blog post into LinkedIn posts, X threads and Instagram carousels — in your own voice, in 60 seconds." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9f06ce40-c096-485c-9c3e-d71dde9e7632/id-preview-69b2b9f6--b682d18a-3469-46fc-93a5-2a5ce4ac6654.lovable.app-1785914849627.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9f06ce40-c096-485c-9c3e-d71dde9e7632/id-preview-69b2b9f6--b682d18a-3469-46fc-93a5-2a5ce4ac6654.lovable.app-1785914849627.png" },
