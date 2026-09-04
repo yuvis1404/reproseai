@@ -25,7 +25,7 @@ export function PlatformBar() {
             ))}
           </ul>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }
