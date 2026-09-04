@@ -48,7 +48,9 @@ export function SiteFooter() {
               Reprose
             </Link>
             <p className="mt-3 text-[14px] text-lavender">
-              Write once. Reach everywhere.
+              One Post.{"\u00a0"}
+              <br />
+              Every Platform.
             </p>
             <div className="mt-5 flex items-center gap-4">
               <a
