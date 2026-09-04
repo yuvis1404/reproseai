@@ -37,7 +37,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-paper/10 bg-ink px-5 py-16">
       <div className="mx-auto max-w-6xl">
-        <div className="grid gap-10 md:grid-cols-4">
+        <Reveal className="grid gap-10 md:grid-cols-4">
           <div>
             <Link
               to="/"
@@ -94,12 +94,15 @@ export function SiteFooter() {
               </ul>
             </div>
           ))}
-        </div>
+        </Reveal>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-2 border-t border-paper/10 pt-6 text-[13px] text-gray-faint sm:flex-row">
+        <Reveal
+          delay={100}
+          className="mt-12 flex flex-col items-center justify-between gap-2 border-t border-paper/10 pt-6 text-[13px] text-gray-faint sm:flex-row"
+        >
           <p>© 2026 Reprose. All rights reserved.</p>
           <p></p>
-        </div>
+        </Reveal>
       </div>
     </footer>
   );
