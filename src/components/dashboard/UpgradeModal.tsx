@@ -63,7 +63,7 @@ export function UpgradeModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-start justify-center overflow-y-auto p-4 py-10 sm:items-center">
+    <div className="fixed inset-0 z-[80] flex items-start justify-center overflow-y-auto p-4 pb-[max(2.5rem,env(safe-area-inset-bottom))] pt-10 sm:items-center">
       <button
         type="button"
         aria-label="Close upgrade dialog"
