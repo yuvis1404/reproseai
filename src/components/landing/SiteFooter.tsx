@@ -3,6 +3,8 @@ import { Linkedin, Rocket, Twitter } from "lucide-react";
 
 import logoAsset from "@/assets/reprose-logo.png.asset.json";
 
+import { Reveal } from "./Reveal";
+
 const columns = [
   {
     title: "Product",
