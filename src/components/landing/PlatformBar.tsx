@@ -1,3 +1,5 @@
+import { Reveal } from "./Reveal";
+
 const platforms = [
   "📧 Substack",
   "🐝 Beehiiv",
@@ -9,7 +11,7 @@ const platforms = [
 export function PlatformBar() {
   return (
     <section className="bg-ink px-5 pb-24">
-      <div className="mx-auto max-w-4xl text-center">
+      <Reveal className="mx-auto max-w-4xl text-center">
         <p className="text-[14px] text-gray-muted">Trusted by writers publishing on</p>
         <div className="mt-6 overflow-hidden">
           <ul className="flex w-max animate-marquee items-center gap-x-8 hover:[animation-play-state:paused]">

@@ -221,6 +221,12 @@
     opacity: 1;
     transform: none;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 @utility text-gradient-brand {
