@@ -10,9 +10,11 @@ import { Pricing } from "@/components/landing/Pricing";
 import { SiteFooter } from "@/components/landing/SiteFooter";
 import { Testimonials } from "@/components/landing/Testimonials";
 
-const title = "Reprose — Turn newsletters into social posts in your voice";
+const title = "Reprose — Write once. Reach everywhere.";
 const description =
-  "Reprose repurposes your newsletter or blog post into LinkedIn posts, X threads and Instagram carousels — in your own voice, in 60 seconds.";
+  "Turn your newsletter or blog post into LinkedIn posts, X threads, and Instagram carousels in 60 seconds. AI that writes in YOUR voice.";
+const url = "https://reproseai.lovable.app/";
+const image = "https://reproseai.lovable.app/og-reprose.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -22,10 +24,14 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: url },
+      { property: "og:image", content: image },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
+      { name: "twitter:image", content: image },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: url }],
     scripts: [
       {
         type: "application/ld+json",
