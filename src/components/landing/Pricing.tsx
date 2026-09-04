@@ -116,7 +116,7 @@ export function Pricing() {
           </Reveal>
 
           {/* Creator */}
-          <Reveal delay={90} className="h-full md:scale-105">
+          <Reveal delay={100} className="h-full md:scale-105">
             <article className="relative z-10 flex h-full flex-col rounded-2xl bg-gradient-to-br from-brand-deep to-brand p-7 shadow-[0_0_40px_color-mix(in_oklab,var(--color-brand)_40%,transparent)]">
               <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-violet px-3 py-1 text-[11px] font-bold uppercase tracking-[1.5px] text-paper">
                 Most popular
@@ -153,7 +153,7 @@ export function Pricing() {
           </Reveal>
 
           {/* Pro */}
-          <Reveal delay={180} className="h-full">
+          <Reveal delay={200} className="h-full">
             <article className="flex h-full flex-col rounded-2xl border border-[oklch(0.91_0.005_255)] bg-paper p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_color-mix(in_oklab,var(--color-brand)_12%,transparent)]">
               <div className="flex items-center justify-between gap-3">
                 <h3 className="text-[18px] font-bold text-ink">Pro</h3>
