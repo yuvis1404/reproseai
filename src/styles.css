@@ -166,20 +166,9 @@
 
   --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
 
-  --animate-float: float 6s ease-in-out infinite;
   --animate-shimmer: shimmer 3s linear infinite;
   --animate-caret: caret 1s step-end infinite;
   --animate-marquee: marquee 6s linear infinite;
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(-8px);
-  }
-  50% {
-    transform: translateY(8px);
-  }
 }
 
 @keyframes shimmer {
@@ -287,6 +276,182 @@
   to {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+@keyframes hero-badge-in {
+  from { opacity: 0; transform: translateY(-12px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes hero-headline-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-gradient-reveal {
+  from { background-position: -100% 0; }
+  to { background-position: 100% 0; }
+}
+
+@keyframes hero-subheadline-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-ctas-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes hero-social-proof-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes hero-mockup-enter {
+  from { opacity: 0; transform: translateY(60px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes hero-mockup-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes hero-mockup-shadow {
+  0%, 100% { box-shadow: 0 24px 80px color-mix(in oklab, var(--color-brand) 25%, transparent); }
+  50% { box-shadow: 0 40px 100px color-mix(in oklab, var(--color-brand) 35%, transparent); }
+}
+
+@keyframes hero-border-glow {
+  from { box-shadow: inset 0 0 24px color-mix(in oklab, var(--color-brand) 30%, transparent); }
+  to { box-shadow: inset 0 0 30px color-mix(in oklab, var(--color-brand-violet) 40%, transparent); }
+}
+
+@keyframes hero-button-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); box-shadow: 0 0 30px color-mix(in oklab, var(--color-brand-violet) 55%, transparent); }
+}
+
+@keyframes hero-tab-in {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-bloom-drift {
+  from { background-position: 50% 0, 0 0; }
+  to { background-position: 54% 4%, 0 0; }
+}
+
+@keyframes hero-orb-one-drift {
+  from { transform: translate(0, 0); }
+  to { transform: translate(40px, 30px); }
+}
+
+@keyframes hero-orb-two-drift {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-50px, 40px); }
+}
+
+@keyframes hero-orb-three-drift {
+  from { transform: translate(0, 0); }
+  to { transform: translate(30px, -40px); }
+}
+
+@keyframes grid-fade-in {
+  from { opacity: 0; }
+  to { opacity: 0.4; }
+}
+
+.hero-badge-in { animation: hero-badge-in 500ms cubic-bezier(0.34, 1.56, 0.64, 1) 100ms both; }
+.hero-headline-one { animation: hero-headline-in 600ms cubic-bezier(0.22, 1, 0.36, 1) 250ms both; }
+.hero-headline-two {
+  background-size: 200% 100%;
+  animation: hero-headline-in 600ms cubic-bezier(0.22, 1, 0.36, 1) 400ms both, hero-gradient-reveal 800ms ease 1000ms both;
+}
+.hero-subheadline { animation: hero-subheadline-in 600ms cubic-bezier(0.22, 1, 0.36, 1) 600ms both; }
+.hero-ctas { animation: hero-ctas-in 600ms cubic-bezier(0.34, 1.56, 0.64, 1) 800ms both; }
+.hero-social-proof { animation: hero-social-proof-in 500ms ease 1000ms both; }
+.hero-mockup-enter { animation: hero-mockup-enter 900ms cubic-bezier(0.22, 1, 0.36, 1) 700ms both; }
+.hero-mockup-float { animation: hero-mockup-float 5s ease-in-out 1600ms infinite; }
+.hero-mockup-glow { position: relative; animation: hero-mockup-shadow 5s ease-in-out 1600ms infinite; }
+.hero-mockup-glow::after {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 24px color-mix(in oklab, var(--color-brand) 30%, transparent);
+  content: "";
+  pointer-events: none;
+  animation: hero-border-glow 3s ease-in-out 1600ms alternate infinite;
+}
+.hero-mockup-glow > * { position: relative; z-index: 1; }
+.hero-button-pulse { animation: hero-button-pulse 400ms ease-in-out both; }
+.hero-tab-in { animation: hero-tab-in 300ms ease-out both; }
+
+.hero-bloom { animation: hero-bloom-drift 18s ease-in-out alternate infinite; }
+.hero-orb {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 50%;
+}
+.hero-orb-one {
+  top: -160px;
+  left: -120px;
+  width: 600px;
+  height: 600px;
+  background: color-mix(in oklab, var(--color-brand) 15%, transparent);
+  filter: blur(80px);
+  animation: hero-orb-one-drift 12s ease-in-out alternate infinite;
+}
+.hero-orb-two {
+  right: -100px;
+  bottom: -150px;
+  width: 500px;
+  height: 500px;
+  background: color-mix(in oklab, var(--color-brand-violet) 10%, transparent);
+  filter: blur(60px);
+  animation: hero-orb-two-drift 15s ease-in-out -5s alternate infinite;
+}
+.hero-orb-three {
+  top: 35%;
+  right: 8%;
+  width: 400px;
+  height: 400px;
+  background: color-mix(in oklab, var(--color-lavender) 8%, transparent);
+  filter: blur(100px);
+  animation: hero-orb-three-drift 18s ease-in-out -10s alternate infinite;
+}
+.grid-overlay {
+  background-image: radial-gradient(circle, color-mix(in oklab, var(--color-brand) 12%, transparent) 1px, transparent 1px);
+  background-size: 32px 32px;
+  animation: grid-fade-in 2s ease both;
+  mask-image: radial-gradient(ellipse at center, black 15%, transparent 78%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-badge-in,
+  .hero-headline-one,
+  .hero-headline-two,
+  .hero-subheadline,
+  .hero-ctas,
+  .hero-social-proof,
+  .hero-mockup-enter,
+  .hero-mockup-float,
+  .hero-mockup-glow,
+  .hero-mockup-glow::after,
+  .hero-button-pulse,
+  .hero-tab-in,
+  .hero-bloom,
+  .grid-overlay,
+  .hero-orb-one,
+  .hero-orb-two,
+  .hero-orb-three {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }
 
