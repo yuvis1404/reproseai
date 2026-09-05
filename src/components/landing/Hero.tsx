@@ -13,6 +13,9 @@ const avatars = [
 export function Hero() {
   return (
     <section className="hero-bloom relative overflow-hidden px-5 pb-24 pt-32">
+      <div className="hero-orb hero-orb-one" aria-hidden="true" />
+      <div className="hero-orb hero-orb-two" aria-hidden="true" />
+      <div className="hero-orb hero-orb-three" aria-hidden="true" />
       <div className="grid-overlay pointer-events-none absolute inset-0" aria-hidden="true" />
       <div className="relative mx-auto max-w-5xl text-center">
         <span className="hero-badge-in relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-brand bg-badge px-4 py-1.5 text-[13px] font-medium text-paper">
