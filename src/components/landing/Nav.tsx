@@ -13,22 +13,39 @@ const links = [
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    let previousY = window.scrollY;
+    let ticking = false;
+
+    const updateNavbar = () => {
+      const currentY = window.scrollY;
+      setScrolled(currentY > 80);
+      setHidden(currentY > 200 && currentY > previousY && !open);
+      previousY = currentY;
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateNavbar);
+        ticking = true;
+      }
+    };
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [open]);
 
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled
-          ? "border-b border-brand/30 bg-ink/80 backdrop-blur-[20px]"
-          : "border-b border-transparent bg-transparent",
+        "landing-nav fixed inset-x-0 top-0 z-50",
+        scrolled && "landing-nav--glass",
+        hidden && "landing-nav--hidden",
       )}
     >
       <nav
