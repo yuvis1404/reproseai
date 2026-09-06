@@ -375,7 +375,7 @@
 .hero-social-proof { animation: hero-social-proof-in 500ms ease 1000ms both; }
 .hero-mockup-enter { animation: hero-mockup-enter 900ms cubic-bezier(0.22, 1, 0.36, 1) 700ms both; }
 .hero-mockup-float { animation: hero-mockup-float 5s ease-in-out 1600ms infinite; }
-.hero-mockup-glow { position: relative; animation: hero-mockup-shadow 5s ease-in-out 1600ms infinite; }
+.hero-mockup-glow { position: relative; animation: hero-mockup-float 5s ease-in-out 1600ms infinite, hero-mockup-shadow 5s ease-in-out 1600ms infinite; }
 .hero-mockup-glow::after {
   position: absolute;
   inset: 0;
