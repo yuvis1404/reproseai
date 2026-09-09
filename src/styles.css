@@ -718,3 +718,122 @@
     transition: none;
   }
 }
+
+/* ── Repurpose engine premium UX ──────────────────────────────────── */
+
+/* 1. Breathing generate button */
+@keyframes button-breathe {
+  0%, 100% {
+    box-shadow: 0 4px 24px rgba(108, 58, 232, 0.4);
+  }
+  50% {
+    box-shadow: 0 8px 40px rgba(108, 58, 232, 0.65);
+  }
+}
+
+@keyframes gradient-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.button-ready {
+  background-size: 200% 200%;
+  animation:
+    button-breathe 2.5s ease-in-out infinite,
+    gradient-flow 4s ease-in-out infinite;
+}
+
+/* 3. Ready-to-repurpose badge pop */
+@keyframes ready-pop {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+.ready-badge {
+  animation: ready-pop 400ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* 4. Output skeleton lines (named to avoid clashing with hero shimmer) */
+@keyframes skeleton-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-line {
+  background: linear-gradient(
+    90deg,
+    rgba(108, 58, 232, 0.06) 0%,
+    rgba(108, 58, 232, 0.12) 50%,
+    rgba(108, 58, 232, 0.06) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s linear infinite;
+  border-radius: 6px;
+  height: 14px;
+}
+
+/* 4. Tab content slide */
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.tab-content-enter-right {
+  animation: slide-in-right 250ms ease-out forwards;
+}
+.tab-content-enter-left {
+  animation: slide-in-left 250ms ease-out forwards;
+}
+
+/* 5. Copy button success: checkmark spring + particle burst */
+@keyframes check-pop {
+  0% { transform: scale(0); }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+.check-pop {
+  animation: check-pop 300ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes copy-burst {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx, 0px), var(--dy, 0px)) scale(0.4);
+  }
+}
+.copy-burst-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 9999px;
+  background: #6c3ae8;
+  pointer-events: none;
+  animation: copy-burst 500ms ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button-ready,
+  .ready-badge,
+  .skeleton-line,
+  .tab-content-enter-right,
+  .tab-content-enter-left,
+  .check-pop,
+  .copy-burst-dot {
+    animation: none;
+  }
+  .tab-content-enter-right,
+  .tab-content-enter-left {
+    opacity: 1;
+    transform: none;
+  }
+}
