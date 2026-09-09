@@ -10,6 +10,7 @@ import {
   OrDivider,
   PasswordField,
 } from "@/components/auth/auth-ui";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { supabase } from "@/integrations/supabase/client";
 
 const title = "Sign in — Reprose AI";
@@ -32,6 +33,8 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const navigate = useNavigate();
+  const headingRef = useScrollAnimation<HTMLHeadingElement>();
+  const subtitleRef = useScrollAnimation<HTMLParagraphElement>();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -84,8 +87,8 @@ function LoginPage() {
       <Link to="/" className="text-[13px] font-medium text-gray-muted transition-colors hover:text-brand">
         ← Back to home
       </Link>
-      <h1 className="mt-5 text-[28px] font-extrabold tracking-[-0.8px] text-ink">Welcome back</h1>
-      <p className="mt-2 text-[16px] text-gray-muted">Sign in to your Reprose account</p>
+      <h1 ref={headingRef} className="scroll-animate mt-5 text-[28px] font-extrabold tracking-[-0.8px] text-ink">Welcome back</h1>
+      <p ref={subtitleRef} className="scroll-animate stagger-2 mt-2 text-[16px] text-gray-muted">Sign in to your Reprose account</p>
 
       <form onSubmit={handleSubmit} className="mt-7 flex flex-col gap-4">
         <AuthField

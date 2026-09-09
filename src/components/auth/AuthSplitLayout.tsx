@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import logoAsset from "@/assets/reprose-logo.png.asset.json";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 function FloatingCards() {
   return (
