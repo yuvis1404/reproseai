@@ -97,10 +97,10 @@ export function Features() {
         <div className="mt-14 grid gap-6 md:grid-cols-2">
           {cards.map((card, i) => (
             <Reveal key={card.title} delay={i * 100} className="h-full">
-              <article className="h-full rounded-2xl border border-brand/20 bg-paper/[0.04] p-7 backdrop-blur-[10px] transition-all duration-300 hover:-translate-y-1 hover:border-brand/50">
+              <article className="card-hover group h-full rounded-2xl border border-brand/20 bg-paper/[0.04] p-7 backdrop-blur-[10px] transition-all duration-300 hover:-translate-y-1 hover:border-brand/50">
                 <span
                   aria-hidden="true"
-                  className={`grid size-12 place-items-center rounded-full text-paper ${card.iconClass}`}
+                  className={`grid size-12 place-items-center rounded-full text-paper transition-transform duration-400 group-hover:-translate-y-1 group-hover:scale-110 ${card.iconClass}`}
                 >
                   {card.icon}
                 </span>
@@ -117,14 +117,14 @@ export function Features() {
 
           {/* Voice training — key differentiator */}
           <Reveal delay={200} className="md:col-span-2">
-            <article className="relative overflow-hidden rounded-2xl border border-brand/20 bg-paper/[0.04] p-7 shadow-[0_0_40px_color-mix(in_oklab,var(--color-brand)_20%,transparent)] backdrop-blur-[10px] md:p-10">
+            <article className="card-hover group relative overflow-hidden rounded-2xl border border-brand/20 bg-paper/[0.04] p-7 shadow-[0_0_40px_color-mix(in_oklab,var(--color-brand)_20%,transparent)] backdrop-blur-[10px] md:p-10">
               <span
                 aria-hidden="true"
                 className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-brand to-brand-violet"
               />
               <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
                 <div>
-                  <span aria-hidden="true" className="text-2xl">
+                  <span aria-hidden="true" className="inline-block text-2xl transition-transform duration-400 group-hover:-translate-y-1 group-hover:scale-110">
                     🎤
                   </span>
                   <p className="mt-3 inline-block rounded-full bg-brand/25 px-3 py-1 text-[11px] font-bold uppercase tracking-[2px] text-lavender">
