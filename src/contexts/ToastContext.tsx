@@ -8,6 +8,8 @@ import {
   type ReactNode,
 } from "react";
 
+import { ToastContainer } from "@/components/ui/Toast";
+
 export type ToastType = "success" | "error" | "info" | "warning";
 
 export interface Toast {
@@ -62,25 +64,9 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <ToastContext.Provider value={api}>
       {children}
-      {/* toasts state is exposed for the future visual layer */}
-      <ToastListBridge toasts={toasts} onDismiss={remove} />
+      <ToastContainer toasts={toasts} onDismiss={remove} />
     </ToastContext.Provider>
   );
-}
-
-// Placeholder for the future visual toast component.
-// Renders nothing for now; the provider keeps `toasts` in state
-// so a visual layer can subscribe to it later.
-function ToastListBridge({
-  toasts: _toasts,
-  onDismiss: _onDismiss,
-}: {
-  toasts: Toast[];
-  onDismiss: (id: string) => void;
-}) {
-  void _toasts;
-  void _onDismiss;
-  return null;
 }
 
 export function useToast(): ToastApi {

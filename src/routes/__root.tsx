@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
+import { ToastProvider } from "@/contexts/ToastContext";
 import { supabase } from "@/integrations/supabase/client";
 
 const primaryCta =
@@ -26,9 +27,7 @@ function NotFoundComponent() {
         <p className="text-gradient-brand text-[88px] font-extrabold leading-none tracking-[-3px] sm:text-[120px]">
           404
         </p>
-        <h1 className="mt-4 text-[26px] font-bold text-paper sm:text-[32px]">
-          Page not found
-        </h1>
+        <h1 className="mt-4 text-[26px] font-bold text-paper sm:text-[32px]">Page not found</h1>
         <p className="mt-3 text-[16px] leading-7 text-lavender">
           The page you're looking for doesn't exist.
         </p>
@@ -58,9 +57,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         <h1 className="mt-2 text-[26px] font-bold text-paper sm:text-[32px]">
           Something went wrong
         </h1>
-        <p className="mt-3 text-[16px] leading-7 text-lavender">
-          Try refreshing the page.
-        </p>
+        <p className="mt-3 text-[16px] leading-7 text-lavender">Try refreshing the page.</p>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <button
             onClick={() => {
@@ -103,9 +100,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "Reprose — Write once. Reach everywhere." },
-      { name: "twitter:description", content: "Reprose turns your newsletter or blog post into LinkedIn posts, X threads and Instagram carousels — in your own voice, in 60 seconds." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9f06ce40-c096-485c-9c3e-d71dde9e7632/id-preview-69b2b9f6--b682d18a-3469-46fc-93a5-2a5ce4ac6654.lovable.app-1785914849627.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9f06ce40-c096-485c-9c3e-d71dde9e7632/id-preview-69b2b9f6--b682d18a-3469-46fc-93a5-2a5ce4ac6654.lovable.app-1785914849627.png" },
+      {
+        name: "twitter:description",
+        content:
+          "Reprose turns your newsletter or blog post into LinkedIn posts, X threads and Instagram carousels — in your own voice, in 60 seconds.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9f06ce40-c096-485c-9c3e-d71dde9e7632/id-preview-69b2b9f6--b682d18a-3469-46fc-93a5-2a5ce4ac6654.lovable.app-1785914849627.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9f06ce40-c096-485c-9c3e-d71dde9e7632/id-preview-69b2b9f6--b682d18a-3469-46fc-93a5-2a5ce4ac6654.lovable.app-1785914849627.png",
+      },
     ],
     links: [
       {
@@ -160,10 +169,12 @@ function RootComponent() {
   }, [router, queryClient]);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
-      <Toaster />
-    </QueryClientProvider>
+    <ToastProvider>
+      <QueryClientProvider client={queryClient}>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+        <Toaster />
+      </QueryClientProvider>
+    </ToastProvider>
   );
 }
