@@ -837,3 +837,59 @@
     transform: none;
   }
 }
+
+/* ── Card hover effects ───────────────────────────────────────────── */
+
+.card-hover {
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(108, 58, 232, 0.12);
+  border-color: rgba(108, 58, 232, 0.3);
+}
+
+.card-hover-sm {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+.card-hover-sm:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(108, 58, 232, 0.08);
+  border-color: rgba(108, 58, 232, 0.25);
+}
+
+.card-hover-dark {
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.card-hover-dark:hover {
+  transform: translateY(-6px);
+  background: rgba(108, 58, 232, 0.1);
+  border-color: rgba(108, 58, 232, 0.45);
+  box-shadow: 0 20px 60px rgba(108, 58, 232, 0.2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-hover:hover,
+  .card-hover-sm:hover,
+  .card-hover-dark:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-hover:hover,
+  .card-hover-sm:hover,
+  .card-hover-dark:hover {
+    transform: none;
+  }
+}
