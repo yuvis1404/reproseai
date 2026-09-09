@@ -11,58 +11,83 @@ const links = [
   { label: "Pricing", href: "#pricing" },
 ];
 
-export function Nav() {
-  const [scrolled, setScrolled] = useState(false);
-  const [hidden, setHidden] = useState(false);
-  const [open, setOpen] = useState(false);
+type ScrollDirection = "up" | "down";
+
+const useScrollPosition = () => {
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    let previousY = window.scrollY;
-    let ticking = false;
+    const handleScroll = () => setScrollY(window.scrollY);
 
-    const updateNavbar = () => {
-      const currentY = window.scrollY;
-      setScrolled(currentY > 80);
-      setHidden(currentY > 200 && currentY > previousY && !open);
-      previousY = currentY;
-      ticking = false;
-    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
 
-    const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(updateNavbar);
-        ticking = true;
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return scrollY;
+};
+
+const useScrollDirection = () => {
+  const [direction, setDirection] = useState<ScrollDirection>("up");
+  const [prevScrollY, setPrevScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY < 80) {
+        setDirection("up");
+      } else if (currentScrollY > prevScrollY) {
+        setDirection("down");
+      } else {
+        setDirection("up");
       }
+
+      setPrevScrollY(currentScrollY);
     };
 
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [open]);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [prevScrollY]);
+
+  return direction;
+};
+
+export function Nav() {
+  const scrollY = useScrollPosition();
+  const scrollDirection = useScrollDirection();
+  const [open, setOpen] = useState(false);
+
+  const isScrolled = scrollY > 80;
 
   return (
     <header
       className={cn(
-        "landing-nav fixed inset-x-0 top-0 z-50",
-        scrolled && "landing-nav--glass",
-        hidden && "landing-nav--hidden",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-400 ease-in-out",
+        scrollDirection === "down" && scrollY > 200 && !open
+          ? "-translate-y-full"
+          : "translate-y-0",
+        isScrolled
+          ? "border-b border-[rgba(108,58,232,0.15)] bg-[rgba(13,10,26,0.85)] py-3.5 shadow-[0_4px_32px_rgba(0,0,0,0.3)] backdrop-blur-xl"
+          : "border-b border-transparent bg-transparent py-5",
       )}
     >
       <nav
         aria-label="Main"
-        className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-4 px-5"
+        className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5"
       >
         <Link
           to="/"
           aria-label="Reprose home"
-          className="flex min-w-0 items-center gap-2 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-violet"
+          className="group flex min-w-0 items-center gap-2 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-violet"
         >
           <img
             src={logoAsset.url}
             alt="Reprose AI logo"
-            className="size-9 shrink-0 rounded-xl"
+            className="size-9 shrink-0 rounded-xl transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105"
           />
-          <span className="truncate text-[22px] font-bold text-paper">
+          <span className="truncate text-[22px] font-bold text-paper transition-colors duration-200 group-hover:text-[#C4B5FD]">
             Reprose <span className="text-gradient-brand">AI</span>
           </span>
         </Link>
@@ -72,7 +97,7 @@ export function Nav() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-lavender transition-colors hover:text-paper focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-violet"
+              className="relative text-sm font-medium text-gray-400 transition-colors duration-150 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-[#6C3AE8] after:transition-all after:duration-250 hover:text-white hover:after:w-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-violet"
             >
               {link.label}
             </a>
@@ -119,7 +144,7 @@ export function Nav() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="text-base font-medium text-lavender hover:text-paper"
+                className="relative w-fit text-base font-medium text-gray-400 transition-colors duration-150 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-[#6C3AE8] after:transition-all after:duration-250 hover:text-white hover:after:w-full"
               >
                 {link.label}
               </a>
