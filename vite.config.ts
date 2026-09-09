@@ -12,4 +12,13 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    server: {
+      // Allow external preview/tunnel hostnames (e.g. e2b.app sandboxes) in development.
+      allowedHosts: ["e2b.app", ".e2b.app"],
+    },
+    preview: {
+      allowedHosts: ["e2b.app", ".e2b.app"],
+    },
+  },
 });

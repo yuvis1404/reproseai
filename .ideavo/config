@@ -1,0 +1,47 @@
+{
+  "systemSetup": [],
+  "templateName": "custom",
+  "projectDependencies": [
+    {
+      "name": "Install Dependencies",
+      "command": "bun install"
+    }
+  ],
+  "codeChecks": [
+    {
+      "name": "Lint",
+      "command": "bun run lint"
+    }
+  ],
+  "buildSteps": [
+    {
+      "name": "Build Project",
+      "command": "bun run build"
+    }
+  ],
+  "runStep": [
+    {
+      "name": "Run Dev Server",
+      "command": "bun run dev --port 8080",
+      "port": "8080"
+    }
+  ],
+  "deploySteps": [],
+  "cleanupFiles": [
+    "node_modules",
+    "dist",
+    "dist-ssr",
+    ".output",
+    ".nitro",
+    ".tanstack",
+    ".vinxi",
+    ".wrangler"
+  ],
+  "packageManager": "bun",
+  "envPaths": [
+    {
+      "name": "default",
+      "path": ".env"
+    }
+  ]
+}
