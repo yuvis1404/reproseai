@@ -348,10 +348,10 @@ export function RepurposeWorkspace({
             disabled={!canSubmit || loading}
             onClick={handleGenerate}
             className={cn(
-              "mt-4 flex h-14 w-full items-center justify-center gap-2 rounded-xl text-[17px] font-bold transition-all",
+              "relative mt-4 flex h-14 w-full items-center justify-center gap-2 rounded-xl text-[17px] font-bold transition-all overflow-hidden",
               !canSubmit && !loading
                 ? "cursor-not-allowed bg-[oklch(0.93_0.01_265)] text-gray-muted"
-                : "bg-gradient-to-br from-brand to-brand-violet text-paper hover:scale-[1.01] hover:brightness-110 hover:shadow-[0_8px_24px_color-mix(in_oklab,var(--color-brand)_40%,transparent)]",
+                : "bg-gradient-to-br from-brand to-brand-violet text-paper hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_8px_32px_rgba(108,58,232,0.45)] active:scale-[0.97] active:-translate-y-0 active:shadow-[0_2px_8px_rgba(108,58,232,0.3)]",
               loading && "opacity-90",
             )}
           >
@@ -446,7 +446,7 @@ export function RepurposeWorkspace({
                     <button
                       type="button"
                       onClick={handleCopy}
-                      className="flex h-9 items-center gap-1.5 rounded-lg border border-brand/40 px-3 text-[13px] font-semibold text-brand transition-colors hover:bg-brand/5"
+                      className="flex h-9 items-center gap-1.5 rounded-lg border border-brand/40 px-3 text-[13px] font-semibold text-brand transition-all duration-150 hover:scale-110 active:scale-95 hover:bg-brand/5"
                     >
                       {copied ? (
                         <>
@@ -462,7 +462,7 @@ export function RepurposeWorkspace({
                       type="button"
                       onClick={handleRegenerate}
                       disabled={regenerating !== null}
-                      className="flex h-9 items-center gap-1.5 rounded-lg px-3 text-[13px] font-semibold text-gray-muted transition-colors hover:bg-[oklch(0.96_0.01_265)] disabled:opacity-60"
+                      className="flex h-9 items-center gap-1.5 rounded-lg px-3 text-[13px] font-semibold text-gray-muted transition-all duration-150 hover:scale-110 active:scale-95 hover:bg-[oklch(0.96_0.01_265)] disabled:opacity-60"
                     >
                       {regenerating === activeTab ? (
                         <Loader2 className="h-4 w-4 animate-spin" />

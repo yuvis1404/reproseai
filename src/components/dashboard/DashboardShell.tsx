@@ -135,7 +135,7 @@ export function DashboardShell({ children }: { children: ReactNode }) {
           type="button"
           onClick={() => setDrawerOpen(true)}
           aria-label="Open menu"
-          className="rounded-md p-2 text-paper transition-colors hover:bg-white/5"
+          className="rounded-md p-2 text-paper transition-all duration-150 hover:scale-110 active:scale-95 hover:bg-white/5"
         >
           <Menu className="h-6 w-6" />
         </button>

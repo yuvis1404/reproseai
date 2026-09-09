@@ -304,14 +304,14 @@ function DeleteConfirm({
         <button
           type="button"
           onClick={onCancel}
-          className="h-8 rounded-lg border border-[#E9E8FF] bg-paper px-3 text-[13px] font-semibold text-ink"
+          className="relative rounded-lg border border-[#E9E8FF] bg-paper px-3 text-[13px] font-semibold text-ink transition-all duration-200 hover:scale-[1.01] hover:shadow-[0_4px_16px_rgba(239,68,68,0.3)] active:scale-[0.97] p-1"
         >
           Cancel
         </button>
         <button
           type="button"
           onClick={onConfirm}
-          className="h-8 rounded-lg bg-red-600 px-3 text-[13px] font-semibold text-white hover:bg-red-700"
+          className="relative rounded-lg bg-red-600 px-3 text-[13px] font-semibold text-white hover:bg-red-700 hover:scale-[1.01] hover:shadow-[0_4px_16px_rgba(239,68,68,0.3)] transition-all duration-200 active:scale-[0.97] p-1"
         >
           Delete
         </button>

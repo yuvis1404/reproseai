@@ -76,7 +76,7 @@ export function PasswordField({
           type="button"
           onClick={() => setVisible((prev) => !prev)}
           aria-label={visible ? "Hide password" : "Show password"}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-muted transition-colors hover:text-brand"
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-muted transition-all duration-150 hover:scale-110 active:scale-95 hover:text-brand"
         >
           {visible ? <EyeOff size={18} /> : <Eye size={18} />}
         </button>
@@ -114,7 +114,7 @@ export function GradientButton({
       type={type}
       onClick={onClick}
       disabled={loading}
-      className="flex h-[52px] w-full items-center justify-center gap-2 rounded-[10px] bg-gradient-to-br from-brand to-brand-violet text-[16px] font-bold text-paper transition-all duration-200 hover:scale-[1.01] hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:scale-100"
+      className="relative flex h-[52px] w-full items-center justify-center gap-2 rounded-[10px] bg-gradient-to-br from-brand to-brand-violet text-[16px] font-bold text-paper transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_8px_32px_rgba(108,58,232,0.45)] active:scale-[0.97] active:-translate-y-0 active:shadow-[0_2px_8px_rgba(108,58,232,0.3)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:scale-100 disabled:hover:translate-y-0 overflow-hidden"
     >
       {loading ? (
         <>
@@ -153,7 +153,7 @@ export function GoogleButton({
       onClick={onClick}
       disabled={disabled || loading}
       aria-busy={loading}
-      className="flex h-12 w-full items-center justify-center gap-2.5 rounded-[10px] border border-[oklch(0.92_0.01_265)] bg-paper text-[15px] font-semibold text-ink transition-colors duration-200 hover:bg-[oklch(0.97_0.005_265)] disabled:cursor-not-allowed disabled:opacity-60"
+      className="relative flex h-12 w-full items-center justify-center gap-2.5 rounded-[10px] border border-[oklch(0.92_0.01_265)] bg-paper text-[15px] font-semibold text-ink transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(108,58,232,0.2)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 overflow-hidden"
     >
       {loading ? (
         <>
