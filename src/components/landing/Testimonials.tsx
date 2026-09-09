@@ -43,9 +43,13 @@ export function Testimonials() {
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {testimonials.map((t, i) => (
             <Reveal key={t.name} delay={i * 100} className="h-full">
-              <figure className="flex h-full flex-col rounded-2xl border border-paper/10 bg-paper/[0.05] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-brand/40">
+              <figure className="card-hover flex h-full flex-col rounded-2xl border border-paper/10 bg-paper/[0.05] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-brand/40">
                 <p aria-label="Rated 5 out of 5" className="text-[14px]">
-                  ⭐⭐⭐⭐⭐
+                  <span className="star-icon inline-block">⭐</span>
+                  <span className="star-icon inline-block">⭐</span>
+                  <span className="star-icon inline-block">⭐</span>
+                  <span className="star-icon inline-block">⭐</span>
+                  <span className="star-icon inline-block">⭐</span>
                 </p>
                 <blockquote className="mt-4 flex-1 text-[16px] italic leading-7 text-paper">
                   “{t.quote}”

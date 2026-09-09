@@ -340,7 +340,7 @@ function HistoryCard({
     row.input_text.length > 120 ? `${row.input_text.slice(0, 120)}...` : row.input_text;
 
   return (
-    <article className="rounded-2xl border border-[#E9E8FF] bg-paper p-5 shadow-[0_2px_8px_rgba(108,58,232,0.05)] transition-all duration-200 hover:-translate-y-0.5 hover:border-brand/30 hover:shadow-[0_4px_16px_rgba(108,58,232,0.1)]">
+    <article className="card-hover-sm rounded-2xl border border-[#E9E8FF] bg-paper p-5 shadow-[0_2px_8px_rgba(108,58,232,0.05)] transition-all duration-200 hover:-translate-y-0.5 hover:border-brand/30 hover:shadow-[0_4px_16px_rgba(108,58,232,0.1)]">
       <div className="flex items-baseline justify-between gap-3">
         <p className="text-[14px] font-bold text-ink">{formatDate(row.created_at)}</p>
         <p className="text-[13px] text-gray-muted">{relativeTime(row.created_at)}</p>
