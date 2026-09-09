@@ -26,8 +26,8 @@ export function Hero() {
         </span>
 
         <h1 className="mt-8 text-[38px] font-extrabold leading-[1.05] tracking-[-1.5px] text-paper sm:text-[48px] md:text-[72px] md:leading-[80px] md:tracking-[-2px]">
-          <span className="hero-line-1 block whitespace-nowrap">One Post.</span>
-          <span className="hero-line-2 hero-gradient-text text-gradient-brand block whitespace-nowrap drop-shadow-[0_0_28px_color-mix(in_oklab,var(--color-brand)_45%,transparent)]">
+          <span className="hero-headline-one block whitespace-nowrap">One Post.</span>
+          <span className="hero-headline-two text-gradient-brand block whitespace-nowrap drop-shadow-[0_0_28px_color-mix(in_oklab,var(--color-brand)_45%,transparent)]">
             Every Platform.
           </span>
         </h1>
