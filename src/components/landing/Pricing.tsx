@@ -84,7 +84,7 @@ export function Pricing() {
         <div className="mt-14 grid items-center gap-6 md:grid-cols-3 lg:gap-8">
           {/* Free */}
           <Reveal className="h-full">
-            <article className="flex h-full flex-col rounded-2xl border border-[oklch(0.91_0.005_255)] bg-paper p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_color-mix(in_oklab,var(--color-brand)_12%,transparent)]">
+            <article className="card-hover flex h-full flex-col rounded-2xl border border-[oklch(0.91_0.005_255)] bg-paper p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_color-mix(in_oklab,var(--color-brand)_12%,transparent)]">
               <h3 className="text-[18px] font-bold text-ink">Free</h3>
               <p className="mt-4 flex items-end gap-1">
                 <span className="text-[48px] font-bold leading-none text-ink">$0</span>
@@ -117,7 +117,7 @@ export function Pricing() {
 
           {/* Creator */}
           <Reveal delay={100} className="h-full md:scale-105">
-            <article className="relative z-10 flex h-full flex-col rounded-2xl bg-gradient-to-br from-brand-deep to-brand p-7 shadow-[0_0_40px_color-mix(in_oklab,var(--color-brand)_40%,transparent)]">
+            <article className="creator-card relative z-10 flex h-full flex-col rounded-2xl bg-gradient-to-br from-brand-deep to-brand p-7 shadow-[0_0_40px_color-mix(in_oklab,var(--color-brand)_40%,transparent)]">
               <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-violet px-3 py-1 text-[11px] font-bold uppercase tracking-[1.5px] text-paper">
                 Most popular
               </span>
@@ -154,7 +154,7 @@ export function Pricing() {
 
           {/* Pro */}
           <Reveal delay={200} className="h-full">
-            <article className="flex h-full flex-col rounded-2xl border border-[oklch(0.91_0.005_255)] bg-paper p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_color-mix(in_oklab,var(--color-brand)_12%,transparent)]">
+            <article className="card-hover flex h-full flex-col rounded-2xl border border-[oklch(0.91_0.005_255)] bg-paper p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_color-mix(in_oklab,var(--color-brand)_12%,transparent)]">
               <div className="flex items-center justify-between gap-3">
                 <h3 className="text-[18px] font-bold text-ink">Pro</h3>
                 <span className="rounded-full bg-brand-tint px-3 py-1 text-[11px] font-semibold text-brand-deep">
