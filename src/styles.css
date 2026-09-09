@@ -491,6 +491,143 @@
   }
 }
 
+/* ── Hero Entrance Animation ─────────────────────────── */
+@keyframes float-slow {
+  0%, 100% { transform: translate(0px, 0px); }
+  33% { transform: translate(30px, -20px); }
+  66% { transform: translate(-15px, 20px); }
+}
+
+@keyframes float-reverse {
+  0%, 100% { transform: translate(0px, 0px); }
+  33% { transform: translate(-25px, 25px); }
+  66% { transform: translate(20px, -15px); }
+}
+
+@keyframes orb-fade-in {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-badge-in {
+  from { opacity: 0; transform: translateY(-16px) scale(0.85); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes hero-mockup-in {
+  from { opacity: 0; transform: translateY(60px) scale(0.93); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes float-mockup {
+  0%, 100% { transform: translateY(0px); box-shadow: 0 24px 80px rgba(108,58,232,0.2); }
+  50% { transform: translateY(-14px); box-shadow: 0 40px 100px rgba(108,58,232,0.35); }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Orbs */
+.orb-1 {
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(108,58,232,0.18) 0%, transparent 70%);
+  filter: blur(80px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: orb-fade-in 1.5s ease-out forwards, float-slow 14s ease-in-out infinite;
+  animation-delay: 0s, 1.5s;
+}
+
+.orb-2 {
+  position: absolute;
+  bottom: -100px;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(155,111,255,0.12) 0%, transparent 70%);
+  filter: blur(60px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: orb-fade-in 1.5s ease-out forwards, float-reverse 18s ease-in-out infinite;
+  animation-delay: 0.3s, 1.8s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb-1, .orb-2 {
+    animation: orb-fade-in 0.01ms forwards;
+  }
+}
+
+/* Hero entrance sequence */
+.hero-badge {
+  opacity: 0;
+  animation: hero-badge-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
+}
+
+.hero-line-1 {
+  opacity: 0;
+  animation: hero-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.28s forwards;
+}
+
+.hero-line-2 {
+  opacity: 0;
+  animation: hero-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.42s forwards;
+}
+
+.hero-subtext {
+  opacity: 0;
+  animation: hero-fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.58s forwards;
+}
+
+.hero-cta {
+  opacity: 0;
+  animation: hero-fade-up 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.74s forwards;
+}
+
+.hero-social-proof {
+  opacity: 0;
+  animation: hero-fade-up 0.5s ease 0.9s forwards;
+}
+
+.hero-mockup {
+  opacity: 0;
+  animation: hero-mockup-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.65s forwards,
+    float-mockup 5.5s ease-in-out 1.55s infinite;
+}
+
+.hero-gradient-text {
+  background-size: 200% 200%;
+  animation: gradient-shift 5s ease-in-out infinite;
+  animation-delay: 1.2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-badge, .hero-line-1, 
+  .hero-line-2, .hero-subtext,
+  .hero-cta, .hero-social-proof,
+  .hero-mockup {
+    opacity: 1;
+    animation: none;
+  }
+  .hero-mockup {
+    transform: none;
+    box-shadow: 0 24px 80px rgba(108,58,232,0.2);
+  }
+}
+
 /* Thin purple scrollbar for generated output boxes */
 .repurpose-scroll {
   scrollbar-width: thin;

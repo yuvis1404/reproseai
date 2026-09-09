@@ -13,11 +13,11 @@ const avatars = [
 export function Hero() {
   return (
     <section className="hero-bloom relative overflow-hidden px-5 pb-24 pt-32">
-      <div className="hero-orb hero-orb-one" aria-hidden="true" />
-      <div className="hero-orb hero-orb-two" aria-hidden="true" />
+      <div className="orb-1" aria-hidden="true" />
+      <div className="orb-2" aria-hidden="true" />
       <div className="grid-overlay pointer-events-none absolute inset-0" aria-hidden="true" />
       <div className="relative mx-auto max-w-5xl text-center">
-        <span className="hero-badge-in relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-brand bg-badge px-4 py-1.5 text-[13px] font-medium text-paper">
+        <span className="hero-badge relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-brand bg-badge px-4 py-1.5 text-[13px] font-medium text-paper">
           ✨ AI-Powered Content Repurposing for Writers
           <span
             aria-hidden="true"
@@ -26,18 +26,18 @@ export function Hero() {
         </span>
 
         <h1 className="mt-8 text-[38px] font-extrabold leading-[1.05] tracking-[-1.5px] text-paper sm:text-[48px] md:text-[72px] md:leading-[80px] md:tracking-[-2px]">
-          <span className="hero-headline-one block whitespace-nowrap">One Post.</span>
-          <span className="hero-headline-two text-gradient-brand block whitespace-nowrap drop-shadow-[0_0_28px_color-mix(in_oklab,var(--color-brand)_45%,transparent)]">
+          <span className="hero-line-1 block whitespace-nowrap">One Post.</span>
+          <span className="hero-line-2 hero-gradient-text text-gradient-brand block whitespace-nowrap drop-shadow-[0_0_28px_color-mix(in_oklab,var(--color-brand)_45%,transparent)]">
             Every Platform.
           </span>
         </h1>
 
-        <p className="hero-subheadline mx-auto mt-6 max-w-2xl text-[18px] leading-7 text-lavender md:text-[20px] md:leading-8">
+        <p className="hero-subtext mx-auto mt-6 max-w-2xl text-[18px] leading-7 text-lavender md:text-[20px] md:leading-8">
           Reprose turns your newsletter or blog post into LinkedIn posts, X threads,
           and Instagram carousels — written in YOUR voice, in 60 seconds.
         </p>
 
-        <div className="hero-ctas mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <div className="hero-cta mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
             to="/signup"
             aria-label="Try Reprose free, no credit card required"
