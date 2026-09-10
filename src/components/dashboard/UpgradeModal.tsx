@@ -1,4 +1,5 @@
 import { Check, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -60,6 +61,19 @@ export function UpgradeModal({
   atLimit?: boolean;
   onUpgrade?: (plan: "creator" | "pro") => void;
 }) {
+  const [isClosing, setIsClosing] = useState(false);
+
+  // Reset the closing state whenever the modal reopens.
+  useEffect(() => {
+    if (open) setIsClosing(false);
+  }, [open]);
+
+  function handleClose() {
+    if (isClosing) return;
+    setIsClosing(true);
+    window.setTimeout(() => onClose(), 250);
+  }
+
   if (!open) return null;
 
   return (
@@ -67,19 +81,25 @@ export function UpgradeModal({
       <button
         type="button"
         aria-label="Close upgrade dialog"
-        onClick={onClose}
-        className="fixed inset-0 bg-[rgba(13,10,26,0.85)] backdrop-blur-sm"
+        onClick={handleClose}
+        className={cn(
+          "fixed inset-0 bg-[rgba(13,10,26,0.85)] backdrop-blur-sm",
+          isClosing ? "backdrop-exiting" : "backdrop-entering",
+        )}
       />
 
       <div
         role="dialog"
         aria-modal="true"
         aria-label="Upgrade your plan"
-        className="relative w-full max-w-[600px] rounded-[20px] bg-paper p-6 shadow-[0_24px_80px_rgba(0,0,0,0.3)] sm:p-10"
+        className={cn(
+          "relative w-full max-w-[600px] rounded-[20px] bg-paper p-6 shadow-[0_24px_80px_rgba(0,0,0,0.3)] sm:p-10",
+          isClosing ? "modal-exiting" : "modal-entering",
+        )}
       >
         <button
           type="button"
-          onClick={onClose}
+          onClick={handleClose}
           aria-label="Close"
           className="absolute right-4 top-4 rounded-lg p-1.5 text-gray-muted transition-colors hover:bg-[oklch(0.96_0.01_265)] hover:text-ink"
         >
@@ -90,9 +110,7 @@ export function UpgradeModal({
         <div className="text-center">
           <div className="text-[48px] leading-none">🎉</div>
           <h2 className="mt-3 text-[22px] font-bold leading-tight tracking-[-0.5px] text-ink sm:text-[26px]">
-            {atLimit
-              ? "You've used all your free repurposes!"
-              : "Unlock more repurposes"}
+            {atLimit ? "You've used all your free repurposes!" : "Unlock more repurposes"}
           </h2>
           <p className="mx-auto mt-2 max-w-[440px] text-[15px] text-gray-muted sm:text-[16px]">
             You're clearly getting value from Reprose. Let's unlock more.
@@ -124,10 +142,7 @@ export function UpgradeModal({
               ) : null}
 
               <p
-                className={cn(
-                  "text-[18px] font-bold",
-                  plan.highlight ? "text-brand" : "text-ink",
-                )}
+                className={cn("text-[18px] font-bold", plan.highlight ? "text-brand" : "text-ink")}
               >
                 {plan.name}
               </p>
@@ -152,10 +167,7 @@ export function UpgradeModal({
               <p className="mt-1 text-[13px] text-gray-muted">{plan.annual}</p>
 
               <div
-                className={cn(
-                  "my-4 h-px w-full",
-                  plan.highlight ? "bg-brand/20" : "bg-[#E5E7EB]",
-                )}
+                className={cn("my-4 h-px w-full", plan.highlight ? "bg-brand/20" : "bg-[#E5E7EB]")}
               />
 
               <ul className="space-y-2.5">
@@ -197,7 +209,7 @@ export function UpgradeModal({
         <div className="mt-4 text-center">
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             className="text-[13px] text-gray-muted underline-offset-2 transition-colors hover:text-ink hover:underline"
           >
             Maybe later
