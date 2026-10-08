@@ -45,11 +45,11 @@ function NotFoundComponent() {
 
 function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
-  const reportedError = error instanceof Error ? error : new Error(String(error));
   const router = useRouter();
   useEffect(() => {
+    const reportedError = error instanceof Error ? error : new Error(String(error));
     reportLovableError(reportedError, { boundary: "tanstack_root_error_component" });
-  }, [reportedError]);
+  }, [error]);
 
   return (
     <div className="font-display hero-bloom flex min-h-screen items-center justify-center bg-ink px-5 py-16">
