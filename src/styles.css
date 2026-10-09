@@ -233,6 +233,43 @@
 .reveal-delay-100 { animation-delay: 100ms !important; }
 .reveal-delay-200 { animation-delay: 200ms !important; }
 
+/* Layered scroll depth is scoped to the homepage and composes with transforms. */
+.landing-page .landing-depth-layer {
+  translate: 0 var(--landing-depth-y, 0px);
+}
+
+@keyframes landing-depth-reveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 44px, 0) scale(0.975);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.landing-scroll-ready .landing-page .scroll-reveal:not(.is-visible) {
+  transform: translate3d(0, 44px, 0) scale(0.975);
+}
+
+.landing-scroll-ready .landing-page .scroll-reveal.is-visible {
+  animation-name: landing-depth-reveal;
+  animation-duration: 850ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-page .landing-depth-layer {
+    translate: none;
+  }
+  .landing-scroll-ready .landing-page .scroll-reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .landing-nav {
   border-bottom: 1px solid transparent;
   background: transparent;

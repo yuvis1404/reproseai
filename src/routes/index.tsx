@@ -8,6 +8,7 @@ import { Nav } from "@/components/landing/Nav";
 import { PlatformBar } from "@/components/landing/PlatformBar";
 import { Pricing } from "@/components/landing/Pricing";
 import { LandingScrollObserver } from "@/components/landing/Reveal";
+import { LandingParallax } from "@/components/landing/LandingParallax";
 import { SiteFooter } from "@/components/landing/SiteFooter";
 import { Testimonials } from "@/components/landing/Testimonials";
 
@@ -56,8 +57,9 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="font-display min-h-screen bg-ink antialiased">
+    <div className="landing-page font-display min-h-screen bg-ink antialiased">
       <LandingScrollObserver />
+      <LandingParallax />
       <Nav />
       <main>
         <Hero />

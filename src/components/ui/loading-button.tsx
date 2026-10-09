@@ -43,7 +43,7 @@ export function LoadingButton({
       ) : (
         children
       )}
-      <style jsx global>{`
+      <style>{`
         @keyframes shimmer {
           0% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
