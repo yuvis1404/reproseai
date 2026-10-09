@@ -47,7 +47,7 @@ export function LandingParallax() {
           add(section, ".scroll-reveal:not(.h-full)", 0.026, 16);
           section.querySelectorAll<HTMLElement>(".scroll-reveal.h-full").forEach((element, i) => {
             element.classList.add("landing-depth-layer");
-            layers.push({ element, section, depth: [-0.025, 0.015, -0.018][i % 3], limit: 18, top: 0, height: 0, current: 0 });
+            layers.push({ element, section, depth: [-0.025, 0.015, -0.018][i % 3] ?? -0.018, limit: 18, top: 0, height: 0, current: 0 });
           });
         }
       });
