@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import { ArrowDown, ArrowUpRight, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 import { HeroMockup } from "./HeroMockup";
 
@@ -12,46 +14,42 @@ const avatars = [
 
 export function Hero() {
   return (
-    <section className="hero-bloom relative overflow-hidden px-5 pb-24 pt-32">
-      <div className="orb-1" aria-hidden="true" />
-      <div className="orb-2" aria-hidden="true" />
+    <section className="premium-hero relative overflow-hidden bg-ink px-5 pb-16 pt-32">
       <div className="grid-overlay pointer-events-none absolute inset-0" aria-hidden="true" />
       <div className="relative mx-auto max-w-5xl text-center">
-        <span className="hero-badge relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-brand bg-badge px-4 py-1.5 text-[13px] font-medium text-paper">
-          ✨ AI-Powered Content Repurposing for Writers
+        <span className="hero-badge relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-paper/15 bg-paper/5 px-4 py-2 text-[12px] font-medium text-lavender">
+          <Sparkles className="size-3.5" aria-hidden="true" /> Reprose AI <span className="mx-1 text-paper/25">/</span> Made for your voice
           <span
             aria-hidden="true"
             className="animate-shimmer absolute inset-y-0 left-0 w-1/3 [animation-delay:600ms]"
           />
         </span>
 
-        <h1 className="mt-8 text-[38px] font-extrabold leading-[1.05] tracking-[-1.5px] text-paper sm:text-[48px] md:text-[72px] md:leading-[80px] md:tracking-[-2px]">
+        <h1 className="premium-hero-title mt-7 text-[38px] font-semibold leading-[1.08] text-paper sm:text-[56px] md:text-[80px]">
           <span className="hero-headline-one block whitespace-nowrap">One Post.</span>
-          <span className="hero-headline-two text-gradient-brand block whitespace-nowrap drop-shadow-[0_0_28px_color-mix(in_oklab,var(--color-brand)_45%,transparent)]">
+          <span className="hero-headline-two text-gradient-brand block whitespace-nowrap">
             Every Platform.
           </span>
         </h1>
 
-        <p className="hero-subtext mx-auto mt-6 max-w-2xl text-[18px] leading-7 text-lavender md:text-[20px] md:leading-8">
+        <p className="hero-subtext mx-auto mt-6 max-w-xl text-[17px] leading-7 text-paper/65 md:text-[18px] md:leading-8">
           Reprose turns your newsletter or blog post into LinkedIn posts, X threads,
           and Instagram carousels — written in YOUR voice, in 60 seconds.
         </p>
 
         <div className="hero-cta mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Link
+          <Button asChild variant="landing" className="h-12 w-full rounded-lg px-6 text-sm font-semibold sm:w-auto"><Link
             to="/signup"
             aria-label="Try Reprose free, no credit card required"
-            className="inline-flex h-14 w-full items-center justify-center rounded-xl bg-gradient-to-br from-brand to-brand-violet px-8 text-base font-bold text-paper transition-all duration-200 hover:scale-[1.02] hover:shadow-[0_0_30px_color-mix(in_oklab,var(--color-brand)_50%,transparent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet sm:w-auto"
           >
-            Try Free — No Credit Card →
-          </Link>
-          <a
+            Try Free — No Credit Card <ArrowUpRight aria-hidden="true" />
+          </Link></Button>
+          <Button asChild variant="landingOutline" className="h-12 w-full rounded-lg px-6 text-sm sm:w-auto"><a
             href="#how-it-works"
             aria-label="See how Reprose works"
-            className="inline-flex h-14 w-full items-center justify-center rounded-xl border border-paper/70 px-8 text-base font-semibold text-paper transition-all duration-200 hover:bg-paper hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet sm:w-auto"
           >
-            See How It Works ↓
-          </a>
+            See How It Works <ArrowDown aria-hidden="true" />
+          </a></Button>
         </div>
 
         <div className="hero-social-proof mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -65,10 +63,10 @@ export function Hero() {
               </span>
             ))}
           </div>
-          <p className="text-[14px] text-lavender">⭐ Loved by 500+ newsletter writers</p>
+          <p className="text-[12px] text-paper/55">Loved by 500+ newsletter writers</p>
         </div>
 
-        <div className="mt-16">
+        <div className="mt-12">
           <HeroMockup />
         </div>
       </div>
