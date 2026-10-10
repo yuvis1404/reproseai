@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep scroll-depth behavior in the homepage-only LandingParallax controller, gated by Intersection Observer and reduced-motion preferences; independent CSS translate preserves existing transform animations and hover states.
+- Scope premium marketing treatments under the landing-page wrapper and use shared Button variants for its calls to action so authenticated screens retain their existing presentation.
