@@ -94,7 +94,7 @@ export function Features() {
           </h2>
         </Reveal>
 
-        <div className="mt-14 grid gap-5 md:grid-cols-3">
+        <div className="mt-14 grid gap-x-5 gap-y-10 md:grid-cols-3">
           {cards.map((card, i) => (
             <Reveal key={card.title} delay={i * 100} className="h-full">
               <article className="premium-feature-card card-hover group flex h-full flex-col rounded-lg border border-paper/10 bg-paper/[0.03] p-6">

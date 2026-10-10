@@ -158,6 +158,12 @@
   --color-paper-warm: oklch(0.985 0.003 90);
   --color-gray-muted: oklch(0.55 0.03 258);
   --color-gray-faint: oklch(0.44 0.03 258);
+  --color-social-linkedin: oklch(0.45 0.13 250);
+  --color-social-instagram: oklch(0.61 0.22 355);
+  --color-saving: oklch(0.92 0.09 150);
+  --color-saving-foreground: oklch(0.38 0.11 150);
+  --shadow-premium-card: 0 12px 36px color-mix(in oklab, var(--color-ink) 6%, transparent);
+  --shadow-premium-preview: 0 24px 70px color-mix(in oklab, var(--color-ink) 50%, transparent);
 
   /* dashboard chrome */
   --color-nav: #0d0a1a;
@@ -1035,4 +1041,50 @@
 }
 .modal-exiting {
   animation: modal-out 250ms ease-in forwards;
+}
+
+/* Premium homepage treatments stay isolated from the signed-in experience. */
+.landing-page { letter-spacing: 0; }
+.landing-page h1, .landing-page h2, .landing-page h3,
+.landing-page p, .landing-page span, .landing-page a { letter-spacing: 0; }
+.premium-section-title {
+  font-size: 42px;
+  line-height: 1.16;
+  font-weight: 600;
+  text-wrap: balance;
+}
+.premium-hero { border-bottom: 1px solid color-mix(in oklab, var(--color-paper) 10%, transparent); }
+.premium-hero .grid-overlay { opacity: 0.2; }
+.premium-hero-title { text-wrap: balance; }
+.landing-page .hero-mockup-glow {
+  animation: hero-mockup-float 5.5s ease-in-out 1550ms infinite;
+  box-shadow: var(--shadow-premium-preview);
+}
+.landing-page .hero-mockup-glow::after { display: none; }
+.premium-preview-header { background: color-mix(in oklab, var(--color-paper) 3%, var(--color-ink)); }
+.premium-feature-card:hover, .premium-voice-card:hover {
+  box-shadow: none;
+  border-color: color-mix(in oklab, var(--color-brand-violet) 55%, transparent);
+}
+.landing-page .premium-price-card { box-shadow: var(--shadow-premium-card); }
+.landing-page .creator-card { box-shadow: var(--shadow-premium-card); }
+.landing-page .creator-card:hover { box-shadow: var(--shadow-premium-preview); }
+.premium-pricing-grid article { min-height: 470px; }
+.premium-testimonial { box-shadow: none; }
+.premium-testimonial blockquote { font-style: normal; }
+.premium-testimonial figcaption { border-top: 1px solid color-mix(in oklab, var(--color-paper) 10%, transparent); padding-top: 22px; }
+.landing-page .premium-final-cta { background: var(--color-ink-soft); border-top: 1px solid color-mix(in oklab, var(--color-brand-violet) 25%, transparent); }
+.landing-page .premium-final-cta > .grain,
+.landing-page .premium-final-cta > span { display: none; }
+@media (max-width: 767px) {
+  .premium-section-title { font-size: 30px; }
+  .premium-hero-title { font-size: 36px; }
+  .premium-hero { padding-top: 116px; }
+  .premium-pricing-grid article { min-height: 440px; }
+}
+@media (max-width: 359px) {
+  .premium-hero-title { font-size: 30px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-page .hero-mockup-glow { animation: none; }
 }
