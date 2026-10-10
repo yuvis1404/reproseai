@@ -1,15 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { Faq } from "@/components/landing/Faq";
 import { Features } from "@/components/landing/Features";
 import { FinalCta } from "@/components/landing/FinalCta";
 import { Hero } from "@/components/landing/Hero";
 import { HowItWorks } from "@/components/landing/HowItWorks";
 import { Nav } from "@/components/landing/Nav";
+import { PixelDunes } from "@/components/landing/PixelDunes";
 import { PlatformBar } from "@/components/landing/PlatformBar";
 import { Pricing } from "@/components/landing/Pricing";
 import { LandingScrollObserver } from "@/components/landing/Reveal";
 import { LandingParallax } from "@/components/landing/LandingParallax";
 import { SiteFooter } from "@/components/landing/SiteFooter";
+import { Stats } from "@/components/landing/Stats";
 import { Testimonials } from "@/components/landing/Testimonials";
 
 const title = "Reprose — Write once. Reach everywhere.";
@@ -68,6 +71,10 @@ function Index() {
         <Features />
         <Pricing />
         <Testimonials />
+        <PixelDunes className="bg-ink text-paper-warm" slow />
+        <Stats />
+        <Faq />
+        <PixelDunes className="bg-paper text-brand-deep" reverse />
         <FinalCta />
       </main>
       <SiteFooter />

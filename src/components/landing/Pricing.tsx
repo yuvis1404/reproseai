@@ -4,6 +4,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 import { Reveal, SectionLabel } from "./Reveal";
+import { RollText } from "./RollText";
 
 type Feature = { label: string; included: boolean };
 
@@ -131,9 +132,7 @@ export function Pricing() {
               <p className="mt-1 text-[14px] text-lavender">
                 {annual ? "$180 billed annually" : "$15/mo billed annually"}
               </p>
-              <p className="mt-2 text-[14px] text-lavender">
-                For serious newsletter writers
-              </p>
+              <p className="mt-2 text-[14px] text-lavender">For serious newsletter writers</p>
               <ul className="mt-6 flex-1 space-y-3">
                 {creator.map((f) => (
                   <li key={f.label} className="flex gap-2 text-[15px] text-paper">
@@ -147,7 +146,7 @@ export function Pricing() {
                 aria-label="Start creating on the Creator plan"
                 className="mt-8 inline-flex h-12 w-full items-center justify-center rounded-xl bg-paper px-5 text-sm font-bold text-brand transition-all duration-200 hover:scale-[1.02] hover:shadow-[0_0_28px_color-mix(in_oklab,var(--color-paper)_55%,transparent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper"
               >
-                Start Creating →
+                <RollText text="Start Creating →" />
               </Link>
             </article>
           </Reveal>

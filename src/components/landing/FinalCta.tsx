@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { Reveal } from "./Reveal";
+import { RollText } from "./RollText";
 
 export function FinalCta() {
   return (
@@ -26,7 +27,7 @@ export function FinalCta() {
           aria-label="Start free with Reprose, no credit card required"
           className="mt-9 inline-flex h-[60px] items-center justify-center rounded-xl bg-paper px-10 text-base font-bold text-brand transition-all duration-200 hover:scale-[1.02] hover:shadow-[0_0_36px_color-mix(in_oklab,var(--color-paper)_60%,transparent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-paper"
         >
-          Start Free — No Credit Card →
+          <RollText text="Start Free — No Credit Card →" />
         </Link>
       </Reveal>
     </section>
