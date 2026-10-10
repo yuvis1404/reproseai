@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import logoAsset from "@/assets/reprose-logo.png.asset.json";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -11,71 +12,34 @@ const links = [
   { label: "Pricing", href: "#pricing" },
 ];
 
-type ScrollDirection = "up" | "down";
-
-const useScrollPosition = () => {
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  return scrollY;
-};
-
-const useScrollDirection = () => {
-  const [direction, setDirection] = useState<ScrollDirection>("up");
-  const [prevScrollY, setPrevScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY < 80) {
-        setDirection("up");
-      } else if (currentScrollY > prevScrollY) {
-        setDirection("down");
-      } else {
-        setDirection("up");
-      }
-
-      setPrevScrollY(currentScrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [prevScrollY]);
-
-  return direction;
-};
-
 export function Nav() {
-  const scrollY = useScrollPosition();
-  const scrollDirection = useScrollDirection();
+  const sentinel = useRef<HTMLDivElement>(null);
+  const [compact, setCompact] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const isScrolled = scrollY > 80;
+  useEffect(() => {
+    const element = sentinel.current;
+    if (!element || typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry) setCompact(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+    });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
 
   return (
+    <>
+    <div ref={sentinel} className="landing-nav-sentinel" aria-hidden="true" />
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-400 ease-in-out",
-        scrollDirection === "down" && scrollY > 200 && !open
-          ? "-translate-y-full"
-          : "translate-y-0",
-        isScrolled
-          ? "border-b border-[rgba(108,58,232,0.15)] bg-[rgba(13,10,26,0.85)] py-3.5 shadow-[0_4px_32px_rgba(0,0,0,0.3)] backdrop-blur-xl"
-          : "border-b border-transparent bg-transparent py-5",
+        "landing-nav z-50",
+        compact && "landing-nav--compact",
+        open && "landing-nav--open",
       )}
     >
       <nav
         aria-label="Main"
-        className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5"
+        className="mx-auto flex max-w-6xl items-center justify-between gap-4"
       >
         <Link
           to="/"
@@ -87,17 +51,17 @@ export function Nav() {
             alt="Reprose AI logo"
             className="size-9 shrink-0 rounded-xl transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105"
           />
-          <span className="truncate text-[22px] font-bold text-paper transition-colors duration-200 group-hover:text-[#C4B5FD]">
+          <span className="landing-nav-wordmark truncate text-[22px] font-bold text-paper group-hover:text-lavender">
             Reprose <span className="text-gradient-brand">AI</span>
           </span>
         </Link>
 
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="landing-nav-links hidden items-center gap-8 md:flex">
           {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="relative text-sm font-medium text-gray-400 transition-colors duration-150 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-[#6C3AE8] after:transition-all after:duration-250 hover:text-white hover:after:w-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-violet"
+              className="relative whitespace-nowrap text-sm font-medium text-lavender transition-colors duration-150 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-brand after:transition-all after:duration-250 hover:text-paper hover:after:w-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-violet"
             >
               {link.label}
             </a>
@@ -105,6 +69,7 @@ export function Nav() {
         </div>
 
         <div className="hidden items-center gap-3 md:flex">
+          <Button asChild variant="ghost" className="h-auto rounded-xl border border-paper/70 px-4 py-2 text-sm font-semibold text-paper hover:bg-paper hover:text-ink">
           <Link
             to="/login"
             aria-label="Sign in to Reprose"
@@ -112,6 +77,8 @@ export function Nav() {
           >
             Sign In
           </Link>
+          </Button>
+          <Button asChild className="h-auto rounded-xl bg-brand px-4 py-2 text-sm font-semibold text-paper hover:bg-brand-deep">
           <Link
             to="/signup"
             aria-label="Start free with Reprose"
@@ -119,9 +86,11 @@ export function Nav() {
           >
             Start Free →
           </Link>
+          </Button>
         </div>
 
-        <button
+        <Button
+          variant="ghost"
           type="button"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
@@ -133,18 +102,18 @@ export function Nav() {
           ) : (
             <Menu className="size-5" aria-hidden="true" />
           )}
-        </button>
+        </Button>
       </nav>
 
       {open && (
-        <div className="border-t border-brand/20 bg-ink/95 px-5 py-6 backdrop-blur-[20px] md:hidden">
+        <div id="landing-mobile-menu" className="border-t border-brand/20 bg-ink/95 px-5 py-6 backdrop-blur-[20px] md:hidden">
           <div className="flex flex-col gap-4">
             {links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="relative w-fit text-base font-medium text-gray-400 transition-colors duration-150 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-[#6C3AE8] after:transition-all after:duration-250 hover:text-white hover:after:w-full"
+                className="relative w-fit text-base font-medium text-lavender transition-colors duration-150 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-brand after:transition-all after:duration-250 hover:text-paper hover:after:w-full"
               >
                 {link.label}
               </a>
@@ -169,5 +138,6 @@ export function Nav() {
         </div>
       )}
     </header>
+    </>
   );
 }
