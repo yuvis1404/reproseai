@@ -1,5 +1,5 @@
 # Homepage design refinement
 
-- [ ] Refine headline hierarchy and product preview.
-- [ ] Restyle process, feature, pricing, and testimonial cards.
-- [ ] Verify homepage controls, mobile fit, and existing motion.
+- [x] Refine headline hierarchy and product preview.
+- [x] Restyle process, feature, pricing, and testimonial cards.
+- [x] Verify homepage controls, mobile fit, and existing motion.
