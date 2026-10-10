@@ -65,13 +65,15 @@ export function Nav() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4 transition-transform duration-400 ease-smooth md:pt-5",
+        "fixed inset-x-0 top-0 z-50 flex justify-center px-4 transition-[transform,padding] duration-400 ease-smooth",
+        isScrolled ? "pt-2.5 md:pt-3" : "pt-4 md:pt-5",
         hidden ? "-translate-y-full" : "translate-y-0",
       )}
     >
       <div
         className={cn(
-          "relative flex h-14 w-full max-w-6xl items-center justify-between gap-4 rounded-full border py-1.5 pl-5 pr-1.5 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-smooth",
+          "relative flex w-full max-w-6xl items-center justify-between gap-4 rounded-full border py-1.5 transition-[background-color,border-color,box-shadow,backdrop-filter,height] duration-500 ease-smooth",
+          isScrolled ? "h-12 pl-4 pr-1.5 md:h-14" : "h-14 pl-5 pr-1.5 md:h-[60px]",
           isScrolled
             ? "border-white/15 bg-ink/70 shadow-[0_4px_32px_rgba(0,0,0,0.3),inset_0_1px_0_0_rgba(255,255,255,0.08)] backdrop-blur-2xl backdrop-saturate-150"
             : "border-transparent bg-ink/40 backdrop-blur-lg md:bg-transparent md:backdrop-blur-none",
@@ -86,9 +88,17 @@ export function Nav() {
           <img
             src={logoAsset.url}
             alt="Reprose AI logo"
-            className="size-8 shrink-0 rounded-lg transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105"
+            className={cn(
+              "shrink-0 rounded-lg transition-[width,height,transform] duration-300 ease-smooth group-hover:-rotate-6 group-hover:scale-105",
+              isScrolled ? "size-7" : "size-8",
+            )}
           />
-          <span className="truncate text-[20px] font-bold text-paper transition-colors duration-200 group-hover:text-[#C4B5FD]">
+          <span
+            className={cn(
+              "truncate font-bold text-paper transition-[color,font-size] duration-300 ease-smooth group-hover:text-[#C4B5FD]",
+              isScrolled ? "text-[17px]" : "text-[20px]",
+            )}
+          >
             Reprose <span className="text-gradient-brand">AI</span>
           </span>
         </Link>
@@ -110,7 +120,10 @@ export function Nav() {
           <Link
             to="/login"
             aria-label="Sign in to Reprose"
-            className="header-intro rounded-full px-4 py-2 text-sm font-semibold text-paper transition-all duration-200 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet"
+            className={cn(
+              "header-intro rounded-full px-4 text-sm font-semibold text-paper transition-all duration-300 ease-smooth hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet",
+              isScrolled ? "py-1.5" : "py-2",
+            )}
             style={{ animationDelay: "325ms" }}
           >
             Sign In
@@ -118,7 +131,10 @@ export function Nav() {
           <Link
             to="/signup"
             aria-label="Start free with Reprose"
-            className="header-intro inline-flex items-center rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-paper transition-all duration-200 hover:bg-brand-deep hover:shadow-[0_8px_24px_color-mix(in_oklab,var(--color-brand)_45%,transparent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet"
+            className={cn(
+              "header-intro inline-flex items-center rounded-full bg-brand text-sm font-semibold text-paper transition-all duration-300 ease-smooth hover:bg-brand-deep hover:shadow-[0_8px_24px_color-mix(in_oklab,var(--color-brand)_45%,transparent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet",
+              isScrolled ? "px-4 py-1.5" : "px-5 py-2.5",
+            )}
             style={{ animationDelay: "400ms" }}
           >
             Start Free
@@ -130,7 +146,10 @@ export function Nav() {
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="header-intro grid size-10 shrink-0 place-items-center rounded-full bg-brand text-paper transition-transform duration-200 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet md:hidden"
+          className={cn(
+            "header-intro grid shrink-0 place-items-center rounded-full bg-brand text-paper transition-[width,height,transform] duration-300 ease-smooth hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet md:hidden",
+            isScrolled ? "size-9" : "size-10",
+          )}
           style={{ animationDelay: "150ms" }}
         >
           {open ? (
@@ -144,8 +163,8 @@ export function Nav() {
       {open && (
         <div
           className={cn(
-            "absolute inset-x-4 top-[76px] rounded-3xl border border-white/15 bg-ink/95 p-5 shadow-[0_24px_64px_rgba(0,0,0,0.5)] backdrop-blur-2xl md:hidden",
-            isScrolled ? "" : "bg-ink/85",
+            "absolute inset-x-4 rounded-3xl border border-white/15 bg-ink/95 p-5 shadow-[0_24px_64px_rgba(0,0,0,0.5)] backdrop-blur-2xl transition-[top] duration-400 ease-smooth md:hidden",
+            isScrolled ? "top-[62px] bg-ink/95" : "top-[76px] bg-ink/85",
           )}
         >
           <div className="flex flex-col gap-1">
