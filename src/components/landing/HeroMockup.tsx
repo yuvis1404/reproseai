@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Copy, Sparkles, FileText, Check } from "lucide-react";
+import { Copy, Sparkles } from "lucide-react";
 
 const tabs = ["LinkedIn", "X Thread", "Instagram", "Hook"];
 const badges = ["LinkedIn", "X Thread", "Instagram", "Hook"];
@@ -68,20 +68,16 @@ export function HeroMockup() {
 
   return (
     <div className="hero-mockup-enter">
-      <div className="hero-mockup-float hero-mockup-glow overflow-hidden rounded-lg border border-paper/15 bg-ink-soft text-left">
-        <div className="premium-preview-header flex items-center justify-between border-b border-paper/10 px-5 py-3">
-          <span className="flex items-center gap-2 text-[12px] font-medium text-paper"><Sparkles className="size-3.5 text-brand-violet" /> Reprose Studio</span>
-          <span className="text-[11px] text-paper/40">Your content, reimagined</span>
-        </div>
-        <div className="grid lg:grid-cols-2">
+      <div className="hero-mockup-float hero-mockup-glow rounded-2xl border border-brand/30 bg-ink-soft p-4 shadow-[0_40px_80px_color-mix(in_oklab,var(--color-brand)_25%,transparent)] sm:p-6">
+        <div className="grid gap-4 lg:grid-cols-2">
         {/* Input panel */}
-        <div className="border-b border-paper/10 bg-ink/60 p-5 lg:border-b-0 lg:border-r sm:p-6">
-          <p className="flex items-center gap-2 text-[12px] font-medium text-paper/60">
-            <FileText className="size-3.5" /> Original newsletter
+        <div className="rounded-2xl border border-paper/10 bg-ink/60 p-4">
+          <p className="text-[13px] font-medium text-lavender">
+            📝 Paste your newsletter
           </p>
           <p
             aria-live="polite"
-            className="mt-4 min-h-[132px] rounded-md border border-paper/10 bg-paper/[0.03] p-4 text-left text-[13px] leading-6 text-paper/70"
+            className="mt-3 min-h-[132px] rounded-xl border border-paper/10 bg-paper/5 p-3 text-left text-[13px] leading-6 text-lavender"
           >
             {typedText}
             <span aria-hidden="true" className="animate-caret ml-0.5 text-brand-violet">|</span>
@@ -90,20 +86,20 @@ export function HeroMockup() {
             {badges.map((b) => (
               <span
                 key={b}
-                className="inline-flex items-center gap-1 rounded-md border border-paper/10 bg-paper/5 px-2 py-1 text-[11px] font-medium text-lavender"
+                className="rounded-full border border-brand/40 bg-brand/15 px-3 py-1 text-[12px] font-medium text-lavender"
               >
-                <Check className="size-3" /> {b}
+                ✅ {b}
               </span>
             ))}
           </div>
-          <div className={`mt-5 flex w-full items-center justify-center gap-2 rounded-md bg-brand px-4 py-2.5 text-sm font-semibold text-paper ${buttonPulsing ? "hero-button-pulse" : ""}`}>
+          <div className={`mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-brand to-brand-violet px-4 py-2.5 text-sm font-semibold text-paper ${buttonPulsing ? "hero-button-pulse" : ""}`}>
             Reprose It
             <Sparkles className="size-4" aria-hidden="true" />
           </div>
         </div>
 
         {/* Output panel */}
-        <div className="bg-ink/30 p-5 sm:p-6">
+        <div className="rounded-2xl border border-paper/10 bg-ink/60 p-4">
           <div className="flex items-start justify-between gap-3">
             <div className="flex min-w-0 flex-wrap gap-1.5">
               {tabs.map((tab, i) => (

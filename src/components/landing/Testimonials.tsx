@@ -1,5 +1,4 @@
-import { Star } from "lucide-react";
-import { Reveal, SectionLabel } from "./Reveal";
+import { Reveal } from "./Reveal";
 
 const testimonials = [
   {
@@ -30,12 +29,11 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="bg-ink px-5 py-24">
+    <section className="bg-gradient-to-b from-ink-soft to-ink px-5 py-24">
       <div className="mx-auto max-w-6xl">
         <Reveal>
-          <SectionLabel>The writer’s perspective</SectionLabel>
-          <h2 className="premium-section-title mt-4 text-center text-paper">
-            Less rewriting. More reaching.
+          <h2 className="text-center text-[32px] font-bold tracking-[-1px] text-paper md:text-[48px] md:leading-[56px]">
+            Writers love Reprose
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-center text-[18px] leading-8 text-lavender">
             Join 500+ newsletter writers saving 6+ hours every week
@@ -45,11 +43,15 @@ export function Testimonials() {
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {testimonials.map((t, i) => (
             <Reveal key={t.name} delay={i * 100} className="h-full">
-              <figure className="premium-testimonial card-hover flex h-full flex-col rounded-lg border border-paper/10 bg-paper/[0.03] p-7">
-                <p aria-label="Rated 5 out of 5" className="flex gap-1 text-lavender">
-                  {Array.from({ length: 5 }, (_, index) => <Star key={index} className="size-3.5 fill-current" aria-hidden="true" />)}
+              <figure className="card-hover flex h-full flex-col rounded-2xl border border-paper/10 bg-paper/[0.05] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-brand/40">
+                <p aria-label="Rated 5 out of 5" className="text-[14px]">
+                  <span className="star-icon inline-block">⭐</span>
+                  <span className="star-icon inline-block">⭐</span>
+                  <span className="star-icon inline-block">⭐</span>
+                  <span className="star-icon inline-block">⭐</span>
+                  <span className="star-icon inline-block">⭐</span>
                 </p>
-                <blockquote className="mt-6 flex-1 text-[15px] leading-7 text-paper/85">
+                <blockquote className="mt-4 flex-1 text-[16px] italic leading-7 text-paper">
                   “{t.quote}”
                 </blockquote>
                 <figcaption className="mt-6 flex items-center gap-3">

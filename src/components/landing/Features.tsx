@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { AudioLines, Check, X } from "lucide-react";
 import { Reveal, SectionLabel } from "./Reveal";
 
 function LinkedInIcon({ className }: { className?: string }) {
@@ -35,7 +34,7 @@ const cards: {
 }[] = [
   {
     icon: <LinkedInIcon className="size-6" />,
-    iconClass: "bg-social-linkedin",
+    iconClass: "bg-[oklch(0.45_0.13_250)]",
     title: "LinkedIn Posts",
     description:
       "Hook-first, short-paragraph posts that drive engagement and grow your professional audience.",
@@ -66,7 +65,7 @@ const cards: {
   },
   {
     icon: <InstagramIcon className="size-6" />,
-    iconClass: "bg-social-instagram",
+    iconClass: "bg-gradient-to-br from-[oklch(0.7_0.2_20)] to-[oklch(0.65_0.24_350)]",
     title: "Instagram Carousels",
     description:
       "Slide-by-slide carousel scripts ready to design in Canva or Unfold.",
@@ -84,31 +83,32 @@ export function Features() {
   return (
     <section
       id="features"
-      className="premium-features relative scroll-mt-24 overflow-hidden bg-ink px-5 py-24"
+      className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-ink to-ink-soft px-5 py-24"
     >
+      <div className="star-dots pointer-events-none absolute inset-0" aria-hidden="true" />
       <div className="relative mx-auto max-w-6xl">
         <Reveal>
           <SectionLabel>Features</SectionLabel>
-          <h2 className="premium-section-title mx-auto mt-4 max-w-3xl text-center text-paper">
-            Every platform. Still unmistakably you.
+          <h2 className="mx-auto mt-4 max-w-3xl text-center text-[32px] font-bold leading-tight tracking-[-1px] text-paper md:text-[48px] md:leading-[56px]">
+            Everything a writer needs to multiply their reach
           </h2>
         </Reveal>
 
-        <div className="mt-14 grid gap-x-5 gap-y-10 md:grid-cols-3">
+        <div className="mt-14 grid gap-6 md:grid-cols-2">
           {cards.map((card, i) => (
             <Reveal key={card.title} delay={i * 100} className="h-full">
-              <article className="premium-feature-card card-hover group flex h-full flex-col rounded-lg border border-paper/10 bg-paper/[0.03] p-6">
+              <article className="card-hover group h-full rounded-2xl border border-brand/20 bg-paper/[0.04] p-7 backdrop-blur-[10px] transition-all duration-300 hover:-translate-y-1 hover:border-brand/50">
                 <span
                   aria-hidden="true"
-                  className={`grid size-10 place-items-center rounded-lg text-paper transition-transform duration-300 group-hover:-translate-y-1 ${card.iconClass}`}
+                  className={`grid size-12 place-items-center rounded-full text-paper transition-transform duration-400 group-hover:-translate-y-1 group-hover:scale-110 ${card.iconClass}`}
                 >
                   {card.icon}
                 </span>
                 <h3 className="mt-5 text-[20px] font-bold text-paper">{card.title}</h3>
-                <p className="mt-3 flex-1 text-[14px] leading-6 text-paper/60">
+                <p className="mt-3 text-[16px] leading-7 text-lavender">
                   {card.description}
                 </p>
-                <div className="mt-7 min-h-32 space-y-1.5 border-t border-paper/10 pt-5 text-[12px] leading-6 text-lavender">
+                <div className="mt-5 space-y-1.5 rounded-xl border border-paper/10 bg-ink/70 p-4 text-[13px] leading-6 text-lavender">
                   {card.preview}
                 </div>
               </article>
@@ -116,24 +116,24 @@ export function Features() {
           ))}
 
           {/* Voice training — key differentiator */}
-          <Reveal delay={200} className="md:col-span-3">
-            <article className="premium-voice-card card-hover group relative overflow-hidden rounded-lg border border-brand-violet/30 bg-ink-soft p-7 md:p-10">
+          <Reveal delay={200} className="md:col-span-2">
+            <article className="card-hover group relative overflow-hidden rounded-2xl border border-brand/20 bg-paper/[0.04] p-7 shadow-[0_0_40px_color-mix(in_oklab,var(--color-brand)_20%,transparent)] backdrop-blur-[10px] md:p-10">
               <span
                 aria-hidden="true"
                 className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-brand to-brand-violet"
               />
               <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
                 <div>
-                  <span aria-hidden="true" className="inline-block align-middle text-brand-violet">
-                    <AudioLines className="size-6" />
+                  <span aria-hidden="true" className="inline-block text-2xl transition-transform duration-400 group-hover:-translate-y-1 group-hover:scale-110">
+                    🎤
                   </span>
-                  <p className="ml-3 inline-block text-[11px] font-medium uppercase text-lavender">
-                    Your voice, amplified
+                  <p className="mt-3 inline-block rounded-full bg-brand/25 px-3 py-1 text-[11px] font-bold uppercase tracking-[2px] text-lavender">
+                    Key differentiator
                   </p>
                   <h3 className="mt-4 text-[24px] font-bold leading-tight text-paper md:text-[28px]">
-                    Your words. Not an AI impersonation.
+                    Repurposed Content That Actually Sounds Like YOU
                   </h3>
-                  <p className="mt-4 text-[15px] leading-7 text-paper/65">
+                  <p className="mt-4 text-[18px] leading-8 text-lavender">
                     Other tools write in generic AI voice. Reprose learns from your past
                     writing — your tone, vocabulary, sentence style, and personality — so
                     every output feels like YOU wrote it.
@@ -141,9 +141,9 @@ export function Features() {
                 </div>
 
                 <div className="grid items-center gap-4 sm:grid-cols-[1fr_auto_1fr]">
-                  <div className="border-t border-paper/15 pt-4">
-                    <p className="flex items-center gap-2 text-[11px] font-semibold uppercase text-paper/50">
-                      <X className="size-3.5" /> Generic AI output
+                  <div className="rounded-2xl border border-paper/10 bg-paper/[0.06] p-4">
+                    <p className="text-[12px] font-bold uppercase tracking-wider text-[oklch(0.72_0.17_25)]">
+                      ✕ Generic AI output
                     </p>
                     <p className="mt-2 text-[13px] leading-6 text-lavender/80">
                       "In today's fast-paced digital landscape, leveraging content
@@ -156,9 +156,9 @@ export function Features() {
                   >
                     → REPROSE →
                   </p>
-                  <div className="border-t border-brand-violet pt-4">
-                    <p className="flex items-center gap-2 text-[11px] font-semibold uppercase text-lavender">
-                      <Check className="size-3.5" /> Your voice output
+                  <div className="rounded-2xl border border-brand/40 bg-brand/10 p-4 shadow-[0_0_24px_color-mix(in_oklab,var(--color-brand)_25%,transparent)]">
+                    <p className="text-[12px] font-bold uppercase tracking-wider text-[oklch(0.8_0.17_150)]">
+                      ✓ Your voice output
                     </p>
                     <p className="mt-2 text-[13px] leading-6 text-paper">
                       "I spent 8 hours on this newsletter. Then posted it once. That was
