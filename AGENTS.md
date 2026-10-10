@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep scroll-depth behavior in the homepage-only LandingParallax controller, gated by Intersection Observer and reduced-motion preferences; independent CSS translate preserves existing transform animations and hover states.
+- Keep homepage navigation compaction in Nav, triggered by an Intersection Observer sentinel; scoped CSS transitions preserve other pages and reduced-motion disables the morph animation.
