@@ -306,9 +306,9 @@
   .landing-scroll-ready .landing-page #features .feature-voice-before,
   .landing-scroll-ready .landing-page #features .feature-voice-arrow,
   .landing-scroll-ready .landing-page #features .feature-voice-after {
-    animation: none;
+    animation: none !important;
     opacity: 1;
-    transform: none;
+    transform: none !important;
   }
   .landing-page .landing-depth-layer {
     translate: none;
