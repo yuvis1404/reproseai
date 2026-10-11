@@ -87,7 +87,7 @@ export function Features() {
     >
       <div className="star-dots pointer-events-none absolute inset-0" aria-hidden="true" />
       <div className="relative mx-auto max-w-6xl">
-        <Reveal>
+        <Reveal className="feature-heading-reveal">
           <SectionLabel>Features</SectionLabel>
           <h2 className="mx-auto mt-4 max-w-3xl text-center text-[32px] font-bold leading-tight tracking-[-1px] text-paper md:text-[48px] md:leading-[56px]">
             Everything a writer needs to multiply their reach
@@ -96,7 +96,7 @@ export function Features() {
 
         <div className="mt-14 grid gap-6 md:grid-cols-2">
           {cards.map((card, i) => (
-            <Reveal key={card.title} delay={i * 100} className="h-full">
+            <Reveal key={card.title} delay={i * 100} className={`feature-card-reveal feature-card-reveal--${i % 2 === 0 ? "left" : "right"} h-full`}>
               <article className="card-hover group h-full rounded-2xl border border-brand/20 bg-paper/[0.04] p-7 backdrop-blur-[10px] transition-all duration-300 hover:-translate-y-1 hover:border-brand/50">
                 <span
                   aria-hidden="true"
@@ -108,7 +108,7 @@ export function Features() {
                 <p className="mt-3 text-[16px] leading-7 text-lavender">
                   {card.description}
                 </p>
-                <div className="mt-5 space-y-1.5 rounded-xl border border-paper/10 bg-ink/70 p-4 text-[13px] leading-6 text-lavender">
+                <div className="feature-preview mt-5 space-y-1.5 rounded-xl border border-paper/10 bg-ink/70 p-4 text-[13px] leading-6 text-lavender">
                   {card.preview}
                 </div>
               </article>
@@ -116,7 +116,7 @@ export function Features() {
           ))}
 
           {/* Voice training — key differentiator */}
-          <Reveal delay={200} className="md:col-span-2">
+          <Reveal delay={200} className="feature-voice-reveal md:col-span-2">
             <article className="card-hover group relative overflow-hidden rounded-2xl border border-brand/20 bg-paper/[0.04] p-7 shadow-[0_0_40px_color-mix(in_oklab,var(--color-brand)_20%,transparent)] backdrop-blur-[10px] md:p-10">
               <span
                 aria-hidden="true"
@@ -141,7 +141,7 @@ export function Features() {
                 </div>
 
                 <div className="grid items-center gap-4 sm:grid-cols-[1fr_auto_1fr]">
-                  <div className="rounded-2xl border border-paper/10 bg-paper/[0.06] p-4">
+                  <div className="feature-voice-before rounded-2xl border border-paper/10 bg-paper/[0.06] p-4">
                     <p className="text-[12px] font-bold uppercase tracking-wider text-[oklch(0.72_0.17_25)]">
                       ✕ Generic AI output
                     </p>
@@ -152,11 +152,11 @@ export function Features() {
                   </div>
                   <p
                     aria-hidden="true"
-                    className="text-gradient-brand text-center text-[13px] font-extrabold tracking-wider"
+                    className="feature-voice-arrow text-gradient-brand text-center text-[13px] font-extrabold tracking-wider"
                   >
                     → REPROSE →
                   </p>
-                  <div className="rounded-2xl border border-brand/40 bg-brand/10 p-4 shadow-[0_0_24px_color-mix(in_oklab,var(--color-brand)_25%,transparent)]">
+                  <div className="feature-voice-after rounded-2xl border border-brand/40 bg-brand/10 p-4 shadow-[0_0_24px_color-mix(in_oklab,var(--color-brand)_25%,transparent)]">
                     <p className="text-[12px] font-bold uppercase tracking-wider text-[oklch(0.8_0.17_150)]">
                       ✓ Your voice output
                     </p>

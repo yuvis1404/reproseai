@@ -42,6 +42,14 @@ export function LandingParallax() {
           add(section, ".grid-overlay", 0.18, 120);
           add(section, "h1", 0.085, 48);
           add(section, ".mt-16", -0.055, 32);
+        } else if (section.id === "features") {
+          // Foreground previews drift independently, without moving the grid or hover transforms.
+          add(section, ".star-dots", 0.075, 60);
+          add(section, ".feature-heading-reveal", -0.025, 12);
+          add(section, ".feature-card-reveal--left", -0.045, 10);
+          add(section, ".feature-card-reveal--right", 0.045, 10);
+          add(section, ".feature-preview", -0.025, 8);
+          add(section, ".feature-voice-reveal", -0.018, 10);
         } else {
           // Different foreground depths without changing any grid positions.
           add(section, ".scroll-reveal:not(.h-full)", 0.026, 16);
