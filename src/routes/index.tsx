@@ -74,7 +74,7 @@ function Index() {
         <PixelDunes className="bg-ink text-paper-warm" slow />
         <Stats />
         <Faq />
-        <PixelDunes className="bg-paper text-brand-deep" reverse />
+        <PixelDunes className="bg-paper text-ink" reverse />
         <FinalCta />
       </main>
       <SiteFooter />
