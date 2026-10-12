@@ -1398,6 +1398,15 @@
  * faint conic sheen rotates behind the content. Colors stay in the
  * brand purple/violet family on the ink background. */
 
+/* ── ThreeUI shader mount frame ───────────────────────────────────── */
+/* Sized, clipping host for isolated shader iframes (e.g. the cloud
+ * field background). Position it with utilities (e.g. absolute inset-0). */
+.shader-frame {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 @keyframes aurora-drift-a {
   0%, 100% { transform: translate3d(-6%, -4%, 0) scale(1); }
   33% { transform: translate3d(10%, 6%, 0) scale(1.18); }

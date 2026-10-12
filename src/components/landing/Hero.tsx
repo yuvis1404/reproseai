@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 
+import { PortalFieldCollection } from "@/shaders/PortalFieldCollection";
+
 import { HeroMockup } from "./HeroMockup";
-import { MotionGradientBackground } from "./MotionGradientBackground";
 import { RollText } from "./RollText";
 
 const avatars = [
@@ -15,7 +16,9 @@ const avatars = [
 export function Hero() {
   return (
     <section className="hero-bloom relative overflow-hidden px-5 pb-24 pt-32">
-      <MotionGradientBackground />
+      <div className="shader-frame absolute inset-0" aria-hidden="true">
+        <PortalFieldCollection variant="cloud-field" hue={0} saturation={1} brightness={1} />
+      </div>
       <div className="grid-overlay pointer-events-none absolute inset-0" aria-hidden="true" />
       <div className="relative mx-auto max-w-5xl text-center">
         <span className="hero-badge relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-brand bg-badge px-4 py-1.5 text-[13px] font-medium text-paper">
