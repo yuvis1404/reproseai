@@ -398,78 +398,78 @@
   .landing-nav, .landing-nav nav, .landing-nav-wordmark { transition: none; }
 }
 
-/* Glass buttons — adapted from the ThreeUI RectangleButtons "Dark Glass"
-   source (section-button layers, geometry and timing kept). Every fill,
-   edge and highlight is a token-driven custom property, so each button
-   keeps its own colors and the theme is unchanged. */
-
-.glass-btn {
+/* Dark-glass nav buttons — adapted from the ThreeUI RectangleButtons
+   "Dark Glass" source (section-button layers, geometry and timing kept;
+   colors come from the project tokens so the theme is unchanged). */
+.nav-glass {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  height: 44px;
+  padding: 0 18px;
   overflow: hidden;
   isolation: isolate;
-  border: 0;
+  border-radius: 12px;
   background: transparent;
-  cursor: pointer;
+  color: var(--color-paper);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
   transition: transform 200ms ease;
 }
 
-.glass-btn::before,
-.glass-btn::after {
+.nav-glass::before,
+.nav-glass::after {
   position: absolute;
   inset: 0;
   border-radius: inherit;
   content: "";
 }
 
-/* glass body: translucent fill, inner highlight, frosted backdrop */
-.glass-btn::before {
-  z-index: -1;
-  background: var(--glass-fill, color-mix(in oklab, var(--color-ink) 70%, transparent));
-  box-shadow: inset 2px 4px 16px
-    var(--glass-inset, color-mix(in oklab, var(--color-paper) 8%, transparent));
-  backdrop-filter: blur(50px);
-  transition: background-color 250ms ease, filter 250ms ease;
+/* glass body */
+.nav-glass::before {
+  transition: background-color 250ms ease;
 }
 
-.glass-btn:hover::before {
-  background: var(
-    --glass-fill-hover,
-    var(--glass-fill, color-mix(in oklab, var(--color-ink) 78%, transparent))
-  );
-  filter: var(--glass-hover-filter, none);
+.nav-glass--ghost::before {
+  background: color-mix(in oklab, var(--color-ink) 70%, transparent);
+  box-shadow: inset 2px 4px 16px color-mix(in oklab, var(--color-paper) 6%, transparent);
+  backdrop-filter: blur(50px);
+}
+
+.nav-glass--ghost:hover::before {
+  background: color-mix(in oklab, var(--color-ink) 78%, transparent);
+}
+
+.nav-glass--brand::before {
+  background: color-mix(in oklab, var(--color-brand) 84%, transparent);
+  box-shadow: inset 2px 4px 16px color-mix(in oklab, var(--color-paper) 10%, transparent);
+  backdrop-filter: blur(50px);
+}
+
+.nav-glass--brand:hover::before {
+  background: color-mix(in oklab, var(--color-brand-deep) 90%, transparent);
 }
 
 /* masked hairline */
-.glass-btn::after {
-  z-index: 3;
-  border: 1px solid
-    var(--glass-edge, color-mix(in oklab, var(--color-paper) 25%, transparent));
-  opacity: var(--glass-edge-opacity, 0.28);
+.nav-glass::after {
+  z-index: 2;
+  border: 1px solid color-mix(in oklab, var(--color-paper) 25%, transparent);
+  opacity: 0.25;
   pointer-events: none;
   mask-image: linear-gradient(170deg, #000, transparent 50%);
 }
 
-/* labels always sit above the glass layers */
-.glass-btn > *:not(.glass-btn__orb) {
+.nav-glass__title {
   position: relative;
-  z-index: 2;
-}
-
-.glass-btn:active {
-  transform: scale(0.98);
-}
-
-.glass-btn:disabled {
-  cursor: not-allowed;
+  z-index: 4;
 }
 
 /* softly revolving inner highlight */
-.glass-btn__orb {
+.nav-glass__orb {
   position: absolute;
-  z-index: -1;
+  z-index: 3;
   top: calc(50% - 100px);
   left: calc(50% - 100px);
   width: 200px;
@@ -477,28 +477,28 @@
   pointer-events: none;
 }
 
-.glass-btn__orb::before,
-.glass-btn__orb::after {
+.nav-glass__orb::before,
+.nav-glass__orb::after {
   position: absolute;
   inset: 0;
   border-radius: 50%;
   content: "";
 }
 
-.glass-btn__orb::before {
+.nav-glass__orb::before {
   background: conic-gradient(
     from 180deg,
-    var(--glass-orb-a, color-mix(in oklab, var(--color-paper) 1.2%, transparent)) 180deg,
-    var(--glass-orb-b, color-mix(in oklab, var(--color-paper) 5%, transparent)) 360deg
+    color-mix(in oklab, var(--color-paper) 1.2%, transparent) 180deg,
+    color-mix(in oklab, var(--color-paper) 5%, transparent) 360deg
   );
   filter: blur(15px);
-  animation: glass-orbit 3.6s linear infinite;
+  animation: nav-glass-orbit 3.6s linear infinite;
   transition: opacity 0.5s;
 }
 
-.glass-btn__orb::after {
+.nav-glass__orb::after {
   inset: 30px;
-  background: var(--glass-orb-pool, color-mix(in oklab, var(--color-paper) 12%, transparent));
+  background: color-mix(in oklab, var(--color-paper) 12%, transparent);
   opacity: 0;
   filter: blur(5px);
   transform: scale(0.5);
@@ -506,112 +506,20 @@
   mask-image: radial-gradient(50% 50%, #000, transparent);
 }
 
-/* full-width buttons get a wider light pool */
-.glass-btn__orb--wide {
-  top: calc(50% - 240px);
-  left: calc(50% - 240px);
-  width: 480px;
-  height: 480px;
-}
-
-.glass-btn__orb--wide::after {
-  inset: 150px;
-}
-
-.glass-btn:hover .glass-btn__orb::before {
+.nav-glass:hover .nav-glass__orb::before {
   opacity: 0;
 }
 
-.glass-btn:hover .glass-btn__orb::after {
+.nav-glass:hover .nav-glass__orb::after {
   opacity: 1;
   transform: scale(1);
 }
 
-/* ---- variants: each one only restates the button's own colors ---- */
-
-/* dark translucent glass (nav "Sign In", hero secondary) */
-.glass-btn--ghost {
-  --glass-fill: color-mix(in oklab, var(--color-ink) 70%, transparent);
-  --glass-fill-hover: color-mix(in oklab, var(--color-ink) 78%, transparent);
+.nav-glass:active {
+  transform: scale(0.98);
 }
 
-/* brand fill (nav "Start Free") */
-.glass-btn--brand {
-  --glass-fill: color-mix(in oklab, var(--color-brand) 84%, transparent);
-  --glass-fill-hover: color-mix(in oklab, var(--color-brand-deep) 90%, transparent);
-}
-
-/* brand -> violet gradient, kept from the original CTA */
-.glass-btn--brand-grad {
-  --glass-fill: linear-gradient(
-    to bottom right,
-    color-mix(in oklab, var(--color-brand) 90%, transparent),
-    color-mix(in oklab, var(--color-brand-violet) 90%, transparent)
-  );
-  --glass-fill-hover: linear-gradient(
-    to bottom right,
-    color-mix(in oklab, var(--color-brand) 100%, transparent),
-    color-mix(in oklab, var(--color-brand-violet) 100%, transparent)
-  );
-  --glass-hover-filter: brightness(1.06);
-  --glass-edge: color-mix(in oklab, var(--color-paper) 40%, transparent);
-}
-
-/* paper glass, sits on the brand gradient sections */
-.glass-btn--paper {
-  --glass-fill: color-mix(in oklab, var(--color-paper) 86%, transparent);
-  --glass-fill-hover: color-mix(in oklab, var(--color-paper) 96%, transparent);
-  --glass-edge: color-mix(in oklab, var(--color-brand) 40%, transparent);
-  --glass-orb-a: color-mix(in oklab, var(--color-brand) 6%, transparent);
-  --glass-orb-b: color-mix(in oklab, var(--color-brand) 14%, transparent);
-  --glass-orb-pool: color-mix(in oklab, var(--color-brand) 16%, transparent);
-}
-
-/* frosted glass on light surfaces, brand identity */
-.glass-btn--frost {
-  --glass-fill: color-mix(in oklab, var(--color-brand) 10%, transparent);
-  --glass-fill-hover: color-mix(in oklab, var(--color-brand) 18%, transparent);
-  --glass-edge: color-mix(in oklab, var(--color-brand) 60%, transparent);
-  --glass-edge-opacity: 0.5;
-  --glass-inset: color-mix(in oklab, var(--color-brand) 10%, transparent);
-  --glass-orb-a: color-mix(in oklab, var(--color-brand) 4%, transparent);
-  --glass-orb-b: color-mix(in oklab, var(--color-brand) 10%, transparent);
-  --glass-orb-pool: color-mix(in oklab, var(--color-brand) 14%, transparent);
-}
-
-/* frosted glass on light surfaces, ink identity */
-.glass-btn--frost-ink {
-  --glass-fill: color-mix(in oklab, var(--color-ink) 8%, transparent);
-  --glass-fill-hover: color-mix(in oklab, var(--color-ink) 15%, transparent);
-  --glass-edge: color-mix(in oklab, var(--color-ink) 45%, transparent);
-  --glass-edge-opacity: 0.4;
-  --glass-inset: color-mix(in oklab, var(--color-ink) 8%, transparent);
-  --glass-orb-a: color-mix(in oklab, var(--color-ink) 3%, transparent);
-  --glass-orb-b: color-mix(in oklab, var(--color-ink) 8%, transparent);
-  --glass-orb-pool: color-mix(in oklab, var(--color-ink) 10%, transparent);
-}
-
-/* muted / inactive */
-.glass-btn--muted {
-  --glass-fill: color-mix(in oklab, var(--color-ink) 7%, transparent);
-  --glass-fill-hover: color-mix(in oklab, var(--color-ink) 7%, transparent);
-  --glass-edge: color-mix(in oklab, var(--color-ink) 14%, transparent);
-  --glass-edge-opacity: 0.5;
-  --glass-inset: transparent;
-  --glass-orb-a: transparent;
-  --glass-orb-b: transparent;
-  --glass-orb-pool: transparent;
-}
-
-/* destructive */
-.glass-btn--danger {
-  --glass-fill: color-mix(in oklab, var(--color-destructive) 88%, transparent);
-  --glass-fill-hover: color-mix(in oklab, var(--color-destructive) 100%, transparent);
-  --glass-edge: color-mix(in oklab, var(--color-paper) 35%, transparent);
-  --glass-orb-pool: color-mix(in oklab, var(--color-paper) 14%, transparent);
-}
-
-@keyframes glass-orbit {
+@keyframes nav-glass-orbit {
   0% { transform: translate(0) rotate(0); }
   25% { transform: translateX(-30px) rotate(90deg); }
   50% { transform: translate(0) rotate(180deg); }
@@ -620,9 +528,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .glass-btn { transition: none; }
-  .glass-btn__orb::before { animation: none; }
-  .glass-btn__orb::before, .glass-btn__orb::after, .glass-btn::before { transition: none; }
+  .nav-glass { transition: none; }
+  .nav-glass__orb::before { animation: none; }
+  .nav-glass__orb::before, .nav-glass__orb::after, .nav-glass::before { transition: none; }
 }
 
 
