@@ -62,11 +62,11 @@ function FaqItem({
           onClick={onToggle}
           className="flex min-h-12 w-full items-start justify-between gap-3 px-4 py-4 text-left outline-none md:gap-6 md:px-8 md:py-6"
         >
-          <span className="text-[17px] font-semibold text-ink md:text-[19px]">{question}</span>
+          <span className="text-[17px] font-semibold text-paper md:text-[19px]">{question}</span>
           <span
             aria-hidden="true"
             className={cn(
-              "mt-1 grid size-5 shrink-0 place-items-center rounded-full bg-brand-tint text-brand-deep will-change-transform transition-transform duration-300 ease-smooth md:mt-2",
+              "mt-1 grid size-5 shrink-0 place-items-center rounded-full bg-brand/25 text-lavender will-change-transform transition-transform duration-300 ease-smooth md:mt-2",
               open && "rotate-45",
             )}
           >
@@ -92,7 +92,7 @@ function FaqItem({
         )}
       >
         <div className="min-h-0 overflow-hidden">
-          <p className="px-4 pb-5 text-[15px] leading-7 text-gray-muted md:px-8 md:pb-7 md:text-[16px] md:leading-8">
+          <p className="px-4 pb-5 text-[15px] leading-7 text-lavender md:px-8 md:pb-7 md:text-[16px] md:leading-8">
             {answer}
           </p>
         </div>
@@ -134,7 +134,7 @@ export function Faq() {
               <li
                 key={faq.question}
                 className={cn(
-                  "rounded-2xl border border-brand-tint bg-gradient-to-b from-paper to-brand-tint/40 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.7)] backdrop-blur-xl backdrop-saturate-150 transition-[border-color,box-shadow] duration-300 ease-smooth hover:border-brand/40 hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95),0_8px_32px_color-mix(in_oklab,var(--color-brand)_8%,transparent)] md:rounded-3xl",
+                  "rounded-2xl border border-paper/10 bg-gradient-to-b from-ink-soft/90 to-ink/95 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] backdrop-blur-xl backdrop-saturate-150 transition-[border-color,box-shadow] duration-300 ease-smooth hover:border-brand/40 hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_8px_32px_color-mix(in_oklab,var(--color-brand)_14%,transparent)] md:rounded-3xl",
                 )}
               >
                 <FaqItem
