@@ -1,3 +1,5 @@
+import { PortalFieldCollection } from "@/shaders/PortalFieldCollection";
+
 import { Reveal } from "./Reveal";
 
 const testimonials = [
@@ -29,8 +31,11 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="bg-gradient-to-b from-ink-soft to-ink px-5 py-24">
-      <div className="mx-auto max-w-6xl">
+    <section className="relative overflow-hidden bg-gradient-to-b from-ink-soft to-ink px-5 py-24">
+      <div className="shader-frame absolute inset-0" aria-hidden="true">
+        <PortalFieldCollection variant="cloud-field" hue={0} saturation={1} brightness={1} />
+      </div>
+      <div className="relative mx-auto max-w-6xl">
         <Reveal>
           <h2 className="text-center text-[32px] font-bold tracking-[-1px] text-paper md:text-[48px] md:leading-[56px]">
             Writers love Reprose
@@ -70,7 +75,6 @@ export function Testimonials() {
             </Reveal>
           ))}
         </div>
-
       </div>
     </section>
   );

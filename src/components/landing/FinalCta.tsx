@@ -1,13 +1,16 @@
 import { Link } from "@tanstack/react-router";
 
-import { MotionGradientBackground } from "./MotionGradientBackground";
+import { PortalFieldCollection } from "@/shaders/PortalFieldCollection";
+
 import { Reveal } from "./Reveal";
 import { RollText } from "./RollText";
 
 export function FinalCta() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-brand-deep via-brand to-brand-violet px-5 py-24">
-      <MotionGradientBackground subtle />
+      <div className="shader-frame absolute inset-0" aria-hidden="true">
+        <PortalFieldCollection variant="cloud-field" hue={0} saturation={1} brightness={1} />
+      </div>
       <div className="grain pointer-events-none absolute inset-0" aria-hidden="true" />
       <span
         aria-hidden="true"

@@ -1,4 +1,7 @@
 import type { ReactNode } from "react";
+
+import { PortalFieldCollection } from "@/shaders/PortalFieldCollection";
+
 import { Reveal, SectionLabel } from "./Reveal";
 
 function LinkedInIcon({ className }: { className?: string }) {
@@ -53,8 +56,7 @@ const cards: {
     icon: <XIcon className="size-6" />,
     iconClass: "bg-ink border border-paper/20",
     title: "X/Twitter Threads",
-    description:
-      "Numbered tweet threads that build anticipation and drive profile follows.",
+    description: "Numbered tweet threads that build anticipation and drive profile follows.",
     preview: (
       <>
         <p className="font-semibold text-paper">1/8 🧵</p>
@@ -67,8 +69,7 @@ const cards: {
     icon: <InstagramIcon className="size-6" />,
     iconClass: "bg-gradient-to-br from-[oklch(0.7_0.2_20)] to-[oklch(0.65_0.24_350)]",
     title: "Instagram Carousels",
-    description:
-      "Slide-by-slide carousel scripts ready to design in Canva or Unfold.",
+    description: "Slide-by-slide carousel scripts ready to design in Canva or Unfold.",
     preview: (
       <>
         <p className="font-semibold text-paper">Slide 1 — The hook</p>
@@ -85,6 +86,9 @@ export function Features() {
       id="features"
       className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-ink to-ink-soft px-5 py-24"
     >
+      <div className="shader-frame absolute inset-0" aria-hidden="true">
+        <PortalFieldCollection variant="cloud-field" hue={0} saturation={1} brightness={1} />
+      </div>
       <div className="star-dots pointer-events-none absolute inset-0" aria-hidden="true" />
       <div className="relative mx-auto max-w-6xl">
         <Reveal className="feature-heading-reveal">
@@ -96,7 +100,11 @@ export function Features() {
 
         <div className="mt-14 grid gap-6 md:grid-cols-2">
           {cards.map((card, i) => (
-            <Reveal key={card.title} delay={i * 100} className={`feature-card-reveal feature-card-reveal--${i % 2 === 0 ? "left" : "right"} h-full`}>
+            <Reveal
+              key={card.title}
+              delay={i * 100}
+              className={`feature-card-reveal feature-card-reveal--${i % 2 === 0 ? "left" : "right"} h-full`}
+            >
               <article className="card-hover group h-full rounded-2xl border border-brand/20 bg-paper/[0.04] p-7 backdrop-blur-[10px] transition-all duration-300 hover:-translate-y-1 hover:border-brand/50">
                 <span
                   aria-hidden="true"
@@ -105,9 +113,7 @@ export function Features() {
                   {card.icon}
                 </span>
                 <h3 className="mt-5 text-[20px] font-bold text-paper">{card.title}</h3>
-                <p className="mt-3 text-[16px] leading-7 text-lavender">
-                  {card.description}
-                </p>
+                <p className="mt-3 text-[16px] leading-7 text-lavender">{card.description}</p>
                 <div className="feature-preview mt-5 space-y-1.5 rounded-xl border border-paper/10 bg-ink/70 p-4 text-[13px] leading-6 text-lavender">
                   {card.preview}
                 </div>
@@ -124,7 +130,10 @@ export function Features() {
               />
               <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
                 <div>
-                  <span aria-hidden="true" className="inline-block text-2xl transition-transform duration-400 group-hover:-translate-y-1 group-hover:scale-110">
+                  <span
+                    aria-hidden="true"
+                    className="inline-block text-2xl transition-transform duration-400 group-hover:-translate-y-1 group-hover:scale-110"
+                  >
                     🎤
                   </span>
                   <p className="mt-3 inline-block rounded-full bg-brand/25 px-3 py-1 text-[11px] font-bold uppercase tracking-[2px] text-lavender">
@@ -134,9 +143,9 @@ export function Features() {
                     Repurposed Content That Actually Sounds Like YOU
                   </h3>
                   <p className="mt-4 text-[18px] leading-8 text-lavender">
-                    Other tools write in generic AI voice. Reprose learns from your past
-                    writing — your tone, vocabulary, sentence style, and personality — so
-                    every output feels like YOU wrote it.
+                    Other tools write in generic AI voice. Reprose learns from your past writing —
+                    your tone, vocabulary, sentence style, and personality — so every output feels
+                    like YOU wrote it.
                   </p>
                 </div>
 
@@ -146,8 +155,8 @@ export function Features() {
                       ✕ Generic AI output
                     </p>
                     <p className="mt-2 text-[13px] leading-6 text-lavender/80">
-                      "In today's fast-paced digital landscape, leveraging content
-                      repurposing is essential for maximizing audience engagement."
+                      "In today's fast-paced digital landscape, leveraging content repurposing is
+                      essential for maximizing audience engagement."
                     </p>
                   </div>
                   <p
@@ -161,8 +170,8 @@ export function Features() {
                       ✓ Your voice output
                     </p>
                     <p className="mt-2 text-[13px] leading-6 text-paper">
-                      "I spent 8 hours on this newsletter. Then posted it once. That was
-                      the dumbest part of my week — here's what I changed."
+                      "I spent 8 hours on this newsletter. Then posted it once. That was the dumbest
+                      part of my week — here's what I changed."
                     </p>
                   </div>
                 </div>
