@@ -71,10 +71,6 @@ export function Testimonials() {
           ))}
         </div>
 
-        <p className="mt-8 text-center text-[13px] italic text-gray-muted">
-          * Testimonials are representative examples. Replace with real user quotes from
-          beta.
-        </p>
       </div>
     </section>
   );
