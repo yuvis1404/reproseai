@@ -396,6 +396,142 @@
   .landing-nav, .landing-nav nav, .landing-nav-wordmark { transition: none; }
 }
 
+/* Dark-glass nav buttons — adapted from the ThreeUI RectangleButtons
+   "Dark Glass" source (section-button layers, geometry and timing kept;
+   colors come from the project tokens so the theme is unchanged). */
+.nav-glass {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 18px;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--color-paper);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  transition: transform 200ms ease;
+}
+
+.nav-glass::before,
+.nav-glass::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  content: "";
+}
+
+/* glass body */
+.nav-glass::before {
+  transition: background-color 250ms ease;
+}
+
+.nav-glass--ghost::before {
+  background: color-mix(in oklab, var(--color-ink) 70%, transparent);
+  box-shadow: inset 2px 4px 16px color-mix(in oklab, var(--color-paper) 6%, transparent);
+  backdrop-filter: blur(50px);
+}
+
+.nav-glass--ghost:hover::before {
+  background: color-mix(in oklab, var(--color-ink) 78%, transparent);
+}
+
+.nav-glass--brand::before {
+  background: color-mix(in oklab, var(--color-brand) 84%, transparent);
+  box-shadow: inset 2px 4px 16px color-mix(in oklab, var(--color-paper) 10%, transparent);
+  backdrop-filter: blur(50px);
+}
+
+.nav-glass--brand:hover::before {
+  background: color-mix(in oklab, var(--color-brand-deep) 90%, transparent);
+}
+
+/* masked hairline */
+.nav-glass::after {
+  z-index: 2;
+  border: 1px solid color-mix(in oklab, var(--color-paper) 25%, transparent);
+  opacity: 0.25;
+  pointer-events: none;
+  mask-image: linear-gradient(170deg, #000, transparent 50%);
+}
+
+.nav-glass__title {
+  position: relative;
+  z-index: 4;
+}
+
+/* softly revolving inner highlight */
+.nav-glass__orb {
+  position: absolute;
+  z-index: 3;
+  top: calc(50% - 100px);
+  left: calc(50% - 100px);
+  width: 200px;
+  height: 200px;
+  pointer-events: none;
+}
+
+.nav-glass__orb::before,
+.nav-glass__orb::after {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  content: "";
+}
+
+.nav-glass__orb::before {
+  background: conic-gradient(
+    from 180deg,
+    color-mix(in oklab, var(--color-paper) 1.2%, transparent) 180deg,
+    color-mix(in oklab, var(--color-paper) 5%, transparent) 360deg
+  );
+  filter: blur(15px);
+  animation: nav-glass-orbit 3.6s linear infinite;
+  transition: opacity 0.5s;
+}
+
+.nav-glass__orb::after {
+  inset: 30px;
+  background: color-mix(in oklab, var(--color-paper) 12%, transparent);
+  opacity: 0;
+  filter: blur(5px);
+  transform: scale(0.5);
+  transition: opacity 0.5s, transform 0.7s;
+  mask-image: radial-gradient(50% 50%, #000, transparent);
+}
+
+.nav-glass:hover .nav-glass__orb::before {
+  opacity: 0;
+}
+
+.nav-glass:hover .nav-glass__orb::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.nav-glass:active {
+  transform: scale(0.98);
+}
+
+@keyframes nav-glass-orbit {
+  0% { transform: translate(0) rotate(0); }
+  25% { transform: translateX(-30px) rotate(90deg); }
+  50% { transform: translate(0) rotate(180deg); }
+  75% { transform: translateX(30px) rotate(270deg); }
+  100% { transform: translate(0) rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-glass { transition: none; }
+  .nav-glass__orb::before { animation: none; }
+  .nav-glass__orb::before, .nav-glass__orb::after, .nav-glass::before { transition: none; }
+}
+
+
 @utility text-gradient-brand {
   background-image: linear-gradient(
     90deg,
