@@ -69,25 +69,24 @@ export function Nav() {
         </div>
 
         <div className="hidden items-center gap-3 md:flex">
-          <Button asChild variant="ghost" className="h-auto rounded-xl border border-paper/70 px-4 py-2 text-sm font-semibold text-paper hover:bg-paper hover:text-ink">
           <Link
             to="/login"
             aria-label="Sign in to Reprose"
-            className="rounded-xl border border-paper/70 px-4 py-2 text-sm font-semibold text-paper transition-all duration-200 hover:bg-paper hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet"
+            className="nav-glass nav-glass--ghost rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet"
           >
-            Sign In
+            <span className="nav-glass__orb" aria-hidden="true" />
+            <span className="nav-glass__title">Sign In</span>
           </Link>
-          </Button>
-          <Button asChild className="h-auto rounded-xl bg-brand px-4 py-2 text-sm font-semibold text-paper hover:bg-brand-deep">
           <Link
             to="/signup"
             aria-label="Start free with Reprose"
-            className="rounded-xl bg-brand px-4 py-2 text-sm font-semibold text-paper transition-all duration-200 hover:bg-brand-deep hover:shadow-[0_8px_24px_color-mix(in_oklab,var(--color-brand)_45%,transparent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet"
+            className="nav-glass nav-glass--brand rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet"
           >
-            Start Free →
+            <span className="nav-glass__orb" aria-hidden="true" />
+            <span className="nav-glass__title">Start Free →</span>
           </Link>
-          </Button>
         </div>
+
 
         <Button
           variant="ghost"
