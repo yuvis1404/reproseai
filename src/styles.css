@@ -1392,3 +1392,119 @@
 .modal-exiting {
   animation: modal-out 250ms ease-in forwards;
 }
+
+/* ── Motion gradient background (aurora field) ────────────────────── */
+/* Layered blurred color blobs drift on independent loops while a
+ * faint conic sheen rotates behind the content. Colors stay in the
+ * brand purple/violet family on the ink background. */
+
+@keyframes aurora-drift-a {
+  0%, 100% { transform: translate3d(-6%, -4%, 0) scale(1); }
+  33% { transform: translate3d(10%, 6%, 0) scale(1.18); }
+  66% { transform: translate3d(-4%, 12%, 0) scale(0.92); }
+}
+
+@keyframes aurora-drift-b {
+  0%, 100% { transform: translate3d(4%, 8%, 0) scale(1.05); }
+  33% { transform: translate3d(-8%, -6%, 0) scale(0.9); }
+  66% { transform: translate3d(8%, -10%, 0) scale(1.2); }
+}
+
+@keyframes aurora-drift-c {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-12%, -8%, 0) scale(1.25); }
+}
+
+@keyframes aurora-sheen-rotate {
+  to { transform: rotate(1turn); }
+}
+
+.aurora-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  will-change: transform;
+}
+
+.aurora-blob--brand {
+  top: -18%;
+  left: -12%;
+  width: min(62vw, 780px);
+  height: min(62vw, 780px);
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--color-brand) 36%, transparent) 0%,
+    transparent 68%
+  );
+  animation: aurora-drift-a 18s ease-in-out -3s infinite;
+}
+
+.aurora-blob--violet {
+  top: 6%;
+  right: -18%;
+  width: min(54vw, 660px);
+  height: min(54vw, 660px);
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--color-brand-violet) 24%, transparent) 0%,
+    transparent 68%
+  );
+  animation: aurora-drift-b 22s ease-in-out -9s infinite;
+}
+
+.aurora-blob--blue {
+  bottom: -24%;
+  left: 28%;
+  width: min(48vw, 560px);
+  height: min(48vw, 560px);
+  background: radial-gradient(
+    circle,
+    oklch(0.52 0.2 265 / 0.2) 0%,
+    transparent 70%
+  );
+  animation: aurora-drift-c 26s ease-in-out -15s infinite;
+}
+
+.aurora-sheen {
+  position: absolute;
+  inset: -60%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg,
+    color-mix(in oklab, var(--color-brand-violet) 14%, transparent) 70deg,
+    transparent 140deg,
+    color-mix(in oklab, var(--color-brand) 10%, transparent) 220deg,
+    transparent 290deg
+  );
+  opacity: 0.5;
+  mask-image: radial-gradient(
+    ellipse 60% 55% at 50% 42%,
+    black 0%,
+    transparent 75%
+  );
+  animation: aurora-sheen-rotate 46s linear infinite;
+  will-change: transform;
+}
+
+/* Subtle variant for brand-gradient sections */
+.aurora-field--subtle .aurora-blob--brand { opacity: 0.45; }
+.aurora-field--subtle .aurora-blob--violet { opacity: 0.4; }
+.aurora-field--subtle .aurora-sheen {
+  opacity: 0.35;
+  animation-duration: 70s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-blob,
+  .aurora-sheen {
+    animation: none;
+  }
+}

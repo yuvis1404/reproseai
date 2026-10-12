@@ -1,11 +1,13 @@
 import { Link } from "@tanstack/react-router";
 
+import { MotionGradientBackground } from "./MotionGradientBackground";
 import { Reveal } from "./Reveal";
 import { RollText } from "./RollText";
 
 export function FinalCta() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-brand-deep via-brand to-brand-violet px-5 py-24">
+      <MotionGradientBackground subtle />
       <div className="grain pointer-events-none absolute inset-0" aria-hidden="true" />
       <span
         aria-hidden="true"
