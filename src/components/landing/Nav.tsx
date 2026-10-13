@@ -6,6 +6,8 @@ import logoAsset from "@/assets/reprose-logo.png.asset.json";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+import { ShimmerBorderCta } from "./ShimmerBorderCta";
+
 const links = [
   { label: "How it works", href: "#how-it-works" },
   { label: "Features", href: "#features" },
@@ -29,114 +31,111 @@ export function Nav() {
 
   return (
     <>
-    <div ref={sentinel} className="landing-nav-sentinel" aria-hidden="true" />
-    <header
-      className={cn(
-        "landing-nav z-50",
-        compact && "landing-nav--compact",
-        open && "landing-nav--open",
-      )}
-    >
-      <nav
-        aria-label="Main"
-        className="mx-auto flex max-w-6xl items-center justify-between gap-4"
+      <div ref={sentinel} className="landing-nav-sentinel" aria-hidden="true" />
+      <header
+        className={cn(
+          "landing-nav z-50",
+          compact && "landing-nav--compact",
+          open && "landing-nav--open",
+        )}
       >
-        <Link
-          to="/"
-          aria-label="Reprose home"
-          className="group flex min-w-0 items-center gap-2 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-violet"
+        <nav
+          aria-label="Main"
+          className="mx-auto flex max-w-6xl items-center justify-between gap-4"
         >
-          <img
-            src={logoAsset.url}
-            alt="Reprose AI logo"
-            className="size-9 shrink-0 rounded-xl transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105"
-          />
-          <span className="landing-nav-wordmark truncate text-[22px] font-bold text-paper group-hover:text-lavender">
-            Reprose <span className="text-gradient-brand">AI</span>
-          </span>
-        </Link>
-
-        <div className="landing-nav-links hidden items-center gap-8 md:flex">
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="relative whitespace-nowrap text-sm font-medium text-lavender transition-colors duration-150 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-brand after:transition-all after:duration-250 hover:text-paper hover:after:w-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-violet"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-
-        <div className="hidden items-center gap-3 md:flex">
           <Link
-            to="/login"
-            aria-label="Sign in to Reprose"
-            className="nav-glass nav-glass--ghost rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet"
+            to="/"
+            aria-label="Reprose home"
+            className="group flex min-w-0 items-center gap-2 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-violet"
           >
-            <span className="nav-glass__orb" aria-hidden="true" />
-            <span className="nav-glass__title">Sign In</span>
+            <img
+              src={logoAsset.url}
+              alt="Reprose AI logo"
+              className="size-9 shrink-0 rounded-xl transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105"
+            />
+            <span className="landing-nav-wordmark truncate text-[22px] font-bold text-paper group-hover:text-lavender">
+              Reprose <span className="text-gradient-brand">AI</span>
+            </span>
           </Link>
-          <Link
-            to="/signup"
-            aria-label="Start free with Reprose"
-            className="nav-glass nav-glass--brand rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet"
-          >
-            <span className="nav-glass__orb" aria-hidden="true" />
-            <span className="nav-glass__title">Start Free →</span>
-          </Link>
-        </div>
 
-
-        <Button
-          variant="ghost"
-          type="button"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="grid size-11 place-items-center rounded-xl border border-paper/20 text-paper md:hidden"
-        >
-          {open ? (
-            <X className="size-5" aria-hidden="true" />
-          ) : (
-            <Menu className="size-5" aria-hidden="true" />
-          )}
-        </Button>
-      </nav>
-
-      {open && (
-        <div id="landing-mobile-menu" className="border-t border-brand/20 bg-ink/95 px-5 py-6 backdrop-blur-[20px] md:hidden">
-          <div className="flex flex-col gap-4">
+          <div className="landing-nav-links hidden items-center gap-8 md:flex">
             {links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                onClick={() => setOpen(false)}
-                className="relative w-fit text-base font-medium text-lavender transition-colors duration-150 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-brand after:transition-all after:duration-250 hover:text-paper hover:after:w-full"
+                className="relative whitespace-nowrap text-sm font-medium text-lavender transition-colors duration-150 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-brand after:transition-all after:duration-250 hover:text-paper hover:after:w-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-violet"
               >
                 {link.label}
               </a>
             ))}
+          </div>
+
+          <div className="hidden items-center gap-3 md:flex">
             <Link
               to="/login"
-              onClick={() => setOpen(false)}
               aria-label="Sign in to Reprose"
-              className="rounded-xl border border-paper/70 px-4 py-3 text-center text-sm font-semibold text-paper"
+              className="nav-glass nav-glass--ghost rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet"
             >
-              Sign In
+              <span className="nav-glass__orb" aria-hidden="true" />
+              <span className="nav-glass__title">Sign In</span>
             </Link>
-            <Link
-              to="/signup"
-              onClick={() => setOpen(false)}
-              aria-label="Start free with Reprose"
-              className="rounded-xl bg-brand px-4 py-3 text-center text-sm font-semibold text-paper"
-            >
-              Start Free →
-            </Link>
+            <ShimmerBorderCta variant="nav" ariaLabel="Start free with Reprose">
+              Start Free
+            </ShimmerBorderCta>
           </div>
-        </div>
-      )}
-    </header>
+
+          <Button
+            variant="ghost"
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="grid size-11 place-items-center rounded-xl border border-paper/20 text-paper md:hidden"
+          >
+            {open ? (
+              <X className="size-5" aria-hidden="true" />
+            ) : (
+              <Menu className="size-5" aria-hidden="true" />
+            )}
+          </Button>
+        </nav>
+
+        {open && (
+          <div
+            id="landing-mobile-menu"
+            className="border-t border-brand/20 bg-ink/95 px-5 py-6 backdrop-blur-[20px] md:hidden"
+          >
+            <div className="flex flex-col gap-4">
+              {links.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="relative w-fit text-base font-medium text-lavender transition-colors duration-150 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-brand after:transition-all after:duration-250 hover:text-paper hover:after:w-full"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <Link
+                to="/login"
+                onClick={() => setOpen(false)}
+                aria-label="Sign in to Reprose"
+                className="rounded-xl border border-paper/70 px-4 py-3 text-center text-sm font-semibold text-paper"
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/signup"
+                onClick={() => setOpen(false)}
+                aria-label="Start free with Reprose"
+                className="rounded-xl bg-brand px-4 py-3 text-center text-sm font-semibold text-paper"
+              >
+                Start Free →
+              </Link>
+            </div>
+          </div>
+        )}
+      </header>
     </>
   );
 }

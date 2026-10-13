@@ -25,7 +25,12 @@ export function FinalCta() {
         <p className="mx-auto mt-5 max-w-xl text-[18px] leading-8 text-lavender md:text-[20px]">
           Join 500+ newsletter writers repurposing content in 60 seconds.
         </p>
-        <ShimmerBorderCta className="mt-9">Start Free — No Credit Card</ShimmerBorderCta>
+        <ShimmerBorderCta
+          className="mt-9"
+          ariaLabel="Start free with Reprose, no credit card required"
+        >
+          Start Free — No Credit Card
+        </ShimmerBorderCta>
       </Reveal>
     </section>
   );

@@ -1,10 +1,9 @@
-import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
 
 import { Reveal, SectionLabel } from "./Reveal";
-import { RollText } from "./RollText";
+import { ShimmerBorderCta } from "./ShimmerBorderCta";
 
 type Feature = { label: string; included: boolean };
 
@@ -106,13 +105,14 @@ export function Pricing() {
                   </li>
                 ))}
               </ul>
-              <Link
-                to="/signup"
-                aria-label="Start free on the Free plan"
-                className="mt-8 inline-flex h-12 items-center justify-center rounded-xl border border-brand px-5 text-sm font-bold text-brand transition-all duration-200 hover:bg-brand hover:text-paper focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+              <ShimmerBorderCta
+                variant="pricing-free"
+                className="mt-8"
+                arrow="none"
+                ariaLabel="Start free on the Free plan"
               >
                 Start Free
-              </Link>
+              </ShimmerBorderCta>
             </article>
           </Reveal>
 
@@ -141,13 +141,13 @@ export function Pricing() {
                   </li>
                 ))}
               </ul>
-              <Link
-                to="/signup"
-                aria-label="Start creating on the Creator plan"
-                className="mt-8 inline-flex h-12 w-full items-center justify-center rounded-xl bg-paper px-5 text-sm font-bold text-brand transition-all duration-200 hover:scale-[1.02] hover:shadow-[0_0_28px_color-mix(in_oklab,var(--color-paper)_55%,transparent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper"
+              <ShimmerBorderCta
+                variant="pricing-creator"
+                className="mt-8"
+                ariaLabel="Start creating on the Creator plan"
               >
-                <RollText text="Start Creating →" />
-              </Link>
+                Start Creating
+              </ShimmerBorderCta>
             </article>
           </Reveal>
 
@@ -175,14 +175,15 @@ export function Pricing() {
                   </li>
                 ))}
               </ul>
-              <Link
-                to="/signup"
+              <ShimmerBorderCta
+                variant="pricing-pro"
+                className="mt-8"
+                arrow="none"
                 search={{ plan: "pro" }}
-                aria-label="Go Pro with Reprose"
-                className="mt-8 inline-flex h-12 items-center justify-center rounded-xl border border-ink px-5 text-sm font-bold text-ink transition-all duration-200 hover:bg-ink hover:text-paper focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+                ariaLabel="Go Pro with Reprose"
               >
                 Go Pro
-              </Link>
+              </ShimmerBorderCta>
             </article>
           </Reveal>
         </div>

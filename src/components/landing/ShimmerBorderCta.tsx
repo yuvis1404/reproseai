@@ -12,7 +12,8 @@ type Variant =
   | "pricing-free"
   | "pricing-creator"
   | "pricing-pro"
-  | "faq";
+  | "faq"
+  | "nav";
 
 export function ShimmerBorderCta({
   children,
@@ -39,11 +40,7 @@ export function ShimmerBorderCta({
     return mountShimmerBorder(el);
   }, []);
 
-  const classes = cn(
-    "vs-shimmer-border",
-    variant && `vs-shimmer-cta--${variant}`,
-    className,
-  );
+  const classes = cn("vs-shimmer-border", variant && `vs-shimmer-cta--${variant}`, className);
 
   const content = (
     <>

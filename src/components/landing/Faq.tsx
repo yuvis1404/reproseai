@@ -3,7 +3,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 import { Reveal } from "./Reveal";
-import { RollText } from "./RollText";
+import { ShimmerBorderCta } from "./ShimmerBorderCta";
 
 const faqs = [
   {
@@ -118,12 +118,9 @@ export function Faq() {
               </p>
             </Reveal>
             <Reveal delay={100}>
-              <a
-                href="mailto:hello@reprose.ai"
-                className="group inline-flex h-12 items-center justify-center rounded-full bg-brand px-7 text-[15px] font-bold text-paper transition-all duration-200 hover:bg-brand-deep hover:shadow-[0_8px_24px_color-mix(in_oklab,var(--color-brand)_45%,transparent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
-              >
-                <RollText text="More questions →" />
-              </a>
+              <ShimmerBorderCta variant="faq" href="mailto:hello@reprose.ai">
+                More questions
+              </ShimmerBorderCta>
             </Reveal>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { PortalFieldCollection } from "@/shaders/PortalFieldCollection";
 
 import { HeroMockup } from "./HeroMockup";
+import { RollText } from "./RollText";
 import { ShimmerBorderCta } from "./ShimmerBorderCta";
 
 const avatars = [
@@ -55,15 +56,13 @@ export function Hero() {
           >
             Try Free — No Credit Card
           </ShimmerBorderCta>
-          <ShimmerBorderCta
-            variant="hero-ghost"
+          <a
             href="#how-it-works"
-            arrow="down"
-            className="w-full sm:w-auto"
-            ariaLabel="See how Reprose works"
+            aria-label="See how Reprose works"
+            className="inline-flex h-14 w-full items-center justify-center rounded-xl border border-paper/70 px-8 text-base font-semibold text-paper transition-all duration-200 hover:bg-paper hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet sm:w-auto"
           >
-            See How It Works
-          </ShimmerBorderCta>
+            <RollText text="See How It Works ↓" />
+          </a>
         </div>
 
         <div className="hero-social-proof mt-8 flex flex-wrap items-center justify-center gap-3">
