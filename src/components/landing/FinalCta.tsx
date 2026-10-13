@@ -1,9 +1,7 @@
-import { Link } from "@tanstack/react-router";
-
 import { PortalFieldCollection } from "@/shaders/PortalFieldCollection";
 
 import { Reveal } from "./Reveal";
-import { RollText } from "./RollText";
+import { ShimmerBorderCta } from "./ShimmerBorderCta";
 
 export function FinalCta() {
   return (
@@ -27,13 +25,7 @@ export function FinalCta() {
         <p className="mx-auto mt-5 max-w-xl text-[18px] leading-8 text-lavender md:text-[20px]">
           Join 500+ newsletter writers repurposing content in 60 seconds.
         </p>
-        <Link
-          to="/signup"
-          aria-label="Start free with Reprose, no credit card required"
-          className="mt-9 inline-flex h-[60px] items-center justify-center rounded-xl bg-paper px-10 text-base font-bold text-brand transition-all duration-200 hover:scale-[1.02] hover:shadow-[0_0_36px_color-mix(in_oklab,var(--color-paper)_60%,transparent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-paper"
-        >
-          <RollText text="Start Free — No Credit Card →" />
-        </Link>
+        <ShimmerBorderCta className="mt-9">Start Free — No Credit Card</ShimmerBorderCta>
       </Reveal>
     </section>
   );

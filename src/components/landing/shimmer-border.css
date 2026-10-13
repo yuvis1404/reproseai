@@ -1,0 +1,197 @@
+/* vs-shimmer-border — comet-of-light border CTA (vividsites source).
+   Customise via the variables below; the rules stay as authored. */
+.vs-shimmer-border {
+  --vs-shimmer-border-bg: var(--color-ink);
+  --vs-shimmer-border-ink: var(--color-paper);
+  --vs-shimmer-border-line: color-mix(in srgb, var(--color-paper) 12%, transparent);
+  --vs-shimmer-border-head: #ffffff;
+  --vs-shimmer-border-light: var(--color-brand-violet);
+  --vs-shimmer-border-width: 2px;
+  --vs-shimmer-border-radius: 999px;
+  --vs-shimmer-border-font-size: 1.125rem;
+  --vs-shimmer-border-glow: 0.8;
+
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+  border-radius: var(--vs-shimmer-border-radius);
+  text-decoration: none;
+  color: var(--vs-shimmer-border-ink);
+  border: 0;
+  padding: 0;
+  background: none;
+  font-family: inherit;
+  font-size: var(--vs-shimmer-border-font-size);
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 0.55s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+.vs-shimmer-border,
+.vs-shimmer-border * {
+  box-sizing: border-box;
+}
+.vs-shimmer-border:active {
+  transform: scale(0.965);
+  transition: transform 0.12s cubic-bezier(0.2, 0, 0, 1);
+}
+.vs-shimmer-border-body {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65em;
+  overflow: hidden;
+  padding: 1.05em 1.75em 1.1em;
+  border-radius: inherit;
+  white-space: nowrap;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.005em;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--vs-shimmer-border-bg), #fff 6%),
+    var(--vs-shimmer-border-bg) 60%
+  );
+  box-shadow: inset 0 0 0 1px var(--vs-shimmer-border-line),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 10px 30px -12px rgba(0, 0, 0, 0.6);
+}
+.vs-shimmer-border-label {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65em;
+  transition: opacity 0.25s, filter 0.25s;
+}
+.vs-shimmer-border-body svg {
+  width: 0.95em;
+  height: 0.95em;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.vs-shimmer-border:hover .vs-shimmer-border-body svg,
+.vs-shimmer-border:focus-visible .vs-shimmer-border-body svg {
+  transform: translateX(3px);
+}
+.vs-shimmer-border-ring,
+.vs-shimmer-border-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.vs-shimmer-border-ring {
+  z-index: 2;
+  padding: var(--vs-shimmer-border-width);
+  overflow: hidden;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.vs-shimmer-border-flash {
+  position: absolute;
+  inset: 0;
+  background: var(--vs-shimmer-border-light);
+  opacity: 0;
+  will-change: opacity;
+}
+.vs-shimmer-border-spot {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.35s cubic-bezier(0.2, 0, 0, 1);
+  background: radial-gradient(
+    5em circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--vs-shimmer-border-light) 70%, #fff),
+    transparent 70%
+  );
+}
+.vs-shimmer-border.is-hot .vs-shimmer-border-spot {
+  opacity: 0.9;
+}
+.vs-shimmer-border-glow {
+  z-index: 0;
+  filter: blur(7px);
+  opacity: var(--vs-shimmer-border-glow);
+}
+.vs-shimmer-border-dot,
+.vs-shimmer-border-spill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+.vs-shimmer-border-dot {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--vs-shimmer-border-light) var(--t), var(--vs-shimmer-border-head)),
+    transparent
+  );
+}
+.vs-shimmer-border-spill {
+  z-index: 0;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--vs-shimmer-border-light) 24%, transparent),
+    transparent
+  );
+  mix-blend-mode: screen;
+}
+.vs-shimmer-border-spin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1.1em;
+  height: 1.1em;
+  margin: -0.55em 0 0 -0.55em;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.vs-shimmer-border-spin circle {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-dasharray: 14 44;
+  transform-origin: 50% 50%;
+  animation: vs-shimmer-border-spin 0.8s linear infinite;
+}
+@keyframes vs-shimmer-border-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.vs-shimmer-border[aria-busy="true"] {
+  cursor: progress;
+}
+.vs-shimmer-border[aria-busy="true"] .vs-shimmer-border-label {
+  opacity: 0;
+  filter: blur(4px);
+}
+.vs-shimmer-border[aria-busy="true"] .vs-shimmer-border-spin {
+  opacity: 1;
+}
+.vs-shimmer-border:disabled,
+.vs-shimmer-border[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+.vs-shimmer-border:focus-visible .vs-shimmer-border-body {
+  box-shadow: inset 0 0 0 1px var(--vs-shimmer-border-light),
+    0 0 0 3px color-mix(in srgb, var(--vs-shimmer-border-light) 38%, transparent);
+}
+@media (forced-colors: active) {
+  .vs-shimmer-border-body {
+    border: 1px solid ButtonText;
+  }
+  .vs-shimmer-border:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 3px;
+  }
+}
