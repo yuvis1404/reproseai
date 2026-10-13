@@ -1,9 +1,7 @@
-import { Link } from "@tanstack/react-router";
-
 import { PortalFieldCollection } from "@/shaders/PortalFieldCollection";
 
 import { HeroMockup } from "./HeroMockup";
-import { RollText } from "./RollText";
+import { ShimmerBorderCta } from "./ShimmerBorderCta";
 
 const avatars = [
   { initial: "A", tone: "bg-brand" },
@@ -50,20 +48,22 @@ export function Hero() {
         </p>
 
         <div className="hero-cta mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Link
-            to="/signup"
-            aria-label="Try Reprose free, no credit card required"
-            className="inline-flex h-14 w-full items-center justify-center rounded-xl bg-gradient-to-br from-brand to-brand-violet px-8 text-base font-bold text-paper transition-all duration-200 hover:scale-[1.02] hover:shadow-[0_0_30px_color-mix(in_oklab,var(--color-brand)_50%,transparent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet sm:w-auto"
+          <ShimmerBorderCta
+            variant="hero-primary"
+            className="w-full sm:w-auto"
+            ariaLabel="Try Reprose free, no credit card required"
           >
-            <RollText text="Try Free — No Credit Card →" />
-          </Link>
-          <a
+            Try Free — No Credit Card
+          </ShimmerBorderCta>
+          <ShimmerBorderCta
+            variant="hero-ghost"
             href="#how-it-works"
-            aria-label="See how Reprose works"
-            className="inline-flex h-14 w-full items-center justify-center rounded-xl border border-paper/70 px-8 text-base font-semibold text-paper transition-all duration-200 hover:bg-paper hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-violet sm:w-auto"
+            arrow="down"
+            className="w-full sm:w-auto"
+            ariaLabel="See how Reprose works"
           >
-            <RollText text="See How It Works ↓" />
-          </a>
+            See How It Works
+          </ShimmerBorderCta>
         </div>
 
         <div className="hero-social-proof mt-8 flex flex-wrap items-center justify-center gap-3">

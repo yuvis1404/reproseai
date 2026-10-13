@@ -195,3 +195,90 @@
     outline-offset: 3px;
   }
 }
+
+/* ── Site variants — each keeps its button's original colors ────── */
+
+/* Hero primary: brand → brand-violet gradient, paper label */
+.vs-shimmer-cta--hero-primary {
+  --vs-shimmer-border-radius: 12px;
+  --vs-shimmer-border-font-size: 1.1rem;
+  --vs-shimmer-border-light: var(--color-paper);
+  --vs-shimmer-border-line: color-mix(in srgb, var(--color-paper) 30%, transparent);
+}
+.vs-shimmer-cta--hero-primary .vs-shimmer-border-body {
+  background: linear-gradient(135deg, var(--color-brand), var(--color-brand-violet));
+}
+.vs-shimmer-cta--hero-primary .vs-shimmer-border-label {
+  font-weight: 700;
+}
+
+/* Hero ghost: transparent, paper hairline + label */
+.vs-shimmer-cta--hero-ghost {
+  --vs-shimmer-border-radius: 12px;
+  --vs-shimmer-border-font-size: 1.1rem;
+  --vs-shimmer-border-bg: transparent;
+  --vs-shimmer-border-line: color-mix(in srgb, var(--color-paper) 70%, transparent);
+  --vs-shimmer-border-light: var(--color-paper);
+}
+.vs-shimmer-cta--hero-ghost .vs-shimmer-border-label {
+  font-weight: 600;
+}
+
+/* Pricing buttons: full-width blocks */
+.vs-shimmer-cta--pricing-free,
+.vs-shimmer-cta--pricing-creator,
+.vs-shimmer-cta--pricing-pro {
+  display: flex;
+  width: 100%;
+  --vs-shimmer-border-radius: 12px;
+  --vs-shimmer-border-font-size: 0.95rem;
+}
+.vs-shimmer-cta--pricing-free .vs-shimmer-border-body,
+.vs-shimmer-cta--pricing-creator .vs-shimmer-border-body,
+.vs-shimmer-cta--pricing-pro .vs-shimmer-border-body {
+  flex: 1;
+  justify-content: center;
+}
+.vs-shimmer-cta--pricing-free .vs-shimmer-border-label,
+.vs-shimmer-cta--pricing-creator .vs-shimmer-border-label,
+.vs-shimmer-cta--pricing-pro .vs-shimmer-border-label {
+  font-weight: 700;
+}
+
+/* Free: transparent, brand hairline + label */
+.vs-shimmer-cta--pricing-free {
+  --vs-shimmer-border-bg: transparent;
+  --vs-shimmer-border-ink: var(--color-brand);
+  --vs-shimmer-border-line: var(--color-brand);
+}
+.vs-shimmer-cta--pricing-free .vs-shimmer-border-body {
+  box-shadow: inset 0 0 0 1px var(--vs-shimmer-border-line);
+}
+
+/* Creator: paper body, brand label */
+.vs-shimmer-cta--pricing-creator {
+  --vs-shimmer-border-bg: var(--color-paper);
+  --vs-shimmer-border-ink: var(--color-brand);
+  --vs-shimmer-border-line: transparent;
+  --vs-shimmer-border-light: var(--color-brand-violet);
+}
+
+/* Pro: transparent, ink hairline + label */
+.vs-shimmer-cta--pricing-pro {
+  --vs-shimmer-border-bg: transparent;
+  --vs-shimmer-border-ink: var(--color-ink);
+  --vs-shimmer-border-line: var(--color-ink);
+}
+.vs-shimmer-cta--pricing-pro .vs-shimmer-border-body {
+  box-shadow: inset 0 0 0 1px var(--vs-shimmer-border-line);
+}
+
+/* FAQ: flat brand pill, paper label */
+.vs-shimmer-cta--faq {
+  --vs-shimmer-border-bg: var(--color-brand);
+  --vs-shimmer-border-font-size: 0.95rem;
+  --vs-shimmer-border-light: var(--color-paper);
+}
+.vs-shimmer-cta--faq .vs-shimmer-border-label {
+  font-weight: 700;
+}
