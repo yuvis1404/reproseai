@@ -540,3 +540,62 @@
     animation: none !important;
   }
 }
+
+/* ── Site font overrides — restore the previous cards' font formatting.
+   Authored rules above stay untouched; the cards use the site font with
+   the original sizes and weights. ── */
+.vs-pricing-toggle-card {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+.vs-pricing-toggle-card .vs-pricing-toggle-name {
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.vs-pricing-toggle-card .vs-pricing-toggle-badge {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+.vs-pricing-toggle-card .vs-pricing-toggle-for {
+  font-size: 14px;
+}
+.vs-pricing-toggle-card .vs-pricing-toggle-price {
+  font-family: inherit;
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.vs-pricing-toggle-card.is-featured .vs-pricing-toggle-price {
+  font-size: 56px;
+  font-weight: 800;
+}
+.vs-pricing-toggle-card .vs-pricing-toggle-cur {
+  font-size: 1em;
+  font-weight: inherit;
+  margin: 0 0.08em 0 0;
+}
+.vs-pricing-toggle-card .vs-pricing-toggle-per {
+  font-family: inherit;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+.vs-pricing-toggle-card .vs-pricing-toggle-note {
+  font-size: 14px;
+}
+.vs-pricing-toggle-card .vs-pricing-toggle-off {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.vs-pricing-toggle-card .vs-pricing-toggle-cta {
+  font-family: inherit;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.vs-pricing-toggle-card .vs-pricing-toggle-list {
+  font-size: 15px;
+}
