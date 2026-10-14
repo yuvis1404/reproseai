@@ -1,0 +1,542 @@
+/* vs-pricing-toggle — odometer pricing tiers with a spring switch
+   (vividsites source). Customise via the variables below; the rules stay
+   as authored. */
+.vs-pricing-toggle {
+  --vs-pricing-toggle-paper: var(--color-paper);
+  --vs-pricing-toggle-ink: var(--color-ink);
+  --vs-pricing-toggle-accent: var(--color-brand);
+  --vs-pricing-toggle-featured: var(--color-brand-deep);
+  --vs-pricing-toggle-radius: 16px;
+  --vs-pricing-toggle-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--vs-pricing-toggle-ink);
+  font-family: "Inter Tight", system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  width: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- billing switch: ink thumb on a paper well, thumb rides a spring and stretches with its speed ---- */
+.vs-pricing-toggle-switch {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--vs-pricing-toggle-paper);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--vs-pricing-toggle-ink) 9%, transparent),
+    0 1px 2px rgba(14, 17, 22, 0.05),
+    0 8px 24px -14px rgba(14, 17, 22, 0.22);
+}
+.vs-pricing-toggle-thumb {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  border-radius: 999px;
+  background: var(--vs-pricing-toggle-ink);
+  will-change: transform;
+  transform-origin: 50% 50%;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 1px 2px rgba(14, 17, 22, 0.3),
+    0 6px 14px -6px rgba(14, 17, 22, 0.45);
+}
+.vs-pricing-toggle-opt {
+  position: relative;
+  z-index: 1;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  margin: 0;
+  padding: 11px 22px;
+  min-width: 138px;
+  border-radius: 999px;
+  color: var(--vs-pricing-toggle-ink);
+  font:
+    500 14px/1 "Inter Tight",
+    system-ui,
+    sans-serif;
+  letter-spacing: -0.01em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition:
+    color 0.35s var(--vs-pricing-toggle-ease),
+    transform 0.2s var(--vs-pricing-toggle-ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.vs-pricing-toggle-opt:not([aria-checked="true"]) {
+  color: color-mix(in srgb, var(--vs-pricing-toggle-ink) 55%, transparent);
+}
+.vs-pricing-toggle-opt:not([aria-checked="true"]):hover {
+  color: var(--vs-pricing-toggle-ink);
+}
+.vs-pricing-toggle-opt[aria-checked="true"] {
+  color: var(--vs-pricing-toggle-paper);
+}
+.vs-pricing-toggle-opt:active {
+  transform: scale(0.96);
+}
+.vs-pricing-toggle-opt:focus-visible {
+  outline: 2px solid var(--vs-pricing-toggle-accent);
+  outline-offset: 2px;
+}
+.vs-pricing-toggle-save {
+  font:
+    400 10.5px/1 "Space Mono",
+    ui-monospace,
+    monospace;
+  letter-spacing: 0;
+  padding: 4px 6px 3px;
+  border-radius: 999px;
+  color: var(--vs-pricing-toggle-accent);
+  background: color-mix(in srgb, var(--vs-pricing-toggle-accent) 12%, transparent);
+  transition:
+    color 0.35s var(--vs-pricing-toggle-ease),
+    background-color 0.35s var(--vs-pricing-toggle-ease);
+}
+.vs-pricing-toggle[data-period="yearly"] .vs-pricing-toggle-save {
+  color: #fff;
+  background: var(--vs-pricing-toggle-accent);
+  animation: vs-pricing-toggle-pop 0.6s cubic-bezier(0.34, 1.8, 0.5, 1);
+}
+@keyframes vs-pricing-toggle-pop {
+  0% {
+    transform: scale(0.7) rotate(-6deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+/* ---- cards ---- */
+.vs-pricing-toggle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  width: 100%;
+  align-items: stretch;
+}
+.vs-pricing-toggle-card {
+  --c-ink: var(--vs-pricing-toggle-ink);
+  --c-bg: var(--vs-pricing-toggle-paper);
+  --c-line: color-mix(in srgb, var(--vs-pricing-toggle-ink) 9%, transparent);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: var(--vs-pricing-toggle-radius);
+  padding: 22px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  background: var(--c-bg);
+  color: var(--c-ink);
+  box-shadow:
+    inset 0 0 0 1px var(--c-line),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 1px 1px rgba(14, 17, 22, 0.03),
+    0 2px 4px rgba(14, 17, 22, 0.03),
+    0 24px 48px -30px rgba(14, 17, 22, 0.28);
+  transition:
+    transform 0.6s var(--vs-pricing-toggle-ease),
+    box-shadow 0.6s var(--vs-pricing-toggle-ease),
+    background-color 0.5s var(--vs-pricing-toggle-ease),
+    color 0.5s var(--vs-pricing-toggle-ease),
+    border-radius 0.3s;
+}
+.vs-pricing-toggle-card:hover {
+  transform: translate3d(0, -4px, 0);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--vs-pricing-toggle-ink) 14%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 1px 1px rgba(14, 17, 22, 0.03),
+    0 4px 8px rgba(14, 17, 22, 0.04),
+    0 34px 60px -32px rgba(14, 17, 22, 0.36);
+}
+.vs-pricing-toggle-card.is-featured {
+  --c-ink: #f4f5f7;
+  --c-bg: var(--vs-pricing-toggle-featured);
+  --c-line: rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 2px 4px rgba(14, 17, 22, 0.12),
+    0 40px 70px -34px color-mix(in srgb, var(--vs-pricing-toggle-accent) 55%, rgba(14, 17, 22, 0.6));
+}
+/* pointer glow + a hairline rim that lights toward the pointer */
+.vs-pricing-toggle-glow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 460px;
+  height: 460px;
+  margin: -230px 0 0 -230px;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 0.5s var(--vs-pricing-toggle-ease);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--vs-pricing-toggle-accent) 11%, transparent) 0%,
+    transparent 60%
+  );
+}
+.vs-pricing-toggle-card.is-featured .vs-pricing-toggle-glow {
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--vs-pricing-toggle-accent) 24%, transparent) 0%,
+    transparent 52%
+  );
+}
+.vs-pricing-toggle-card:hover .vs-pricing-toggle-glow {
+  opacity: 1;
+}
+
+.vs-pricing-toggle-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  height: 24px;
+}
+.vs-pricing-toggle-name {
+  margin: 0;
+  font:
+    500 15px/1 "Inter Tight",
+    system-ui,
+    sans-serif;
+  letter-spacing: -0.01em;
+}
+.vs-pricing-toggle-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 9px 5px 8px;
+  border-radius: 999px;
+  font:
+    400 10.5px/1 "Space Mono",
+    ui-monospace,
+    monospace;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--vs-pricing-toggle-accent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 4px 12px -4px color-mix(in srgb, var(--vs-pricing-toggle-accent) 70%, transparent);
+  animation: vs-pricing-toggle-badge 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.vs-pricing-toggle-badge::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #fff;
+}
+@keyframes vs-pricing-toggle-badge {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -6px, 0) scale(0.8);
+  }
+}
+.vs-pricing-toggle-for {
+  margin: 8px 0 0;
+  font-size: 13.5px;
+  line-height: 1.45;
+  opacity: 0.58;
+  min-height: 2.9em;
+  text-wrap: pretty;
+}
+
+/* ---- the price: odometer columns ---- */
+.vs-pricing-toggle-amount {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin: 18px 0 0;
+}
+.vs-pricing-toggle-price {
+  display: inline-flex;
+  align-items: flex-start;
+  font:
+    500 60px/1 "Inter Tight",
+    system-ui,
+    sans-serif;
+  letter-spacing: -0.05em;
+  position: relative;
+}
+.vs-pricing-toggle-cur {
+  font-size: 0.4em;
+  font-weight: 500;
+  line-height: 1;
+  margin: 0.14em 0.08em 0 0;
+  opacity: 0.5;
+  letter-spacing: 0;
+}
+.vs-pricing-toggle-digits {
+  position: relative;
+  display: inline-block;
+  height: 1em;
+}
+.vs-pricing-toggle-col {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1em;
+  overflow: hidden;
+  will-change: transform;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 16%,
+    #000 84%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(to bottom, transparent 0, #000 16%, #000 84%, transparent 100%);
+}
+.vs-pricing-toggle-strip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+.vs-pricing-toggle-strip span {
+  display: block;
+  height: 1em;
+  text-align: left;
+}
+.vs-pricing-toggle-per {
+  display: grid;
+  gap: 4px;
+  padding-bottom: 7px;
+  will-change: transform;
+  font:
+    400 11px/1 "Space Mono",
+    ui-monospace,
+    monospace;
+  letter-spacing: -0.01em;
+}
+.vs-pricing-toggle-per > span {
+  opacity: 0.5;
+  white-space: nowrap;
+}
+.vs-pricing-toggle-per > .vs-pricing-toggle-was {
+  opacity: 0;
+  transform: translate3d(0, 6px, 0);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+  transition:
+    opacity 0.35s var(--vs-pricing-toggle-ease),
+    transform 0.6s var(--vs-pricing-toggle-ease);
+  white-space: nowrap;
+}
+.vs-pricing-toggle[data-period="yearly"] .vs-pricing-toggle-per > .vs-pricing-toggle-was {
+  opacity: 0.4;
+  transform: none;
+  transition-delay: 0.12s;
+}
+
+.vs-pricing-toggle-note {
+  position: relative;
+  height: 22px;
+  margin: 12px 0 0;
+  font-size: 12.5px;
+}
+.vs-pricing-toggle-note > span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  transition:
+    opacity 0.35s var(--vs-pricing-toggle-ease),
+    transform 0.6s var(--vs-pricing-toggle-ease);
+}
+.vs-pricing-toggle-note > span > i {
+  font-style: normal;
+  opacity: 0.55;
+}
+.vs-pricing-toggle-off {
+  font:
+    400 10.5px/1 "Space Mono",
+    ui-monospace,
+    monospace;
+  padding: 5px 7px 4px;
+  border-radius: 6px;
+  color: var(--vs-pricing-toggle-accent);
+  background: color-mix(in srgb, var(--vs-pricing-toggle-accent) 11%, transparent);
+}
+.vs-pricing-toggle-card.is-featured .vs-pricing-toggle-off {
+  color: #fff;
+  background: color-mix(in srgb, var(--vs-pricing-toggle-accent) 70%, transparent);
+}
+.vs-pricing-toggle[data-period="monthly"] .vs-pricing-toggle-note [data-for="yearly"] {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+  pointer-events: none;
+  transition-duration: 0.18s, 0.6s;
+}
+.vs-pricing-toggle[data-period="yearly"] .vs-pricing-toggle-note [data-for="monthly"] {
+  opacity: 0;
+  transform: translate3d(0, -10px, 0);
+  pointer-events: none;
+  transition-duration: 0.18s, 0.6s;
+}
+.vs-pricing-toggle-note > span {
+  transition-delay: 0.1s; /* incoming line waits for the outgoing one */
+}
+.vs-pricing-toggle[data-period="monthly"] .vs-pricing-toggle-note [data-for="yearly"],
+.vs-pricing-toggle[data-period="yearly"] .vs-pricing-toggle-note [data-for="monthly"] {
+  transition-delay: 0s;
+}
+
+/* ---- CTA: ink fill slides up; featured card uses the accent ---- */
+.vs-pricing-toggle-cta {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 18px 0 0;
+  padding: 13px 18px;
+  border-radius: calc(var(--vs-pricing-toggle-radius) * 0.55);
+  text-decoration: none;
+  color: inherit;
+  font:
+    500 14px/1 "Inter Tight",
+    system-ui,
+    sans-serif;
+  letter-spacing: -0.01em;
+  box-shadow:
+    inset 0 0 0 1px var(--c-line),
+    0 1px 2px rgba(14, 17, 22, 0.05);
+  background: color-mix(in srgb, var(--c-ink) 3%, transparent);
+  transition:
+    color 0.35s var(--vs-pricing-toggle-ease),
+    transform 0.18s var(--vs-pricing-toggle-ease),
+    box-shadow 0.35s;
+  -webkit-tap-highlight-color: transparent;
+}
+.vs-pricing-toggle-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--c-ink);
+  border-radius: inherit;
+  transform: translate3d(0, 102%, 0);
+  transition: transform 0.55s var(--vs-pricing-toggle-ease);
+}
+.vs-pricing-toggle-cta:hover {
+  color: var(--c-bg);
+}
+.vs-pricing-toggle-cta:hover::before {
+  transform: none;
+}
+.vs-pricing-toggle-cta:active {
+  transform: scale(0.975);
+}
+.vs-pricing-toggle-cta:focus-visible {
+  outline: 2px solid var(--vs-pricing-toggle-accent);
+  outline-offset: 3px;
+}
+.vs-pricing-toggle-cta svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.55s var(--vs-pricing-toggle-ease);
+}
+.vs-pricing-toggle-cta:hover svg {
+  transform: translate3d(3px, 0, 0);
+}
+.vs-pricing-toggle-card.is-featured .vs-pricing-toggle-cta {
+  color: #fff;
+  background: var(--vs-pricing-toggle-accent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.12),
+    0 8px 20px -8px color-mix(in srgb, var(--vs-pricing-toggle-accent) 80%, transparent);
+}
+.vs-pricing-toggle-card.is-featured .vs-pricing-toggle-cta::before {
+  background: #fff;
+}
+.vs-pricing-toggle-card.is-featured .vs-pricing-toggle-cta:hover {
+  color: var(--vs-pricing-toggle-featured);
+}
+.vs-pricing-toggle-cta[aria-disabled="true"] {
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+.vs-pricing-toggle-list {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 18px 0 0;
+  display: grid;
+  gap: 10px;
+  border-top: 1px dashed var(--c-line);
+  font-size: 13.5px;
+  line-height: 1.35;
+}
+.vs-pricing-toggle-list li {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 10px;
+  align-items: start;
+}
+.vs-pricing-toggle-list li span {
+  opacity: 0.8;
+}
+.vs-pricing-toggle-list svg {
+  width: 16px;
+  height: 16px;
+  margin-top: 0;
+  color: var(--vs-pricing-toggle-accent);
+}
+.vs-pricing-toggle-card.is-featured .vs-pricing-toggle-list svg {
+  color: color-mix(in srgb, var(--vs-pricing-toggle-accent) 55%, #fff);
+}
+.vs-pricing-toggle-list li.is-lead span {
+  opacity: 0.5;
+}
+
+.vs-pricing-toggle-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 860px) {
+  .vs-pricing-toggle-grid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+  }
+  .vs-pricing-toggle-for {
+    min-height: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vs-pricing-toggle *,
+  .vs-pricing-toggle *::before {
+    transition: none !important;
+    animation: none !important;
+  }
+}
