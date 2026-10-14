@@ -44,10 +44,6 @@ export const Route = createFileRoute("/")({
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&family=Space+Mono&display=swap",
       },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Gilda+Display&family=Mulish:wght@400;500&display=swap",
-      },
     ],
     scripts: [
       {
