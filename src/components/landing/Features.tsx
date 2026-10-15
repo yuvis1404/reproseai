@@ -1,8 +1,12 @@
 import type { ReactNode } from "react";
+import { useEffect, useRef } from "react";
 
+import { mountStackCards } from "@/lib/vs-stack-cards";
 import { PortalFieldCollection } from "@/shaders/PortalFieldCollection";
 
 import { Reveal, SectionLabel } from "./Reveal";
+
+import "./stack-scroll.css";
 
 function LinkedInIcon({ className }: { className?: string }) {
   return (
@@ -81,10 +85,18 @@ const cards: {
 ];
 
 export function Features() {
+  const stackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = stackRef.current;
+    if (!el) return;
+    return mountStackCards(el);
+  }, []);
+
   return (
     <section
       id="features"
-      className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-ink to-ink-soft px-5 py-24"
+      className="relative scroll-mt-24 bg-gradient-to-b from-ink to-ink-soft px-5 py-24"
     >
       <div className="shader-frame absolute inset-0" aria-hidden="true">
         <PortalFieldCollection variant="cloud-field" hue={0} saturation={1} brightness={1} />
@@ -98,85 +110,91 @@ export function Features() {
           </h2>
         </Reveal>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
+        <div className="vs-stack-cards mt-14" ref={stackRef}>
           {cards.map((card, i) => (
             <Reveal
               key={card.title}
               delay={i * 100}
-              className={`feature-card-reveal feature-card-reveal--${i % 2 === 0 ? "left" : "right"} h-full`}
+              className={`vs-stack-cards-card feature-card-reveal feature-card-reveal--${i % 2 === 0 ? "left" : "right"} h-full`}
             >
-              <article className="card-hover group h-full rounded-2xl border border-brand/20 bg-paper/[0.04] p-7 backdrop-blur-[10px] transition-all duration-300 hover:-translate-y-1 hover:border-brand/50">
-                <span
-                  aria-hidden="true"
-                  className={`grid size-12 place-items-center rounded-full text-paper transition-transform duration-400 group-hover:-translate-y-1 group-hover:scale-110 ${card.iconClass}`}
-                >
-                  {card.icon}
-                </span>
-                <h3 className="mt-5 text-[20px] font-bold text-paper">{card.title}</h3>
-                <p className="mt-3 text-[16px] leading-7 text-lavender">{card.description}</p>
-                <div className="feature-preview mt-5 space-y-1.5 rounded-xl border border-paper/10 bg-ink/70 p-4 text-[13px] leading-6 text-lavender">
-                  {card.preview}
-                </div>
-              </article>
+              <div className="vs-stack-cards-inner">
+                <article className="card-hover group h-full rounded-2xl border border-brand/20 bg-paper/[0.04] p-7 backdrop-blur-[10px] transition-all duration-300 hover:-translate-y-1 hover:border-brand/50">
+                  <span
+                    aria-hidden="true"
+                    className={`grid size-12 place-items-center rounded-full text-paper transition-transform duration-400 group-hover:-translate-y-1 group-hover:scale-110 ${card.iconClass}`}
+                  >
+                    {card.icon}
+                  </span>
+                  <h3 className="mt-5 text-[20px] font-bold text-paper">{card.title}</h3>
+                  <p className="mt-3 text-[16px] leading-7 text-lavender">{card.description}</p>
+                  <div className="feature-preview mt-5 space-y-1.5 rounded-xl border border-paper/10 bg-ink/70 p-4 text-[13px] leading-6 text-lavender">
+                    {card.preview}
+                  </div>
+                </article>
+                <div className="vs-stack-cards-shade" aria-hidden="true" />
+              </div>
             </Reveal>
           ))}
 
           {/* Voice training — key differentiator */}
-          <Reveal delay={200} className="feature-voice-reveal md:col-span-2">
-            <article className="card-hover group relative overflow-hidden rounded-2xl border border-brand/20 bg-paper/[0.04] p-7 shadow-[0_0_40px_color-mix(in_oklab,var(--color-brand)_20%,transparent)] backdrop-blur-[10px] md:p-10">
-              <span
-                aria-hidden="true"
-                className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-brand to-brand-violet"
-              />
-              <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-                <div>
-                  <span
-                    aria-hidden="true"
-                    className="inline-block text-2xl transition-transform duration-400 group-hover:-translate-y-1 group-hover:scale-110"
-                  >
-                    🎤
-                  </span>
-                  <p className="mt-3 inline-block rounded-full bg-brand/25 px-3 py-1 text-[11px] font-bold uppercase tracking-[2px] text-lavender">
-                    Key differentiator
-                  </p>
-                  <h3 className="mt-4 text-[24px] font-bold leading-tight text-paper md:text-[28px]">
-                    Repurposed Content That Actually Sounds Like YOU
-                  </h3>
-                  <p className="mt-4 text-[18px] leading-8 text-lavender">
-                    Other tools write in generic AI voice. Reprose learns from your past writing —
-                    your tone, vocabulary, sentence style, and personality — so every output feels
-                    like YOU wrote it.
-                  </p>
-                </div>
+          <Reveal delay={200} className="vs-stack-cards-card feature-voice-reveal md:col-span-2">
+            <div className="vs-stack-cards-inner">
+              <article className="card-hover group relative overflow-hidden rounded-2xl border border-brand/20 bg-paper/[0.04] p-7 shadow-[0_0_40px_color-mix(in_oklab,var(--color-brand)_20%,transparent)] backdrop-blur-[10px] md:p-10">
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-brand to-brand-violet"
+                />
+                <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
+                  <div>
+                    <span
+                      aria-hidden="true"
+                      className="inline-block text-2xl transition-transform duration-400 group-hover:-translate-y-1 group-hover:scale-110"
+                    >
+                      🎤
+                    </span>
+                    <p className="mt-3 inline-block rounded-full bg-brand/25 px-3 py-1 text-[11px] font-bold uppercase tracking-[2px] text-lavender">
+                      Key differentiator
+                    </p>
+                    <h3 className="mt-4 text-[24px] font-bold leading-tight text-paper md:text-[28px]">
+                      Repurposed Content That Actually Sounds Like YOU
+                    </h3>
+                    <p className="mt-4 text-[18px] leading-8 text-lavender">
+                      Other tools write in generic AI voice. Reprose learns from your past writing —
+                      your tone, vocabulary, sentence style, and personality — so every output feels
+                      like YOU wrote it.
+                    </p>
+                  </div>
 
-                <div className="grid items-center gap-4 sm:grid-cols-[1fr_auto_1fr]">
-                  <div className="feature-voice-before rounded-2xl border border-paper/10 bg-paper/[0.06] p-4">
-                    <p className="text-[12px] font-bold uppercase tracking-wider text-[oklch(0.72_0.17_25)]">
-                      ✕ Generic AI output
+                  <div className="grid items-center gap-4 sm:grid-cols-[1fr_auto_1fr]">
+                    <div className="feature-voice-before rounded-2xl border border-paper/10 bg-paper/[0.06] p-4">
+                      <p className="text-[12px] font-bold uppercase tracking-wider text-[oklch(0.72_0.17_25)]">
+                        ✕ Generic AI output
+                      </p>
+                      <p className="mt-2 text-[13px] leading-6 text-lavender/80">
+                        "In today's fast-paced digital landscape, leveraging content repurposing is
+                        essential for maximizing audience engagement."
+                      </p>
+                    </div>
+                    <p
+                      aria-hidden="true"
+                      className="feature-voice-arrow text-gradient-brand text-center text-[13px] font-extrabold tracking-wider"
+                    >
+                      → REPROSE →
                     </p>
-                    <p className="mt-2 text-[13px] leading-6 text-lavender/80">
-                      "In today's fast-paced digital landscape, leveraging content repurposing is
-                      essential for maximizing audience engagement."
-                    </p>
-                  </div>
-                  <p
-                    aria-hidden="true"
-                    className="feature-voice-arrow text-gradient-brand text-center text-[13px] font-extrabold tracking-wider"
-                  >
-                    → REPROSE →
-                  </p>
-                  <div className="feature-voice-after rounded-2xl border border-brand/40 bg-brand/10 p-4 shadow-[0_0_24px_color-mix(in_oklab,var(--color-brand)_25%,transparent)]">
-                    <p className="text-[12px] font-bold uppercase tracking-wider text-[oklch(0.8_0.17_150)]">
-                      ✓ Your voice output
-                    </p>
-                    <p className="mt-2 text-[13px] leading-6 text-paper">
-                      "I spent 8 hours on this newsletter. Then posted it once. That was the dumbest
-                      part of my week — here's what I changed."
-                    </p>
+                    <div className="feature-voice-after rounded-2xl border border-brand/40 bg-brand/10 p-4 shadow-[0_0_24px_color-mix(in_oklab,var(--color-brand)_25%,transparent)]">
+                      <p className="text-[12px] font-bold uppercase tracking-wider text-[oklch(0.8_0.17_150)]">
+                        ✓ Your voice output
+                      </p>
+                      <p className="mt-2 text-[13px] leading-6 text-paper">
+                        "I spent 8 hours on this newsletter. Then posted it once. That was the
+                        dumbest part of my week — here's what I changed."
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </article>
+              </article>
+              <div className="vs-stack-cards-shade" aria-hidden="true" />
+            </div>
           </Reveal>
         </div>
       </div>

@@ -1,0 +1,55 @@
+/* vs-stack-cards scroll animation only — layout-critical rules for the
+   sticky deck applied to the existing feature cards. Card design, fonts
+   and colors stay the section's own. */
+.vs-stack-cards {
+  --vs-stack-cards-top: 96px;
+  --vs-stack-cards-offset: 34px;
+  --vs-stack-cards-gap: 34vh;
+  --vs-stack-cards-depth: 0.05;
+  --vs-stack-cards-dim: 0.45;
+  --vs-stack-cards-blur: 0;
+  --vs-stack-cards-dwell: 12vh;
+  position: relative;
+  width: 100%;
+}
+/* spacer after the last card keeps the finished deck pinned for a moment */
+.vs-stack-cards::after {
+  content: "";
+  display: block;
+  height: calc(
+    (var(--vs-stack-cards-n, 4) - 1) * var(--vs-stack-cards-offset, 34px) +
+      var(--vs-stack-cards-dwell, 12vh)
+  );
+}
+.vs-stack-cards-card {
+  position: sticky;
+  top: calc(var(--vs-stack-cards-top, 64px) + var(--i, 0) * var(--vs-stack-cards-offset, 34px));
+}
+/* spacing sits ABOVE each next card: a margin below a sticky card would
+   unstick it early */
+.vs-stack-cards-card + .vs-stack-cards-card {
+  margin-top: var(--vs-stack-cards-gap, 34vh);
+}
+/* the engine-driven transform target; each pinned card sinks on a spring
+   (translate up, scale down) and leans with scroll velocity */
+.vs-stack-cards-inner {
+  position: relative;
+  transform-origin: 50% 0;
+  will-change: transform;
+}
+/* dim overlay that fades in as a card gets buried under the next */
+.vs-stack-cards-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: 16px;
+  background: #0a1222;
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity;
+}
+/* pinned cards must not drift with the section parallax, or the deck's
+   pin offsets misalign */
+.vs-stack-cards-card.landing-depth-layer {
+  translate: 0 0;
+}
