@@ -142,10 +142,16 @@ export function mountStackCards(root: HTMLElement): () => void {
       if (prog[i]! > 0.985) top = i;
       if (!c.el.classList.contains("is-in") && prog[i]! > 0.45) c.el.classList.add("is-in");
       const d = Math.max(0, c.d);
-      if (c.inner)
+      if (c.inner) {
         c.inner.style.transform = reduce.matches
           ? ""
           : `translate3d(0,${(-d * lift).toFixed(2)}px,0) perspective(1600px) rotateX(${c.t.toFixed(3)}deg) scale(${(1 - d * depthK).toFixed(4)})`;
+        c.inner.style.opacity = reduce.matches
+          ? d >= 0.5
+            ? "0"
+            : "1"
+          : (1 - Math.min(1, d * 1.25)).toFixed(3);
+      }
       if (c.shade) c.shade.style.opacity = Math.min(dimMax, d * dimMax * 0.55).toFixed(3);
       if (blurMax > 0) {
         const b = Math.round(Math.min(blurMax, d * blurMax * 0.6) * 4) / 4;

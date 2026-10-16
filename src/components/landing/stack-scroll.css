@@ -1,11 +1,12 @@
 /* vs-stack-cards scroll animation only — layout-critical rules for the
    sticky deck applied to the existing feature cards. Card design, fonts
-   and colors stay the section's own. */
+   and colors stay the section's own. All cards pin at the same spot and
+   the buried one fades out fully, so one card is readable at a time. */
 .vs-stack-cards {
   --vs-stack-cards-top: 96px;
-  --vs-stack-cards-offset: 34px;
+  --vs-stack-cards-offset: 0px;
   --vs-stack-cards-gap: 34vh;
-  --vs-stack-cards-depth: 0.05;
+  --vs-stack-cards-depth: 0.12;
   --vs-stack-cards-dim: 0.45;
   --vs-stack-cards-blur: 0;
   --vs-stack-cards-dwell: 12vh;
@@ -30,12 +31,16 @@
 .vs-stack-cards-card + .vs-stack-cards-card {
   margin-top: var(--vs-stack-cards-gap, 34vh);
 }
-/* the engine-driven transform target; each pinned card sinks on a spring
-   (translate up, scale down) and leans with scroll velocity */
+/* the engine-driven transform target; each pinned card sinks, shrinks and
+   fades out as the next card covers it */
 .vs-stack-cards-inner {
   position: relative;
   transform-origin: 50% 0;
-  will-change: transform;
+  will-change: transform, opacity;
+}
+/* buried cards are disabled: no hover or pointer interaction */
+.vs-stack-cards-card.is-buried .vs-stack-cards-inner {
+  pointer-events: none;
 }
 /* dim overlay that fades in as a card gets buried under the next */
 .vs-stack-cards-shade {
